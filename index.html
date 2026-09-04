@@ -26,6 +26,7 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 
 /* ---------- pestañas ---------- */
 .navrow{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.jump.chico{flex:0 1 auto;font-weight:400;font-size:13px;max-width:200px}
 .jump{flex:1;min-width:0;font-weight:600;background:var(--card);color:var(--tx);border:1px solid var(--line);
   border-radius:8px;padding:9px 12px;font-size:14px;font-family:inherit;cursor:pointer;max-width:380px}
 .jump:focus{outline:none;border-color:var(--acc)}
@@ -59,6 +60,7 @@ nav.tabs::-webkit-scrollbar{display:none}
 .body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:7px;flex:1}
 .tt{font-size:14px;font-weight:600;line-height:1.3;margin:0}
 .dm{font-family:var(--mono);font-size:11px;color:var(--acc);margin:-3px 0 0}
+.vol{color:var(--mute)}
 .rs{font-size:12.5px;color:var(--dim);margin:0;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pr{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:4px;flex-wrap:wrap}
@@ -163,23 +165,31 @@ function carr(it,cls,grande){
     +'</div>';
 }
 
+const LAYOUTS={
+  flat2x2:{u:[14,10],  cols:2, rows:2, alto:6.5, nom:'4 acostados en 2\u00d72'},
+  stack2 :{u:[14,10],  cols:1, rows:2, alto:13,  nom:'2 capas de 2', capas:2},
+  edge4  :{u:[14,6.5], cols:2, rows:2, alto:10,  nom:'4 de canto, como libros'}
+};
+const volumen=it=>Math.round(it.interior[0]*it.interior[1]*it.interior[2]);
+
 function diagrama(it){
-  const [L,W,H]=it.interior, m=M.referencias.mando_gamecube, a=M.referencias.adaptador;
-  const st=it.encaje.layout==='stack2', cols=st?1:2, capas=st?2:1;
-  const fw=cols*m.largo, fh=2*m.ancho, alto=capas*m.alto, sw=L-fw, sh=W-fh;
+  const [L,W,H]=it.interior, a=M.referencias.adaptador;
+  const Y=LAYOUTS[it.encaje.layout]||LAYOUTS.flat2x2;
+  const fw=Y.cols*Y.u[0], fh=Y.rows*Y.u[1], alto=Y.alto, sw=L-fw, sh=W-fh;
+  const PA=[[a.largo,a.ancho,a.alto],[a.largo,a.alto,a.ancho],[a.ancho,a.largo,a.alto],
+            [a.ancho,a.alto,a.largo],[a.alto,a.largo,a.ancho],[a.alto,a.ancho,a.largo]];
+  const como=q=>q[2]<=a.alto?'acostado':'de canto';
   let ad=null;
-  if(sw>=a.largo&&W>=a.ancho) ad={x:fw+(sw-a.largo)/2,y:(W-a.ancho)/2,w:a.largo,h:a.ancho,note:'acostado en la franja lateral'};
-  else if(sw>=a.ancho&&W>=a.largo) ad={x:fw+(sw-a.ancho)/2,y:(W-a.largo)/2,w:a.ancho,h:a.largo,note:'de canto en la franja lateral'};
-  else if(sh>=a.ancho&&L>=a.largo) ad={x:(L-a.largo)/2,y:fh+(sh-a.ancho)/2,w:a.largo,h:a.ancho,note:'acostado en la franja inferior'};
-  else if(sh>=a.largo&&L>=a.ancho) ad={x:(L-a.ancho)/2,y:fh+(sh-a.largo)/2,w:a.ancho,h:a.largo,note:'de canto en la franja inferior'};
-  else if(H-alto>=a.alto) ad={above:1,note:'encima de los mandos, en el hueco de la tapa'};
+  for(const q of PA) if(q[0]<=sw&&q[1]<=W&&q[2]<=H){ ad={x:fw+(sw-q[0])/2,y:(W-q[1])/2,w:q[0],h:q[1],z:q[2],note:como(q)+' en la franja lateral'}; break; }
+  if(!ad) for(const q of PA) if(q[0]<=L&&q[1]<=sh&&q[2]<=H){ ad={x:(L-q[0])/2,y:fh+(sh-q[1])/2,w:q[0],h:q[1],z:q[2],note:como(q)+' en la franja de atr\u00e1s'}; break; }
+  if(!ad) for(const q of PA) if(q[0]<=L&&q[1]<=W&&q[2]<=H-alto){ ad={above:1,z:q[2],note:'encima, en el hueco de la tapa'}; break; }
   const ok=fw<=L&&fh<=W&&alto<=H&&ad, col=ok?'var(--ok)':'var(--bad)';
   const s=Math.min(380/L,215/W), P=30, px=n=>(n*s).toFixed(1);
   let mn='';
-  for(let r=0;r<2;r++)for(let c=0;c<cols;c++){
-    const x=P+c*m.largo*s, y=P+r*m.ancho*s;
-    mn+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+px(m.largo)+'" height="'+px(m.ancho)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
-      +'<text x="'+(x+m.largo*s/2).toFixed(1)+'" y="'+(y+m.ancho*s/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">'+(st?'x2 capas':'mando')+'</text>';
+  for(let r=0;r<Y.rows;r++)for(let c=0;c<Y.cols;c++){
+    const x=P+c*Y.u[0]*s, y=P+r*Y.u[1]*s;
+    mn+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+px(Y.u[0])+'" height="'+px(Y.u[1])+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
+      +'<text x="'+(x+Y.u[0]*s/2).toFixed(1)+'" y="'+(y+Y.u[1]*s/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">'+(Y.capas===2?'\u00d72':'mando')+'</text>';
   }
   const adr=(ad&&!ad.above)?'<rect x="'+(P+ad.x*s).toFixed(1)+'" y="'+(P+ad.y*s).toFixed(1)+'" width="'+px(ad.w)+'" height="'+px(ad.h)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/><text x="'+(P+(ad.x+ad.w/2)*s).toFixed(1)+'" y="'+(P+(ad.y+ad.h/2)*s+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--amber)">adapt.</text>':'';
   const planta='<svg viewBox="0 0 '+(L*s+P*2).toFixed(0)+' '+(W*s+P*2+14).toFixed(0)+'" width="'+(L*s+P*2).toFixed(0)+'">'
@@ -187,25 +197,25 @@ function diagrama(it){
     +'<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P-10)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--dim)">'+L+' cm</text>'
     +'<text x="'+(P-11)+'" y="'+(P+W*s/2).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--dim)" transform="rotate(-90 '+(P-11)+' '+(P+W*s/2).toFixed(1)+')">'+W+' cm</text>'
     +'<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P+W*s+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--mute)">planta</text></svg>';
-  const s2=Math.min(380/L,110/H), Q=30, hb=alto*s2, ah=a.alto*s2;
+  const s2=Math.min(380/L,110/H), Q=30, hb=alto*s2, ah=(ad&&ad.z?ad.z:a.alto)*s2;
   const adA=ad?(ad.above
-      ?'<rect x="'+(Q+4)+'" y="'+(Q+H*s2-hb-ah-3).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+ah.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>'
-      :'<rect x="'+(Q+fw*s2+4).toFixed(1)+'" y="'+(Q+H*s2-ah-2).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+ah.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>'):'';
+    ?'<rect x="'+(Q+4)+'" y="'+(Q+H*s2-hb-ah-3).toFixed(1)+'" width="'+((ad&&ad.w?ad.w:a.largo)*s2).toFixed(1)+'" height="'+ah.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>'
+    :'<rect x="'+(Q+fw*s2+4).toFixed(1)+'" y="'+(Q+H*s2-ah-2).toFixed(1)+'" width="'+((ad&&ad.w?ad.w:a.largo)*s2).toFixed(1)+'" height="'+ah.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>'):'';
   const alz='<svg viewBox="0 0 '+(L*s2+Q*2).toFixed(0)+' '+(H*s2+Q*2+14).toFixed(0)+'" width="'+(L*s2+Q*2).toFixed(0)+'">'
     +'<rect x="'+Q+'" y="'+Q+'" width="'+(L*s2).toFixed(1)+'" height="'+(H*s2).toFixed(1)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'
     +'<rect x="'+(Q+2)+'" y="'+(Q+H*s2-hb-2).toFixed(1)+'" width="'+(fw*s2).toFixed(1)+'" height="'+hb.toFixed(1)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
-    +'<text x="'+(Q+fw*s2/2).toFixed(1)+'" y="'+(Q+H*s2-hb/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">'+(capas===2?'2 capas = ':'')+alto+' cm</text>'+adA
+    +'<text x="'+(Q+fw*s2/2).toFixed(1)+'" y="'+(Q+H*s2-hb/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">'+alto+' cm</text>'+adA
     +'<text x="'+(Q+L*s2+11)+'" y="'+(Q+H*s2/2+4).toFixed(1)+'" font-family="var(--mono)" font-size="11" fill="var(--dim)">'+H+' cm</text>'
     +'<text x="'+(Q+L*s2/2).toFixed(1)+'" y="'+(Q+H*s2+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--mute)">alzado</text></svg>';
-  const t=ok?('ENTRA — '+(st?'2 capas de 2':'4 en 2x2 plano')+' ocupan '+fw+' x '+fh+' x '+alto+' cm. Adaptador '+ad.note+'. Sobran '+(L-fw).toFixed(1)+' / '+(W-fh).toFixed(1)+' / '+(H-alto).toFixed(1)+' cm.')
-    :('NO ENTRA. Hacen falta '+fw+' x '+fh+' x '+alto+' cm más el adaptador; el interior es '+L+' x '+W+' x '+H+'.');
-  return '<div class="diag"><h4>Encaje — planta y alzado, a escala</h4><p class="verd" style="color:'+col+'">'+t+'</p>'+planta+alz+'</div>';
+  const t=ok?('ENTRA \u2014 '+Y.nom+': ocupan '+fw+' \u00d7 '+fh+' \u00d7 '+alto+' cm. Adaptador '+ad.note+'. Sobran '+(L-fw).toFixed(1)+' / '+(W-fh).toFixed(1)+' / '+(H-alto).toFixed(1)+' cm.')
+    :('NO ENTRA en esta disposici\u00f3n.');
+  return '<div class="diag"><h4>Encaje \u2014 planta y alzado, a escala \u00b7 '+volumen(it).toLocaleString('es')+' cm\u00b3</h4><p class="verd" style="color:'+col+'">'+t+'</p>'+planta+alz+'</div>';
 }
 
 function tarjeta(it){
   return '<article class="prod" data-open="'+it.id+'">'+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
-    +'<p class="dm">'+it.interior.join('&times;')+' cm</p>'
+    +'<p class="dm">'+it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span></p>'
     +'<p class="rs">'+esc(it.resumen||it.descripcion)+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
@@ -252,22 +262,31 @@ function activarCarr(root){
 }
 
 function selector(){
-  const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+' ('+n+')</option>';
-  return '<select class="jump" id="jump" aria-label="Categoría">'
-    + op('todos','Todas las categorías',C.items.length)
-    + C.categorias.map(c=>op(c.id, c.tab||c.nombre, C.items.filter(i=>i.categoria===c.id).length)).join('')
+  const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+(n!=null?' ('+n+')':'')+'</option>';
+  const cat='<select class="jump" id="jump" aria-label="Categor\u00eda">'
+    + op('todos','Todas las categor\u00edas',C.items.length)
+    + C.categorias.map(c=>op(c.id,c.tab||c.nombre,C.items.filter(i=>i.categoria===c.id).length)).join('')
     + '</select>';
+  const po=(v,txt)=>'<option value="'+v+'"'+(pmax==v?' selected':'')+'>'+txt+'</option>';
+  const pre='<select class="jump chico" id="pmax" aria-label="Precio">'
+    + po(0,'Cualquier precio')+po(20,'Hasta \u00a520')+po(30,'Hasta \u00a530')+po(40,'Hasta \u00a540')+po(60,'Hasta \u00a560')+'</select>';
+  const so=(v,txt)=>'<option value="'+v+'"'+(orden===v?' selected':'')+'>'+txt+'</option>';
+  const ord='<select class="jump chico" id="orden" aria-label="Orden">'
+    + so('vol','M\u00e1s compacto primero')+so('precio','M\u00e1s barato primero')+'</select>';
+  return cat+pre+ord;
 }
 
+let pmax=0, orden='vol';
 let filtro='todos';
 function pintar(){
   const cat=C.categorias.find(c=>c.id===filtro);
-  const vis=C.items.filter(i=>filtro==='todos'||i.categoria===filtro);
+  let vis=C.items.filter(i=>(filtro==='todos'||i.categoria===filtro)&&(!pmax||i.precio_cny<=pmax));
+  vis = vis.slice().sort((a,b)=> orden==='precio' ? a.precio_cny-b.precio_cny : volumen(a)-volumen(b));
   document.getElementById('app').innerHTML=
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
     +'<div class="navrow">'+selector()+'</div>'
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
-    +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Todavía no hay nada verificado en esta categoría.</div>')+'</div>'
+    +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Nada coincide con estos filtros.</div>')+'</div>'
     +'<details class="rejs"><summary>Descartados y por qué ('+C.descartados.length+')</summary>'
     +C.descartados.map(d=>'<div class="rej"><b>'+esc(d.titulo)+'</b> — &yen;'+d.precio_cny+' · US$ '+usd(d.precio_cny)
       +'<p>'+esc(d.motivo)+'</p><div class="raw"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.url)+'</a></div></div>').join('')
@@ -279,6 +298,10 @@ function pintar(){
   document.querySelectorAll('[data-open]').forEach(c=>c.onclick=()=>abrir(c.dataset.open));
   const j=document.getElementById('jump');
   if(j) j.onchange=()=>{ filtro=j.value||'todos'; pintar(); window.scrollTo({top:0}); };
+  const pm=document.getElementById('pmax');
+  if(pm) pm.onchange=()=>{ pmax=Number(pm.value)||0; pintar(); };
+  const or=document.getElementById('orden');
+  if(or) or.onchange=()=>{ orden=or.value; pintar(); };
 }
 
 const ov=document.getElementById('ov'), md=document.getElementById('md');
