@@ -211,6 +211,35 @@ const LAYOUTS={
 };
 const volumen=it=>Math.round(it.interior[0]*it.interior[1]*it.interior[2]);
 
+function diagramaPad(it){
+  const [W,D]=it.pad, mb=M.referencias.macbook, rt=M.referencias.raton, m=2;
+  const okD = D >= mb.ancho + m;
+  const libreDer = +(W - mb.largo - m*2).toFixed(1);
+  const libreFre = +(D - mb.ancho - m).toFixed(1);
+  const okR = libreDer >= rt.largo + 6;
+  const col = (okD&&okR) ? 'var(--ok)' : 'var(--warn)';
+  const s=Math.min(400/W, 210/D), P=30, px=n=>(n*s).toFixed(1);
+  const lx=P+m*s, ly=P+m*s;
+  const rx=lx+mb.largo*s+((W-mb.largo-m*2-rt.largo)/2)*s, ry=ly+(mb.ancho-rt.ancho)/2*s;
+  const svg='<svg viewBox="0 0 '+(W*s+P*2).toFixed(0)+' '+(D*s+P*2+14).toFixed(0)+'" width="'+(W*s+P*2).toFixed(0)+'">'
+    +'<rect x="'+P+'" y="'+P+'" width="'+px(W)+'" height="'+px(D)+'" fill="rgba(255,255,255,.03)" stroke="'+col+'" stroke-width="2" rx="5"/>'
+    +'<rect x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" width="'+px(mb.largo)+'" height="'+px(mb.ancho)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
+    +'<text x="'+(lx+mb.largo*s/2).toFixed(1)+'" y="'+(ly+mb.ancho*s/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">MacBook 13"</text>'
+    +'<rect x="'+rx.toFixed(1)+'" y="'+ry.toFixed(1)+'" width="'+px(rt.largo)+'" height="'+px(rt.ancho)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="7"/>'
+    +'<text x="'+(rx+rt.largo*s/2).toFixed(1)+'" y="'+(ry+rt.ancho*s+13).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--amber)">rat\u00f3n</text>'
+    +'<text x="'+(P+W*s/2).toFixed(1)+'" y="'+(P-10)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--dim)">'+W+' cm</text>'
+    +'<text x="'+(P-11)+'" y="'+(P+D*s/2).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--dim)" transform="rotate(-90 '+(P-11)+' '+(P+D*s/2).toFixed(1)+')">'+D+' cm</text>'
+    +'<line x1="'+lx.toFixed(1)+'" y1="'+(ly+mb.ancho*s+9).toFixed(1)+'" x2="'+(P+W*s-m*s).toFixed(1)+'" y2="'+(ly+mb.ancho*s+9).toFixed(1)+'" stroke="var(--mute)" stroke-width="1" stroke-dasharray="3 3"/>'
+    +'<text x="'+(P+W*s/2).toFixed(1)+'" y="'+(P+D*s+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--mute)">'+libreFre+' cm libres delante del port\u00e1til</text>'
+    +'</svg>';
+  const t = (okD&&okR)
+    ? 'ENTRA \u2014 quedan '+libreDer+' cm a la derecha del MacBook para mover el rat\u00f3n y '+libreFre+' cm delante para apoyar la mu\u00f1eca.'
+    : (!okD ? 'JUSTO \u2014 el fondo de '+D+' cm apenas cubre los '+mb.ancho+' del MacBook: no queda sitio para la mu\u00f1eca.'
+            : 'JUSTO \u2014 solo '+libreDer+' cm a la derecha: el rat\u00f3n cabe pero casi sin recorrido.');
+  return '<div class="diag"><h4>Encaje \u2014 a escala \u00b7 '+it.grosor_mm+' mm de grosor</h4>'
+    +'<p class="verd" style="color:'+col+'">'+t+'</p>'+svg+'</div>';
+}
+
 function diagrama(it){
   const [L,W,H]=it.interior, a=M.referencias.adaptador;
   const Y=LAYOUTS[it.encaje.layout]||LAYOUTS.flat2x2;
@@ -293,7 +322,7 @@ function detalle(it){
       +'<div><div class="k">Condición</div><div class="v">'+esc(it.condicion)+'</div></div>'
       +'<div><div class="k">Vendedor</div><div class="v" style="font-size:11.5px">'+vend+'</div></div>'
     +'</div>'+(it.interior_detalle?'<p class="fine">'+esc(it.interior_detalle)+'</p>':'')
-    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+((it.interior&&it.encaje)?diagrama(it):'')
+    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+(it.pad?diagramaPad(it):(it.interior&&it.encaje)?diagrama(it):'')
     +'<div class="lists">'
       +'<div class="lb v"><h4>Verificado en las fotos</h4><ul>'+it.verificacion.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
       +'<div class="lb r"><h4>Reservas</h4><ul>'+it.reservas.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'

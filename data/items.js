@@ -14,7 +14,10 @@ window.CATALOGO = {
       mando_gamecube: { nombre: "Mando Nintendo GameCube (DOL-003)", largo:14.0, ancho:10.0, alto:6.5, peso_g:200,
         fuente: "https://www.dimensions.com/element/gamecube-controller" },
       adaptador: { nombre: "Adaptador GameCube → Switch", largo:12.0, ancho:6.0, alto:3.0,
-        fuente: "medida provista por el dueño" }
+        fuente: "medida provista por el dueño" },
+      macbook: { nombre: "MacBook Pro 13\" M1 (2020)", largo:30.41, ancho:21.24, alto:1.56,
+        fuente: "https://support.apple.com/en-us/111893" },
+      raton: { nombre: "Ratón de tamaño estándar", largo:11.5, ancho:6.5, alto:4 }
     }
   },
 
@@ -38,6 +41,21 @@ window.CATALOGO = {
         {zh:"便携收纳盒EVA加厚",  en:"portable thick EVA box"}
       ],
       requisito_minimo:"Volumen interior ≤ 6.500 cm³ y alguna disposición válida de los 4 mandos + adaptador." },
+    { id:"desk-pad", nombre:"Desk pads", tab:"Desk pads",
+      objetivo:"Alfombrilla de escritorio para MacBook Pro 13\" M1 (30.4 × 21.2 cm) más un ratón al lado. Suave al tacto, en negro, café o cualquier color oscuro. Mejor relación calidad-precio.",
+      requisito_minimo:"Mínimo 80 × 40 cm. Los 40 cm de fondo no son capricho: con 30 cm solo quedan 9 cm delante del portátil y no hay dónde apoyar la muñeca.",
+      busquedas:[
+        {zh:"超大鼠标垫",       en:"oversized mouse pad"},
+        {zh:"办公桌垫",         en:"office desk mat"},
+        {zh:"电脑桌垫大号",     en:"large computer desk mat"},
+        {zh:"布面鼠标垫超大",   en:"large cloth-surface mouse pad"},
+        {zh:"桌垫皮革",         en:"leather desk mat"},
+        {zh:"双面桌垫防水",     en:"double-sided waterproof desk mat"},
+        {zh:"桌垫 80*40",       en:"desk mat 80x40"},
+        {zh:"书桌垫大",         en:"large study desk mat"},
+        {zh:"真皮桌垫",         en:"genuine leather desk mat"},
+        {zh:"桌面垫键盘",       en:"desk mat for keyboard"}
+      ] },
     { id:"base-xbox", nombre:"Bases y coolers", tab:"Bases y coolers",
       objetivo:"Cargar 4 mandos de Xbox One (micro USB) y, si se puede, refrigerar la Series X. NO interesa el almacenaje de discos.",
       busquedas:[
@@ -254,10 +272,135 @@ window.CATALOGO = {
         "https://img.alicdn.com/bao/uploaded/i3/2222134607863/O1CN01pDjr0FhXkRL2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
         "https://img.alicdn.com/bao/uploaded/i1/2222134607863/O1CN01oPjwQTUKWHH2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp"
       ]
+    },
+    {
+      id:"1044614724038", categoria:"desk-pad", estado:"aprobado",
+      titulo:"AOC GM171D",
+      titulo_zh:"AOC 爱攻游戏电竞鼠标垫 高密度针织 黑色大号 900*400*4mm",
+      url:"https://www.goofish.com/item?id=1044614724038",
+      precio_cny:16.99, envio:"incluido",
+      material:"Tejido de alta densidad sobre base de goma", color:"Negro liso", condicion:"Nuevo, sin usar",
+      pad:[90,40], grosor_mm:4,
+      spec:"90 × 40 cm · 4 mm · tela · negro liso",
+      vendedor:{ nombre:"老刘好运优品", ciudad:"Langfang", antiguedad:"7 años", ventas:8166, reputacion:"97%" },
+      resumen:"El más grueso y el único con etiqueta oficial visible en foto. Devolución incluida. Mi recomendación.",
+      descripcion:"Marca real (AOC, la de los monitores), modelo GM171D, precio de tienda ¥199. Tejido de alta densidad: es la superficie más agradable al tacto de la selección y la que mejor lee cualquier sensor de ratón. Con 4 mm es un milímetro más grueso que el resto, y ese milímetro es el que amortigua la muñeca. Negro liso, sin gráficos. Impermeable de nivel 3 y fácil de limpiar. Es el único de los cuatro que acepta devolución si no coincide.",
+      verificacion:[
+        "La foto 2 muestra la etiqueta oficial pegada al tubo: marca AOC, modelo GM171D y el fabricante con su teléfono de servicio. Es la única prueba de autenticidad de toda la categoría.",
+        "Fotos 1 y 3: el producto real enrollado, fotografiado por el vendedor en su casa, no material de catálogo.",
+        "La foto 4 es la ficha de la tienda oficial a ¥199, que respalda el precio original.",
+        "El anuncio ofrece devolución con envío pagado si no coincide con la descripción."
+      ],
+      reservas:[
+        "No hay ninguna foto del tapete desenrollado: solo se ve el tubo. La superficie no está verificada visualmente.",
+        "La foto 3 muestra un tapete ROJO enrollado junto a uno oscuro. Puede ser otra variante que el vendedor también tiene, pero conviene confirmarle el color antes de pagar.",
+        "Reputación 97%, buena pero no perfecta."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i4/697992763/O1CN01PPTTWi1WHVSp6PRkj_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/697992763/O1CN017kE66v1WHVSpI1waE_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/697992763/O1CN01y07tvw1WHVSpTgusH_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/697992763/O1CN019n9oYE1WHVSoqipxX_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/697992763/O1CN01ucomyA1WHVSpTieyJ_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"996089720995", categoria:"desk-pad", estado:"aprobado",
+      titulo:"LESAILES 飞遁",
+      titulo_zh:"飞遁LESAILES星座超大鼠标垫 黑色款 900×400×3mm V字锁边",
+      url:"https://www.goofish.com/item?id=996089720995",
+      precio_cny:16.60, envio:"incluido",
+      material:"Tela lisa con base de goma antideslizante", color:"Negro con constelaciones en línea blanca", condicion:"Nuevo, embalaje original",
+      pad:[90,40], grosor_mm:3,
+      spec:"90 × 40 cm · 3 mm · tela · negro con estampado",
+      vendedor:{ nombre:"京品百货折扣", ciudad:"Guangzhou", antiguedad:"10 años", ventas:7140, reputacion:"97%" },
+      resumen:"Mismo tamaño que el AOC y 40 centavos más barato, pero ninguna foto es del artículo real.",
+      descripcion:"Tela lisa, 3 mm, con borde cosido en V — ese cosido es lo que evita que el tapete se deshilache por las esquinas al año, y es un detalle que los baratos suelen omitir. Base con dibujo antideslizante. El estampado son constelaciones en línea blanca fina sobre negro: discreto, pero no es negro liso. Precio original ¥66.",
+      verificacion:[
+        "Las fotos 4 y 5 muestran el borde cosido en V y el dibujo antideslizante de la base, ambos en detalle.",
+        "La foto 7 pone un portátil y un ratón encima para demostrar el fondo de 400 mm: es exactamente tu caso de uso.",
+        "El vendedor acumula 10 años y 7.140 ventas con 97%."
+      ],
+      reservas:[
+        "NINGUNA FOTO ES DEL ARTÍCULO REAL. Todas son material de marketing del fabricante, y dos son capturas de otra tienda donde se ve el precio y el botón de comprar.",
+        "No es negro liso: lleva un círculo zodiacal grande y constelaciones impresas.",
+        "3 mm contra los 4 del AOC. Menos amortiguación.",
+        "No acepta devoluciones."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i4/101497749/O1CN01KUb03R2776DdnWj0d_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/101497749/O1CN01ruZY4n2776Ddn9UCt_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/101497749/O1CN01cxgBXF2776De99noI_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/101497749/O1CN01t7nBHk2776DeiaGtQ_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/101497749/O1CN01YjWlFI2776Ddn8c9L_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"1046436901332", categoria:"desk-pad", estado:"aprobado",
+      titulo:"Cuero negro 80×40",
+      titulo_zh:"桌垫 40×80cm 黑色皮革材质 防水防油 表面顺滑",
+      url:"https://www.goofish.com/item?id=1046436901332",
+      precio_cny:17.50, envio:"incluido",
+      material:"Cuero sintético (PU) con base de agarre", color:"Negro liso", condicion:"Casi nuevo",
+      pad:[80,40], grosor_mm:2,
+      spec:"80 × 40 cm · cuero PU · negro liso",
+      vendedor:{ nombre:"石油城真诚的南瓜", ciudad:"Lanzhou", antiguedad:"10 años", ventas:198, reputacion:"100%" },
+      resumen:"La única foto real muestra justo tu escenario: portátil, teclado y ratón sobre el tapete negro.",
+      descripcion:"Cuero sintético negro liso de 80 × 40. Frente a la tela, el PU gana en limpieza — se pasa un trapo y queda como nuevo, aguanta líquidos y grasa — y pierde en tacto: es más frío y más duro. Si te importa más que no se manche que la sensación mullida, esta es la opción. Único vendedor con 100% de valoraciones.",
+      verificacion:[
+        "La foto 2 es del escritorio real del vendedor: el tapete negro con monitor, teclado, ratón y un portátil encima. Muestra el producto en uso, no en catálogo.",
+        "El vendedor declara base con agarre tipo nano y superficie resistente al calor.",
+        "10 años en la plataforma con 100% de valoraciones positivas."
+      ],
+      reservas:[
+        "SOLO HAY UNA FOTO ÚTIL. De las ocho publicadas, cinco no tienen nada que ver: un meme, un gato, un templo, un selfie y una ilustración. Es un anuncio descuidado.",
+        "El vendedor entró por última vez hace 8 días: puede tardar en contestar.",
+        "El PU se cuartea y se descascara a los uno o dos años de uso diario. La tela no.",
+        "Solo 198 ventas, el vendedor con menos rodaje de la categoría.",
+        "Es usado, aunque declarado casi nuevo."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i4/1995902198/O1CN01SeW06Q1S6jgkAOCnH_!!4611686018427383030-53-xy_item.heic_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"1001169037154", categoria:"desk-pad", estado:"aprobado",
+      titulo:"Mocha — la opción café",
+      titulo_zh:"摩卡棕色皮革桌垫 40x80cm 防水防油耐磨",
+      url:"https://www.goofish.com/item?id=1001169037154",
+      precio_cny:27.80, envio:"incluido",
+      material:"Cuero sintético (PU), esquinas redondeadas de 1.5 cm", color:"Marrón moca (ver reservas)", condicion:"Nuevo, sin abrir",
+      pad:[80,40], grosor_mm:2,
+      spec:"80 × 40 cm · cuero PU · marrón moca",
+      vendedor:{ nombre:"宝藏百货小铺", ciudad:"Jinhua", antiguedad:"8 años", ventas:928, reputacion:"98%" },
+      resumen:"El único café de la selección. También el más caro y el que menos pruebas tiene.",
+      descripcion:"Pediste café y esta es la única opción real que apareció en todo el barrido. Cuero sintético de 80 × 40 con esquinas redondeadas, impermeable, resistente a la grasa y a los arañazos, y se puede recortar a medida con tijeras. La tinta de bolígrafo se borra con un trapo. Acepta devolución si no coincide.",
+      verificacion:[
+        "Todas las fotos muestran el mismo modelo en un escritorio de madera clara, con la base antideslizante y el borde señalados.",
+        "Una de las imágenes demuestra que la tinta de rotulador se limpia frotando.",
+        "El anuncio ofrece devolución con envío pagado si no coincide con la descripción."
+      ],
+      reservas:[
+        "EL COLOR NO SE VE CAFÉ. En las propias fotos del anuncio el tono es gris topo o beige grisáceo, no marrón. Si buscás café de verdad, pedile fotos con luz natural antes de pagar.",
+        "Ninguna foto es del artículo real: son capturas de otra aplicación de compras, con la barra de estado del teléfono y el botón de añadir al carrito a la vista.",
+        "El propio vendedor escribe 'pedime fotos de detalle por privado', o sea que reconoce que no publicó ninguna.",
+        "¥27.80 es un 64% más caro que el AOC por una superficie peor al tacto.",
+        "El PU se descascara con los años."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i3/774829928/O1CN01l6MIn02ND5Fc53HCR_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/774829928/O1CN01TIpSGU2ND5Fbm0ICi_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/774829928/O1CN011PyiEN2ND5FajwSXi_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/774829928/O1CN016VfW8w2ND5FaQr3aC_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp"
+      ]
     }
   ],
 
   descartados: [
+    { id:"1036682017705", url:"https://www.goofish.com/item?id=1036682017705", titulo:"Xiaomi 11º aniversario 80×40", precio_cny:14,
+      motivo:"Tela sobre goma y marca oficial Xiaomi, pero lleva una caligrafía naranja gigante que ocupa medio tapete: es lo contrario de un color oscuro discreto. Y el vendedor dice explícitamente 不包邮, o sea que el envío NO está incluido, así que el precio real no son ¥14." },
+    { id:"942469861593", url:"https://www.goofish.com/item?id=942469861593", titulo:"Cuero 120×60, nueve colores", precio_cny:16,
+      motivo:"Buen precio y hay color café entre las nueve opciones, pero 120 × 60 cm cubre un escritorio entero. Pediste 'un poquito más grande', no el doble: con 90 × 40 ya te sobran 60 cm a la derecha del portátil para el ratón." },
     { id:"909429995079", url:"https://www.goofish.com/item?id=909429995079", titulo:"Base 4-en-1 Xbox One ¥25", precio_cny:25,
       motivo:"El '4-en-1' son CUATRO PUERTOS USB, no cuatro mandos: la caja dice 'can charge up to two Xbox One controllers'. Y peor, se abrocha al costado de una consola Xbox One con enganches ('snap joints'). No se monta en una Series X." },
     { id:"899536886280", url:"https://www.goofish.com/item?id=899536886280", titulo:"Base KJH 4-en-1 ¥8.90", precio_cny:8.90,
@@ -316,10 +459,13 @@ window.CATALOGO = {
 "1058087644676":["i2/2212071193419/O1CN01lwhe2f1b7xIHq1TNw_!!4611686018427386699-0-xy_item.jpg","i2/2212071193419/O1CN01aWMD5J1b7xIIaQDiJ_!!4611686018427386699-0-xy_item.jpg","i1/2212071193419/O1CN01u5DQ751b7xIHq1GuZ_!!4611686018427386699-0-xy_item.jpg"],
 "1079501886618":["i1/2214349725640/O1CN01Bv6mvetNaKB2BxNI_!!4611686018427387848-0-xy_item.jpg"]
   };
+  IM["1036682017705"]=["i4/O1CN01tonZge240HV5JyDJk_!!4611686018427385360-0-fleamarket.jpg","i1/O1CN01NFxvrH240HV3abdVg_!!4611686018427385360-0-fleamarket.jpg","i4/O1CN01bZ1Zvg240HV3RdgVE_!!4611686018427385360-0-fleamarket.jpg"];
+  IM["942469861593"]=["i1/O1CN01kZNvSd1Gc5L9L8jwS_!!4611686018427381010-53-fleamarket.heic","i4/O1CN012Ez0Ss1Gc5LA1zSb9_!!4611686018427381010-53-fleamarket.heic","i4/O1CN01i7HbYv1Gc5L9jDl7z_!!4611686018427381010-0-fleamarket.jpg"];
+  var PAD={"1036682017705":1,"942469861593":1};
   var XBOX={"909429995079":1,"899536886280":1,"1058087644676":1,"1079501886618":1};
   window.CATALOGO.descartados.forEach(function(d){
     d.imagenes = X(IM[d.id]);
-    d.categoria = XBOX[d.id] ? "base-xbox" : "estuche-gamecube";
+    d.categoria = XBOX[d.id] ? "base-xbox" : (PAD[d.id] ? "desk-pad" : "estuche-gamecube");
     d.estado = "descartado";
   });
 })();
