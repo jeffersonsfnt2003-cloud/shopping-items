@@ -99,6 +99,13 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 .free{font-size:10px;color:var(--ok);border:1px solid rgba(95,191,143,.3);border-radius:3px;padding:1px 5px}
 .acts{display:flex;gap:7px}
 .btn{white-space:nowrap}
+.cp{flex:0 0 auto;padding:7px 9px;display:flex;align-items:center;justify-content:center}
+.cp svg{display:block}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.cplink{display:inline-flex;align-items:center;gap:7px;background:var(--card2);border:1px solid var(--line);
+  color:var(--tx);border-radius:7px;padding:9px 15px;font-size:13.5px;font-family:inherit;cursor:pointer;margin-left:8px}
+.cplink:hover{border-color:var(--acc);color:var(--acc)}
+.cplink.ok{border-color:var(--ok);color:var(--ok)}
 .btn{flex:1;text-align:center;border:1px solid var(--line);background:var(--card2);color:var(--tx);
   border-radius:6px;padding:7px 6px;font-size:12.5px;cursor:pointer;text-decoration:none;font-family:inherit}
 .btn:hover{border-color:var(--acc);color:var(--acc)}
@@ -191,9 +198,34 @@ footer{margin-top:34px;color:var(--mute);font-size:11.5px;font-family:var(--mono
 </div>
 <script>
 let C,M;
+const ICO='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 const hi=u=>String(u).replace(/_\d+x\d+Q90/i,'_Q90');
 const usd=c=>(c*M.tasa_cny_usd).toFixed(2);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+async function alPortapapeles(txt){
+  try{ await navigator.clipboard.writeText(txt); return true; }
+  catch(_){
+    try{ const t=document.createElement('textarea'); t.value=txt;
+      t.style.cssText='position:fixed;opacity:0;pointer-events:none'; document.body.appendChild(t);
+      t.select(); const ok=document.execCommand('copy'); t.remove(); return ok; }
+    catch(__){ return false; }
+  }
+}
+function cablearCopias(root){
+  root.querySelectorAll('[data-copy]').forEach(b=>{
+    b.onclick=async e=>{
+      e.stopPropagation();
+      if(_arrastro) return;
+      const orig=b.innerHTML, ok=await alPortapapeles(b.dataset.copy);
+      b.classList.add('ok');
+      b.innerHTML = b.dataset.corto!==undefined
+        ? (ok?ICO+'\u2713':ICO+'!')
+        : (ok?ICO+' Link copiado':ICO+' copialo a mano');
+      setTimeout(()=>{ b.classList.remove('ok'); b.innerHTML=orig; }, 1600);
+    };
+  });
+}
 
 function carr(it,cls,grande){
   const im=it.imagenes||[];
@@ -291,7 +323,8 @@ function tarjeta(it){
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
     +'<div class="acts"><button class="btn" data-ver="'+it.id+'">Detalle</button>'
-    +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener" data-stop>Goofish</a></div>'
+    +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener" data-stop>Goofish</a>'
+    +'<button class="btn cp" data-copy="'+esc(it.url)+'" data-corto title="Copiar link de Goofish" aria-label="Copiar link de Goofish">'+ICO+'</button></div>'
     +'</div></article>';
 }
 
@@ -302,6 +335,7 @@ function detalleNo(it){
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span></div>'
     +'<div class="motivo"><h4>Por qu\u00e9 no pas\u00f3</h4><p>'+esc(it.motivo)+'</p></div>'
     +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
+    +'<button class="cplink" data-copy="'+esc(it.url)+'">'+ICO+' Copiar link</button>'
     +'<div class="raw">'+esc(it.url)+'</div></div>';
 }
 
@@ -329,6 +363,7 @@ function detalle(it){
       +'<div class="lb r"><h4>Reservas</h4><ul>'+it.reservas.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
     +'</div>'
     +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
+    +'<button class="cplink" data-copy="'+esc(it.url)+'">'+ICO+' Copiar link</button>'
     +'<div class="raw">'+esc(it.url)+'</div></div>';
 }
 
@@ -410,6 +445,7 @@ function pintar(){
   activarCarr(document.getElementById('app'));
   document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=e=>{e.stopPropagation();abrir(b.dataset.ver);});
   document.querySelectorAll('[data-stop]').forEach(a=>a.onclick=e=>e.stopPropagation());
+  cablearCopias(document.getElementById('app'));
   document.querySelectorAll('[data-open]').forEach(c=>{
     c.onclick=()=>{ if(_arrastro) return; abrir(c.dataset.open); };
     const ph=c.querySelector('.ph');
@@ -429,13 +465,7 @@ function pintar(){
   document.querySelectorAll('[data-zh]').forEach(b=>b.onclick=async e=>{
     e.stopPropagation();
     const zh=b.dataset.zh, orig=b.innerHTML;
-    let ok=false;
-    try{ await navigator.clipboard.writeText(zh); ok=true; }
-    catch(_){
-      try{ const t=document.createElement('textarea'); t.value=zh;
-        t.style.cssText='position:fixed;opacity:0'; document.body.appendChild(t);
-        t.select(); ok=document.execCommand('copy'); t.remove(); }catch(__){}
-    }
+    const ok=await alPortapapeles(zh);
     b.classList.add('ok');
     b.innerHTML = ok ? '\u2713 copiado<br><span class="en">'+esc(zh)+'</span>'
                      : zh+'<br><span class="en">copialo a mano</span>';
@@ -489,6 +519,7 @@ function abrir(id){
   const it=C.items.find(x=>x.id===id)||C.descartados.find(x=>x.id===id); if(!it)return;
   md.innerHTML=detalle(it); ov.classList.add('on'); document.body.style.overflow='hidden';
   activarCarr(md); document.getElementById('cx').onclick=cerrar; md.scrollIntoView();
+  cablearCopias(md);
   md.querySelectorAll('.mph .sl img').forEach(im=>im.onclick=e=>{
     e.stopPropagation(); verFoto(it.imagenes, Number(im.dataset.i)||0); });
 }
