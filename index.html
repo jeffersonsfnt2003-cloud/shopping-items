@@ -25,7 +25,12 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 .rate{font-family:var(--mono);font-size:11.5px;color:var(--mute)}
 
 /* ---------- pestañas ---------- */
-nav.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:6px;scrollbar-width:none}
+.navrow{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.jump{flex:1;min-width:190px;background:var(--card);color:var(--tx);border:1px solid var(--line);
+  border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit;cursor:pointer;max-width:340px}
+.jump:focus{outline:none;border-color:var(--acc)}
+.err{color:var(--bad);font-size:14px;padding:30px;text-align:center}
+nav.tabs{flex:0 1 auto;margin-bottom:0;display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:6px;scrollbar-width:none}
 nav.tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--dim);
   border-radius:20px;padding:6px 14px;font-size:13.5px;cursor:pointer;white-space:nowrap}
@@ -117,9 +122,8 @@ footer{margin-top:34px;color:var(--mute);font-size:11.5px;font-family:var(--mono
 <body>
 <div class="wrap" id="app"></div>
 <div class="ov" id="ov"><div class="md" id="md"></div></div>
-<script src="data/items.js"></script>
 <script>
-const C=window.CATALOGO, M=C.meta;
+let C,M;
 const usd=c=>(c*M.tasa_cny_usd).toFixed(2);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
@@ -175,7 +179,7 @@ function diagrama(it){
 function tarjeta(it){
   return '<article class="prod">'+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
-    +'<p class="dm">interior '+it.interior.join(' x ')+' cm</p>'
+    +'<p class="dm">'+it.interior.join('&times;')+' cm</p>'
     +'<p class="rs">'+esc(it.resumen||it.descripcion)+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
@@ -221,6 +225,17 @@ function activarCarr(root){
   });
 }
 
+function selector(){
+  const g=C.categorias.map(c=>{
+    const its=C.items.filter(i=>i.categoria===c.id);
+    if(!its.length) return '';
+    return '<optgroup label="'+esc(c.tab||c.nombre)+'">'
+      +its.map(i=>'<option value="'+i.id+'">'+esc(i.titulo)+' — \u00a5'+i.precio_cny+' / US$ '+usd(i.precio_cny)+'</option>').join('')
+      +'</optgroup>';
+  }).join('');
+  return '<select class="jump" id="jump"><option value="">Ir a un ítem\u2026 ('+C.items.length+')</option>'+g+'</select>';
+}
+
 let filtro='todos';
 function pintar(){
   const cats=C.categorias;
@@ -231,7 +246,7 @@ function pintar(){
   const vis=C.items.filter(i=>filtro==='todos'||i.categoria===filtro);
   document.getElementById('app').innerHTML=
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
-    +'<nav class="tabs">'+tabs+'</nav>'
+    +'<div class="navrow"><nav class="tabs">'+tabs+'</nav>'+selector()+'</div>'
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
     +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Todavía no hay nada verificado en esta categoría.</div>')+'</div>'
     +'<details class="rejs"><summary>Descartados y por qué ('+C.descartados.length+')</summary>'
@@ -242,6 +257,8 @@ function pintar(){
   activarCarr(document.getElementById('app'));
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filtro=b.dataset.f;pintar();window.scrollTo({top:0});});
   document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=()=>abrir(b.dataset.ver));
+  const j=document.getElementById('jump');
+  if(j) j.onchange=()=>{ if(j.value){ abrir(j.value); j.value=''; } };
 }
 
 const ov=document.getElementById('ov'), md=document.getElementById('md');
@@ -253,7 +270,14 @@ function abrir(id){
 function cerrar(){ov.classList.remove('on');md.innerHTML='';document.body.style.overflow='';}
 ov.onclick=e=>{if(e.target===ov)cerrar();};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrar();});
-pintar();
+(function cargar(){
+  const s=document.createElement('script');
+  s.src='data/items.js?v='+Math.floor(Date.now()/300000);
+  s.onload=()=>{ C=window.CATALOGO; M=C.meta; pintar(); };
+  s.onerror=()=>{ document.getElementById('app').innerHTML=
+    '<p class="err">No se pudieron cargar los datos del catálogo (data/items.js).</p>'; };
+  document.head.appendChild(s);
+})();
 </script>
 </body>
 </html>
