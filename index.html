@@ -107,6 +107,24 @@ nav.tabs::-webkit-scrollbar{display:none}
 .lb ul{margin:0;padding-left:16px}.lb li{margin:4px 0;font-size:12.5px;color:var(--dim)}
 .raw{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:8px;word-break:break-all}
 
+.lb{position:fixed;inset:0;background:#000;z-index:200;display:none}
+.lb.on{display:block}
+.lbw{position:absolute;inset:0;overflow:auto;display:flex;align-items:center;justify-content:center;padding:0}
+.lb img{max-width:100%;max-height:100vh;object-fit:contain;display:block;cursor:zoom-in;margin:auto}
+.lb.zm .lbw{align-items:flex-start;justify-content:flex-start}
+.lb.zm img{max-width:none;max-height:none;cursor:zoom-out}
+.lba{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+  border:1px solid #4a4a52;background:rgba(0,0,0,.65);color:#fff;font-size:22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:0;z-index:3}
+.lba.p{left:12px}.lba.n{right:12px}
+.lbx{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:1px solid #4a4a52;
+  background:rgba(0,0,0,.65);color:#fff;font-size:19px;cursor:pointer;z-index:3;display:flex;
+  align-items:center;justify-content:center;padding:0}
+.lbc{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;
+  color:#c3c3cc;background:rgba(0,0,0,.65);border:1px solid #33333d;border-radius:12px;padding:3px 12px;z-index:3}
+.prod{cursor:pointer}
+.prod:hover{border-color:#454556}
+.mph .sl img{cursor:zoom-in}
 details.rejs{margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
 details.rejs summary{cursor:pointer;color:var(--dim);font-size:13.5px}
 .rej{background:var(--card);border-left:2px solid var(--bad);border-radius:6px;padding:10px 13px;margin:9px 0}
@@ -122,16 +140,24 @@ footer{margin-top:34px;color:var(--mute);font-size:11.5px;font-family:var(--mono
 <body>
 <div class="wrap" id="app"></div>
 <div class="ov" id="ov"><div class="md" id="md"></div></div>
+<div class="lb" id="lb">
+  <div class="lbw"><img id="lbimg" alt=""></div>
+  <button class="lbx" id="lbx" aria-label="Cerrar">&times;</button>
+  <button class="lba p" data-ld="-1" aria-label="Anterior">&#8249;</button>
+  <button class="lba n" data-ld="1" aria-label="Siguiente">&#8250;</button>
+  <span class="lbc" id="lbc"></span>
+</div>
 <script>
 let C,M;
+const hi=u=>String(u).replace(/_\d+x\d+Q90/i,'_Q90');
 const usd=c=>(c*M.tasa_cny_usd).toFixed(2);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
-function carr(it,cls){
+function carr(it,cls,grande){
   const im=it.imagenes||[];
   if(!im.length) return '<div class="'+cls+'"></div>';
   return '<div class="'+cls+'" data-c>'
-    +'<div class="tr">'+im.map((u,i)=>'<div class="sl"><img src="'+esc(u)+'" loading="lazy" alt="'+esc(it.titulo)+' '+(i+1)+'" referrerpolicy="no-referrer"></div>').join('')+'</div>'
+    +'<div class="tr">'+im.map((u,i)=>'<div class="sl"><img src="'+esc(grande?hi(u):u)+'" data-i="'+i+'" loading="lazy" alt="'+esc(it.titulo)+' '+(i+1)+'" referrerpolicy="no-referrer"></div>').join('')+'</div>'
     +'<span class="pill"><b data-cur>1</b>/'+im.length+'</span>'
     +(im.length>1?'<button class="ar p" data-d="-1" aria-label="Anterior">&#8249;</button><button class="ar n" data-d="1" aria-label="Siguiente">&#8250;</button>':'')
     +'</div>';
@@ -177,14 +203,14 @@ function diagrama(it){
 }
 
 function tarjeta(it){
-  return '<article class="prod">'+carr(it,'ph')+'<div class="body">'
+  return '<article class="prod" data-open="'+it.id+'">'+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
     +'<p class="dm">'+it.interior.join('&times;')+' cm</p>'
     +'<p class="rs">'+esc(it.resumen||it.descripcion)+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
     +'<div class="acts"><button class="btn" data-ver="'+it.id+'">Detalle</button>'
-    +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener">Goofish</a></div>'
+    +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener" data-stop>Goofish</a></div>'
     +'</div></article>';
 }
 
@@ -193,7 +219,7 @@ function detalle(it){
   const vend=(v.nombre&&v.nombre!=='no declarado en la ficha')
     ? esc(v.nombre)+' · '+esc(v.ciudad)+' · '+Number(v.ventas).toLocaleString('es')+' ventas · '+esc(v.reputacion)
     : 'no declarado en el anuncio';
-  return '<button class="x" id="cx" aria-label="Cerrar">&times;</button>'+carr(it,'mph')+'<div class="mb">'
+  return '<button class="x" id="cx" aria-label="Cerrar">&times;</button>'+carr(it,'mph',1)+'<div class="mb">'
     +'<h2>'+esc(it.titulo)+'</h2><p class="zh">'+esc(it.titulo_zh)+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incluido</span>':'')+'</div>'
@@ -256,20 +282,47 @@ function pintar(){
     +'<footer>Miniaturas servidas por el CDN de Goofish. Última actualización: '+M.tasa_fecha+'.</footer>';
   activarCarr(document.getElementById('app'));
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filtro=b.dataset.f;pintar();window.scrollTo({top:0});});
-  document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=()=>abrir(b.dataset.ver));
+  document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=e=>{e.stopPropagation();abrir(b.dataset.ver);});
+  document.querySelectorAll('[data-stop]').forEach(a=>a.onclick=e=>e.stopPropagation());
+  document.querySelectorAll('[data-open]').forEach(c=>c.onclick=()=>abrir(c.dataset.open));
   const j=document.getElementById('jump');
   if(j) j.onchange=()=>{ if(j.value){ abrir(j.value); j.value=''; } };
 }
 
 const ov=document.getElementById('ov'), md=document.getElementById('md');
+const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg'), lbc=document.getElementById('lbc');
+let lbFotos=[], lbIdx=0;
+function verFoto(imgs,i){
+  lbFotos=imgs.map(hi); lbIdx=i; lb.classList.add('on'); lb.classList.remove('zm');
+  document.body.style.overflow='hidden'; pintarFoto();
+}
+function pintarFoto(){ lbimg.src=lbFotos[lbIdx]; lbc.textContent=(lbIdx+1)+' / '+lbFotos.length;
+  lb.querySelector('.lbw').scrollTo(0,0);
+  lb.querySelectorAll('.lba').forEach(b=>b.style.display=lbFotos.length>1?'flex':'none'); }
+function moverFoto(d){ lbIdx=(lbIdx+d+lbFotos.length)%lbFotos.length; lb.classList.remove('zm'); pintarFoto(); }
+function cerrarFoto(){ lb.classList.remove('on','zm'); lbimg.src=''; if(!ov.classList.contains('on')) document.body.style.overflow=''; }
+lb.querySelectorAll('.lba').forEach(b=>b.onclick=e=>{e.stopPropagation();moverFoto(Number(b.dataset.ld));});
+document.getElementById('lbx').onclick=cerrarFoto;
+lbimg.onclick=e=>{e.stopPropagation();lb.classList.toggle('zm');};
+lb.onclick=e=>{if(e.target===lb||e.target.classList.contains('lbw'))cerrarFoto();};
 function abrir(id){
   const it=C.items.find(x=>x.id===id); if(!it)return;
   md.innerHTML=detalle(it); ov.classList.add('on'); document.body.style.overflow='hidden';
   activarCarr(md); document.getElementById('cx').onclick=cerrar; md.scrollIntoView();
+  md.querySelectorAll('.mph .sl img').forEach(im=>im.onclick=e=>{
+    e.stopPropagation(); verFoto(it.imagenes, Number(im.dataset.i)||0); });
 }
 function cerrar(){ov.classList.remove('on');md.innerHTML='';document.body.style.overflow='';}
 ov.onclick=e=>{if(e.target===ov)cerrar();};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrar();});
+document.addEventListener('keydown',e=>{
+  if(lb.classList.contains('on')){
+    if(e.key==='Escape')cerrarFoto();
+    if(e.key==='ArrowRight')moverFoto(1);
+    if(e.key==='ArrowLeft')moverFoto(-1);
+    return;
+  }
+  if(e.key==='Escape')cerrar();
+});
 (function cargar(){
   const s=document.createElement('script');
   s.src='data/items.js?v='+Math.floor(Date.now()/300000);
