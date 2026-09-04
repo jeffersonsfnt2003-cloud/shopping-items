@@ -2,8 +2,16 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Catálogo</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#121217">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Catálogo">
 <style>
 :root{
   --bg:#121217; --card:#1b1b23; --card2:#22222c; --line:#31313d;
@@ -12,6 +20,9 @@
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
+:root{--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px)}
+
 html,body{overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--tx);
   font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
@@ -204,11 +215,53 @@ footer{margin-top:34px;color:var(--mute);font-size:11.5px;font-family:var(--mono
   .tt{font-size:13px}.rs{-webkit-line-clamp:2;font-size:11.5px}.y{font-size:17px}
   .ov{padding:0}.md{border-radius:0;min-height:100%}.mph{height:230px}
 }
+
+/* ---------- PWA: safe areas, instalar, salida externa ---------- */
+.wrap{padding:calc(22px + var(--sat)) calc(16px + var(--sar)) calc(70px + var(--sab)) calc(16px + var(--sal))}
+.ov{padding:calc(26px + var(--sat)) calc(14px + var(--sar)) calc(26px + var(--sab)) calc(14px + var(--sal))}
+.lbx{top:calc(12px + var(--sat));right:calc(12px + var(--sar))}
+.lb .lbw{padding-top:var(--sat);padding-bottom:var(--sab)}
+
+.inst{position:fixed;left:calc(10px + var(--sal));right:calc(10px + var(--sar));
+  bottom:calc(10px + var(--sab));z-index:150;background:var(--card2);border:1px solid var(--line);
+  border-radius:13px;padding:12px 14px;display:none;gap:10px;align-items:flex-start;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);max-width:520px;margin:0 auto}
+.inst.on{display:flex}
+.inst .ic{font-size:20px;line-height:1.2}
+.inst p{margin:0;font-size:12.5px;color:var(--dim)}
+.inst b{color:var(--tx)}
+.inst .ix{margin-left:auto;background:none;border:0;color:var(--mute);font-size:19px;
+  cursor:pointer;padding:0 2px;line-height:1}
+
+.hoja{position:fixed;inset:0;z-index:210;background:rgba(6,6,9,.82);backdrop-filter:blur(3px);
+  display:none;align-items:flex-end;justify-content:center}
+.hoja.on{display:flex}
+.hoja .hc{background:var(--card);border:1px solid var(--line);border-radius:14px 14px 0 0;
+  width:100%;max-width:520px;padding:16px 16px calc(16px + var(--sab));
+  padding-left:calc(16px + var(--sal));padding-right:calc(16px + var(--sar))}
+.hoja h4{margin:0 0 6px;font-size:14px}
+.hoja p{margin:0 0 12px;font-size:12.5px;color:var(--dim);word-break:break-all}
+.hoja .hb{display:flex;gap:8px;flex-wrap:wrap}
+.hoja .hb .btn{flex:1 1 auto;text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
 <div class="ov" id="ov"><div class="md" id="md"></div></div>
+<div class="inst" id="inst">
+  <span class="ic">⬇︎</span>
+  <p>Instalala como app: tocá <b>Compartir</b> y después <b>Añadir a pantalla de inicio</b>.</p>
+  <button class="ix" id="instx" aria-label="Cerrar">&times;</button>
+</div>
+<div class="hoja" id="hoja"><div class="hc">
+  <h4>Abrir fuera de la app</h4>
+  <p id="hojau"></p>
+  <div class="hb">
+    <a class="btn go" id="hojaa" href="#" target="_blank" rel="noopener">Abrir</a>
+    <button class="btn" id="hojac">Copiar enlace</button>
+    <button class="btn" id="hojax">Cancelar</button>
+  </div>
+</div></div>
 <div class="lb" id="lb">
   <div class="lbw"><img id="lbimg" alt=""></div>
   <button class="lbx" id="lbx" aria-label="Cerrar">&times;</button>
@@ -612,6 +665,57 @@ document.addEventListener('keydown',e=>{
   }
   if(e.key==='Escape')cerrar();
 });
+/* ---------- PWA: instalado, links externos ---------- */
+const APP_STANDALONE = (function(){
+  try{ return window.matchMedia('(display-mode: standalone)').matches
+       || window.matchMedia('(display-mode: minimal-ui)').matches
+       || window.navigator.standalone === true; }catch(_){ return false; }
+})();
+const ES_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+  || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if(APP_STANDALONE) document.documentElement.classList.add('app');
+
+const hoja=document.getElementById('hoja'), hojau=document.getElementById('hojau'),
+      hojaa=document.getElementById('hojaa');
+function abrirHoja(u){ hojau.textContent=u; hojaa.href=u; hoja.classList.add('on'); }
+function cerrarHoja(){ hoja.classList.remove('on'); }
+document.getElementById('hojax').onclick=cerrarHoja;
+hoja.onclick=e=>{ if(e.target===hoja) cerrarHoja(); };
+hojaa.onclick=()=>setTimeout(cerrarHoja,150);
+document.getElementById('hojac').onclick=async function(){
+  const b=this, o=b.textContent;
+  b.textContent = (await alPortapapeles(hojau.textContent)) ? 'Copiado' : 'No se pudo';
+  setTimeout(()=>{ b.textContent=o; },1400);
+};
+
+/* En la app instalada interceptamos los enlaces externos: nunca navegamos el
+   webview de la app (en iOS eso te deja sin botón de volver). Pedimos al sistema
+   que lo abra en su capa in-app; si el navegador lo bloquea, mostramos la hoja. */
+document.addEventListener('click', e=>{
+  if(!APP_STANDALONE) return;
+  const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+  if(!a || a.id==='hojaa') return;   /* el botón de la propia hoja sí sale */
+  let d; try{ d=new URL(a.getAttribute('href'), location.href); }catch(_){ return; }
+  if(d.protocol!=='http:' && d.protocol!=='https:') return;
+  if(d.origin===location.origin) return;
+  e.preventDefault(); e.stopPropagation();
+  let w=null; try{ w=window.open(d.href,'_blank','noopener'); }catch(_){}
+  if(!w) abrirHoja(d.href);
+}, true);
+
+/* iOS no ofrece prompt de instalación: se lo recordamos una vez. */
+(function(){
+  if(APP_STANDALONE || !ES_IOS) return;
+  let off=false; try{ off = localStorage.getItem('inst_off')==='1'; }catch(_){}
+  if(off) return;
+  const b=document.getElementById('inst');
+  setTimeout(()=>b.classList.add('on'), 1200);
+  document.getElementById('instx').onclick=()=>{
+    b.classList.remove('on');
+    try{ localStorage.setItem('inst_off','1'); }catch(_){}
+  };
+})();
+
 (function cargar(){
   const s=document.createElement('script');
   s.src='data/items.js?v='+Math.floor(Date.now()/300000);
