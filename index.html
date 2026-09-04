@@ -25,19 +25,32 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 .rate{font-family:var(--mono);font-size:11.5px;color:var(--mute)}
 
 /* ---------- pestañas ---------- */
-.navrow{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
-.jump.chico{flex:0 1 auto;font-weight:400;font-size:13px;max-width:200px}
-.jump{flex:1;min-width:0;font-weight:600;background:var(--card);color:var(--tx);border:1px solid var(--line);
-  border-radius:8px;padding:9px 12px;font-size:14px;font-family:inherit;cursor:pointer;max-width:380px}
+.navrow{display:flex;gap:8px;align-items:stretch;margin-bottom:10px}
+.catwrap{flex:1 1 auto;min-width:0;position:relative}
+.catlbl{position:absolute;left:12px;top:6px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mute);font-family:var(--mono);pointer-events:none}
+.caret{position:absolute;right:12px;top:50%;transform:translateY(-25%);color:var(--dim);
+  font-size:11px;pointer-events:none}
+.jump{width:100%;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:9px;
+  padding:20px 28px 8px 12px;font-size:14.5px;font-weight:600;font-family:inherit;cursor:pointer;
+  appearance:none;-webkit-appearance:none}
 .jump:focus{outline:none;border-color:var(--acc)}
-.err{color:var(--bad);font-size:14px;padding:30px;text-align:center}
-nav.tabs{flex:0 1 auto;margin-bottom:0;display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:6px;scrollbar-width:none}
-nav.tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--dim);
-  border-radius:20px;padding:6px 14px;font-size:13.5px;cursor:pointer;white-space:nowrap}
-.tab:hover{color:var(--tx)}
-.tab.on{background:var(--acc);border-color:var(--acc);color:#15151c;font-weight:600}
-.tab .n{font-family:var(--mono);font-size:11px;opacity:.7;margin-left:4px}
+.fbtn{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:9px;
+  padding:0 15px;font-size:13.5px;font-family:inherit;cursor:pointer;display:flex;align-items:center;gap:7px}
+.fbtn.abierto{border-color:var(--acc);color:var(--acc)}
+.fbtn .pt{width:6px;height:6px;border-radius:50%;background:var(--acc);display:inline-block}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 15px;margin-bottom:12px}
+.panel h5{margin:0 0 8px;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{text-align:left;background:var(--card2);border:1px solid var(--line);color:var(--dim);border-radius:7px;
+  padding:10px 12px;font-size:13.5px;font-family:inherit;cursor:pointer;width:100%}
+.opt.on{border-color:var(--acc);background:rgba(165,163,245,.10);color:var(--tx);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip2{background:var(--card2);border:1px solid var(--line);color:var(--dim);border-radius:16px;
+  padding:6px 13px;font-size:12.5px;font-family:inherit;cursor:pointer}
+.chip2.on{background:var(--acc);border-color:var(--acc);color:#15151c;font-weight:600}
+.limpiar{background:none;border:0;color:var(--mute);font-size:12px;font-family:inherit;
+  cursor:pointer;padding:10px 0 0;text-decoration:underline}
 .catnote{color:var(--mute);font-size:12.5px;margin:0 0 16px;max-width:80ch}
 
 /* ---------- grilla ---------- */
@@ -289,35 +302,56 @@ function activarCarr(root){
   });
 }
 
-function selector(){
-  const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+(n!=null?' ('+n+')':'')+'</option>';
-  const cat='<select class="jump" id="jump" aria-label="Categor\u00eda">'
+const ORDENES=[
+  {v:'precio_asc',  t:'Precio: de menor a mayor'},
+  {v:'precio_desc', t:'Precio: de mayor a menor'},
+  {v:'vol',         t:'Tama\u00f1o: m\u00e1s compacto primero'}
+];
+const TOPES=[{v:0,t:'Sin l\u00edmite'},{v:20,t:'\u00a520'},{v:30,t:'\u00a530'},{v:40,t:'\u00a540'},{v:60,t:'\u00a560'}];
+
+function controles(){
+  const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+' ('+n+')</option>';
+  const cat='<div class="catwrap"><span class="catlbl">Cat\u00e1logo</span><span class="caret">\u25be</span>'
+    +'<select class="jump" id="jump" aria-label="Cat\u00e1logo">'
     + op('todos','Todas las categor\u00edas',C.items.length)
     + C.categorias.map(c=>op(c.id,c.tab||c.nombre,C.items.filter(i=>i.categoria===c.id).length)).join('')
-    + '</select>';
-  const po=(v,txt)=>'<option value="'+v+'"'+(pmax==v?' selected':'')+'>'+txt+'</option>';
-  const pre='<select class="jump chico" id="pmax" aria-label="Precio">'
-    + po(0,'Cualquier precio')+po(20,'Hasta \u00a520')+po(30,'Hasta \u00a530')+po(40,'Hasta \u00a540')+po(60,'Hasta \u00a560')+'</select>';
-  const so=(v,txt)=>'<option value="'+v+'"'+(orden===v?' selected':'')+'>'+txt+'</option>';
-  const ord='<select class="jump chico" id="orden" aria-label="Orden">'
-    + so('vol','M\u00e1s compacto primero')+so('precio','M\u00e1s barato primero')+'</select>';
-  return cat+pre+ord;
+    + '</select></div>';
+  const activos = (pmax?1:0) + (orden!=='vol'?1:0);
+  const btn='<button class="fbtn'+(panel?' abierto':'')+'" id="fbtn">'
+    +(activos?'<span class="pt"></span>':'')+'Filtros'+(activos?' ('+activos+')':'')+'</button>';
+  let pan='';
+  if(panel){
+    pan='<div class="panel">'
+      +'<h5>Ordenar por</h5><div class="opts">'
+      + ORDENES.map(o=>'<button class="opt'+(orden===o.v?' on':'')+'" data-ord="'+o.v+'">'+o.t+'</button>').join('')
+      +'</div>'
+      +'<h5 style="margin-top:14px">Precio m\u00e1ximo</h5><div class="chips">'
+      + TOPES.map(t=>'<button class="chip2'+(pmax==t.v?' on':'')+'" data-tope="'+t.v+'">'+t.t+'</button>').join('')
+      +'</div>'
+      + (activos?'<button class="limpiar" id="limpiar">Quitar filtros</button>':'')
+      +'</div>';
+  }
+  return '<div class="navrow">'+cat+btn+'</div>'+pan;
 }
 
+let panel=false;
 let pmax=0, orden='vol';
 let filtro='todos';
 function pintar(){
   const cat=C.categorias.find(c=>c.id===filtro);
+  const ordenar=arr=>arr.slice().sort((a,b)=>
+    orden==='precio_asc'  ? a.precio_cny-b.precio_cny :
+    orden==='precio_desc' ? b.precio_cny-a.precio_cny :
+    ((a.interior?volumen(a):1e9)-(b.interior?volumen(b):1e9))||a.precio_cny-b.precio_cny);
   let vis=C.items.filter(i=>(filtro==='todos'||i.categoria===filtro)&&(!pmax||i.precio_cny<=pmax));
-  vis = vis.slice().sort((a,b)=> orden==='precio' ? a.precio_cny-b.precio_cny : ((a.interior?volumen(a):1e9)-(b.interior?volumen(b):1e9))||a.precio_cny-b.precio_cny);
+  vis = ordenar(vis);
   document.getElementById('app').innerHTML=
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
-    +'<div class="navrow">'+selector()+'</div>'
+    +controles()
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
     +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Nada coincide con estos filtros.</div>')+'</div>'
     +(function(){
-        const d=C.descartados.filter(x=>filtro==='todos'||x.categoria===filtro)
-                 .sort((x,y)=>x.precio_cny-y.precio_cny);
+        const d=ordenar(C.descartados.filter(x=>(filtro==='todos'||x.categoria===filtro)&&(!pmax||x.precio_cny<=pmax)));
         if(!d.length) return '';
         return '<details class="rejs"><summary>Descartados y por qu\u00e9 ('+d.length+')</summary>'
           +'<div class="grid" style="margin-top:14px">'+d.map(tarjeta).join('')+'</div></details>';
@@ -342,10 +376,12 @@ function pintar(){
   });
   const j=document.getElementById('jump');
   if(j) j.onchange=()=>{ filtro=j.value||'todos'; pintar(); window.scrollTo({top:0}); };
-  const pm=document.getElementById('pmax');
-  if(pm) pm.onchange=()=>{ pmax=Number(pm.value)||0; pintar(); };
-  const or=document.getElementById('orden');
-  if(or) or.onchange=()=>{ orden=or.value; pintar(); };
+  const fb=document.getElementById('fbtn');
+  if(fb) fb.onclick=()=>{ panel=!panel; pintar(); };
+  document.querySelectorAll('[data-ord]').forEach(b=>b.onclick=()=>{ orden=b.dataset.ord; pintar(); });
+  document.querySelectorAll('[data-tope]').forEach(b=>b.onclick=()=>{ pmax=Number(b.dataset.tope)||0; pintar(); });
+  const lp=document.getElementById('limpiar');
+  if(lp) lp.onclick=()=>{ pmax=0; orden='vol'; pintar(); };
 }
 
 // --- distinguir un toque de un arrastre, para que deslizar no abra el detalle ---
