@@ -243,6 +243,16 @@ footer{margin-top:34px;color:var(--mute);font-size:11.5px;font-family:var(--mono
 .hoja p{margin:0 0 12px;font-size:12.5px;color:var(--dim);word-break:break-all}
 .hoja .hb{display:flex;gap:8px;flex-wrap:wrap}
 .hoja .hb .btn{flex:1 1 auto;text-align:center}
+
+/* ---------- ocultar ítems ---------- */
+.btn.oc{border-color:#5b4247;color:#e0645f}
+.btn.re{border-color:#3f5c4e;color:var(--ok)}
+.prod.oculto{opacity:.55}
+.ocbar{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:13px 14px;margin-bottom:14px}
+.ocbar p{margin:0 0 10px;font-size:12.5px;color:var(--dim)}
+.ocbar b{color:var(--tx)}
+.ocbar .hb{display:flex;gap:8px;flex-wrap:wrap}
+.ocaviso{color:var(--warn);font-size:12px;margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -421,8 +431,8 @@ function bloqueSB(it){
 }
 
 function tarjeta(it){
-  const no = it.estado==='descartado';
-  return '<article class="prod'+(no?' no':'')+'" data-open="'+it.id+'">'
+  const no = it.estado==='descartado', oc = ocEs(it.id);
+  return '<article class="prod'+(no?' no':'')+(oc?' oculto':'')+'" data-open="'+it.id+'">'
     +(no?'<span class="tagno">descartado</span>':'')+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
     +'<p class="dm">'+(it.interior?it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span>':esc(it.spec||''))+'</p>'
@@ -435,7 +445,10 @@ function tarjeta(it){
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
     +'<div class="acts"><button class="btn" data-ver="'+it.id+'">Detalle</button>'
     +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener" data-stop>Goofish</a>'
-    +'<button class="btn cp" data-copy="'+esc(it.url)+'" data-corto title="Copiar link de Goofish" aria-label="Copiar link de Goofish">'+ICO+'</button></div>'
+    +'<button class="btn cp" data-copy="'+esc(it.url)+'" data-corto title="Copiar link de Goofish" aria-label="Copiar link de Goofish">'+ICO+'</button>'
+    +(oc ? '<button class="btn re" data-rest="'+it.id+'">Restaurar</button>'
+         : editando ? '<button class="btn oc" data-oc="'+it.id+'">Ocultar</button>' : '')
+    +'</div>'
     +'</div></article>';
 }
 
@@ -447,6 +460,9 @@ function detalleNo(it){
     +'<div class="motivo"><h4>Por qu\u00e9 no pas\u00f3</h4><p>'+esc(it.motivo)+'</p></div>'
     +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
     +'<button class="cplink" data-copy="'+esc(it.url)+'">'+ICO+' Copiar link</button>'
+    +(ocEs(it.id)
+        ? '<button class="cplink" data-rest="'+it.id+'">Restaurar este \u00edtem</button>'
+        : '<button class="cplink" data-oc="'+it.id+'">Ocultar este \u00edtem</button>')
     +'<div class="raw">'+esc(it.url)+'</div></div>';
 }
 
@@ -490,6 +506,23 @@ function activarCarr(root){
   });
 }
 
+/* ---------- ítems ocultos (solo en este dispositivo) ---------- */
+const OC_KEY='ocultos_v1';
+let OC_FALLA=false;
+let OCULTOS=(function(){ try{ const a=JSON.parse(localStorage.getItem(OC_KEY)||'[]');
+  return Array.isArray(a)?a.filter(x=>typeof x==='string'):[]; }catch(_){ return []; } })();
+function ocGuardar(){ try{ localStorage.setItem(OC_KEY,JSON.stringify(OCULTOS)); OC_FALLA=false; }
+  catch(_){ OC_FALLA=true; } }
+const ocEs=id=>OCULTOS.indexOf(id)>=0;
+function ocAdd(id){ if(!ocEs(id)){ OCULTOS.push(id); ocGuardar(); } }
+function ocDel(id){ const i=OCULTOS.indexOf(id); if(i>=0){ OCULTOS.splice(i,1); ocGuardar(); } }
+function ocTodos(){ return C.items.concat(C.descartados||[]).filter(x=>ocEs(x.id)); }
+function ocPurgar(){ const v={}; C.items.concat(C.descartados||[]).forEach(x=>v[x.id]=1);
+  const n=OCULTOS.filter(id=>v[id]); if(n.length!==OCULTOS.length){ OCULTOS=n; ocGuardar(); } }
+function ocTexto(){ return 'Ocultar permanentemente del catálogo:\n'
+  + ocTodos().map(x=>'- '+x.id+'  ('+x.titulo+')').join('\n'); }
+let editando=false;
+
 const ORDENES=[
   {v:'precio_asc',  t:'Precio: de menor a mayor'},
   {v:'precio_desc', t:'Precio: de mayor a menor'},
@@ -499,10 +532,12 @@ const TOPES=[0,20,30,40,60];
 
 function controles(){
   const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+' ('+n+')</option>';
+  const viv=C.items.filter(i=>!ocEs(i.id));
   const cat='<div class="catwrap"><span class="catlbl">Cat\u00e1logo</span><span class="caret">\u25be</span>'
     +'<select class="jump" id="jump" aria-label="Cat\u00e1logo">'
-    + op('todos','Todas las categor\u00edas',C.items.length)
-    + C.categorias.map(c=>op(c.id,c.tab||c.nombre,C.items.filter(i=>i.categoria===c.id).length)).join('')
+    + op('todos','Todas las categor\u00edas',viv.length)
+    + C.categorias.map(c=>op(c.id,c.tab||c.nombre,viv.filter(i=>i.categoria===c.id).length)).join('')
+    + (OCULTOS.length?op('__ocultos','Ocultos por m\u00ed',OCULTOS.length):'')
     + '</select></div>';
   const activos = (pmax?1:0) + (orden!=='vol'?1:0);
   const btn='<button class="fbtn'+(panel?' abierto':'')+'" id="fbtn">'
@@ -520,7 +555,8 @@ function controles(){
       + (activos?'<button class="limpiar" id="limpiar">Quitar filtros</button>':'')
       +'</div>';
   }
-  return '<div class="navrow">'+cat+btn+'</div>'+pan;
+  const eb='<button class="fbtn'+(editando?' abierto':'')+'" id="ebtn">'+(editando?'Listo':'Editar')+'</button>';
+  return '<div class="navrow">'+cat+btn+eb+'</div>'+pan;
 }
 
 let panel=false;
@@ -532,14 +568,23 @@ function pintar(){
     orden==='precio_asc'  ? a.precio_cny-b.precio_cny :
     orden==='precio_desc' ? b.precio_cny-a.precio_cny :
     ((a.interior?volumen(a):1e9)-(b.interior?volumen(b):1e9))||a.precio_cny-b.precio_cny);
-  let vis=C.items.filter(i=>(filtro==='todos'||i.categoria===filtro)&&(!pmax||i.precio_cny<=pmax));
+  const vistaOc = filtro==='__ocultos';
+  let vis = vistaOc
+    ? ocTodos()
+    : C.items.filter(i=>!ocEs(i.id)&&(filtro==='todos'||i.categoria===filtro)&&(!pmax||i.precio_cny<=pmax));
   vis = ordenar(vis);
   document.getElementById('app').innerHTML=
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
     +controles()
-    +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
+    +(vistaOc
+        ? '<div class="ocbar">'
+          +(OC_FALLA?'<p class="ocaviso">No se pudo guardar en este navegador (modo privado o almacenamiento bloqueado). Lo que ocultes se pierde al recargar.</p>':'')
+          +'<p>Estos <b>'+vis.length+'</b> \u00edtem'+(vis.length===1?'':'s')+' los ocultaste vos. Se guardan <b>solo en este dispositivo</b>: si reinstal\u00e1s la app o borr\u00e1s los datos del sitio, vuelven a aparecer. Para que sea permanente, copi\u00e1 la lista y peg\u00e1mela en el chat.</p>'
+          +'<div class="hb"><button class="btn" data-copy="'+esc(ocTexto())+'">Copiar lista para Claude</button>'
+          +'<button class="btn re" id="restall">Restaurar todos</button></div></div>'
+        : (cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>'))
     +(function(){
-        const P=M.proxy; if(!P) return '';
+        const P=M.proxy; if(!P||vistaOc) return '';
         const el=vis.filter(i=>i.sb==='eub'&&i.peso_g).slice().sort((x,y)=>y.peso_g-x.peso_g);
         if(el.length<2) return '';
         const prod=n2(el.reduce((a,i)=>a+i.precio_cny,0));
@@ -558,16 +603,17 @@ function pintar(){
           +'<b>US$ '+usd(juntos)+'</b> en total, contra <b>US$ '+usd(sueltos)+'</b> comprados uno por uno. '
           +'Ahorro: <b>US$ '+usd(ahorro)+'</b>. La comisi\u00f3n de \u00a5'+P.comision_cny+' se paga igual por cada \u00edtem; lo que se reparte es el flete.</p></div>';
       })()
-    +((cat&&cat.busquedas&&cat.busquedas.length)
+    +((!vistaOc&&cat&&cat.busquedas&&cat.busquedas.length)
       ? '<details class="busq"><summary>Buscar por mi cuenta en Goofish ('+cat.busquedas.length+' t\u00e9rminos)</summary>'
         +'<p class="ayuda">Toc\u00e1 un t\u00e9rmino y se copia en chino. Peg\u00e1lo en el buscador de goofish.com.</p>'
         +'<div class="terms">'+cat.busquedas.map(t=>
             '<button class="term" data-zh="'+esc(t.zh)+'">'+esc(t.zh)+'<br><span class="en">'+esc(t.en)+'</span></button>').join('')
         +'</div></details>'
       : '')
-    +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Nada coincide con estos filtros.</div>')+'</div>'
+    +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):(vistaOc?'<div class="empty">No hay \u00edtems ocultos.</div>':'<div class="empty">Nada coincide con estos filtros.</div>'))+'</div>'
     +(function(){
-        const d=ordenar(C.descartados.filter(x=>(filtro==='todos'||x.categoria===filtro)&&(!pmax||x.precio_cny<=pmax)));
+        if(vistaOc) return '';
+        const d=ordenar(C.descartados.filter(x=>!ocEs(x.id)&&(filtro==='todos'||x.categoria===filtro)&&(!pmax||x.precio_cny<=pmax)));
         if(!d.length) return '';
         return '<details class="rejs"><summary>Descartados y por qu\u00e9 ('+d.length+')</summary>'
           +'<div class="grid" style="margin-top:14px">'+d.map(tarjeta).join('')+'</div></details>';
@@ -577,6 +623,11 @@ function pintar(){
   document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=e=>{e.stopPropagation();abrir(b.dataset.ver);});
   document.querySelectorAll('[data-stop]').forEach(a=>a.onclick=e=>e.stopPropagation());
   cablearCopias(document.getElementById('app'));
+  cablearOcultar(document.getElementById('app'), false);
+  const eb=document.getElementById('ebtn');
+  if(eb) eb.onclick=()=>{ editando=!editando; pintar(); };
+  const ra=document.getElementById('restall');
+  if(ra) ra.onclick=()=>{ OCULTOS=[]; ocGuardar(); filtro='todos'; pintar(); window.scrollTo({top:0}); };
   document.querySelectorAll('[data-open]').forEach(c=>{
     c.onclick=()=>{ if(_arrastro) return; abrir(c.dataset.open); };
     const ph=c.querySelector('.ph');
@@ -646,11 +697,21 @@ let _mx=null;
 lb.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse'&&!lb.classList.contains('zm')) _mx=e.clientX; });
 lb.addEventListener('pointerup',e=>{ if(_mx===null)return; const dx=e.clientX-_mx; _mx=null;
   if(Math.abs(dx)>60) moverFoto(dx<0?1:-1); });
+function cablearOcultar(root, desdeModal){
+  const tras=()=>{ if(desdeModal) cerrar();
+    if(filtro==='__ocultos' && !OCULTOS.length) filtro='todos';
+    pintar(); };
+  root.querySelectorAll('[data-oc]').forEach(b=>b.onclick=e=>{
+    e.stopPropagation(); if(_arrastro) return; ocAdd(b.dataset.oc); tras(); });
+  root.querySelectorAll('[data-rest]').forEach(b=>b.onclick=e=>{
+    e.stopPropagation(); if(_arrastro) return; ocDel(b.dataset.rest); tras(); });
+}
 function abrir(id){
   const it=C.items.find(x=>x.id===id)||C.descartados.find(x=>x.id===id); if(!it)return;
   md.innerHTML=detalle(it); ov.classList.add('on'); document.body.style.overflow='hidden';
   activarCarr(md); document.getElementById('cx').onclick=cerrar; md.scrollIntoView();
   cablearCopias(md);
+  cablearOcultar(md, true);
   md.querySelectorAll('.mph .sl img').forEach(im=>im.onclick=e=>{
     e.stopPropagation(); verFoto(it.imagenes, Number(im.dataset.i)||0); });
 }
@@ -719,7 +780,7 @@ document.addEventListener('click', e=>{
 (function cargar(){
   const s=document.createElement('script');
   s.src='data/items.js?v='+Math.floor(Date.now()/300000);
-  s.onload=()=>{ C=window.CATALOGO; M=C.meta; pintar(); };
+  s.onload=()=>{ C=window.CATALOGO; M=C.meta; ocPurgar(); pintar(); };
   s.onerror=()=>{ document.getElementById('app').innerHTML=
     '<p class="err">No se pudieron cargar los datos del catálogo (data/items.js).</p>'; };
   document.head.appendChild(s);
