@@ -49,6 +49,7 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 .chip2{background:var(--card2);border:1px solid var(--line);color:var(--dim);border-radius:16px;
   padding:6px 13px;font-size:12.5px;font-family:inherit;cursor:pointer}
 .chip2.on{background:var(--acc);border-color:var(--acc);color:#15151c;font-weight:600}
+.cu{font-size:10.5px;opacity:.65;font-family:var(--mono)}
 .limpiar{background:none;border:0;color:var(--mute);font-size:12px;font-family:inherit;
   cursor:pointer;padding:10px 0 0;text-decoration:underline}
 .busq{margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 14px}
@@ -287,7 +288,7 @@ function tarjeta(it){
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
     +'<p class="dm">'+(it.interior?it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span>':esc(it.spec||''))+'</p>'
     +'<p class="rs">'+esc(it.resumen||it.motivo||it.descripcion||'')+'</p>'
-    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
+    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
     +'<div class="acts"><button class="btn" data-ver="'+it.id+'">Detalle</button>'
     +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener" data-stop>Goofish</a></div>'
@@ -298,7 +299,7 @@ function detalleNo(it){
   return '<button class="x" id="cx" aria-label="Cerrar">&times;</button>'+carr(it,'mph',1)+'<div class="mb">'
     +'<div class="ctop" style="align-items:center"><h2 style="margin:0">'+esc(it.titulo)+'</h2>'
     +'<span class="badge b-no">descartado</span></div>'
-    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span></div>'
+    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span></div>'
     +'<div class="motivo"><h4>Por qu\u00e9 no pas\u00f3</h4><p>'+esc(it.motivo)+'</p></div>'
     +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
     +'<div class="raw">'+esc(it.url)+'</div></div>';
@@ -312,7 +313,7 @@ function detalle(it){
     : 'no declarado en el anuncio';
   return '<button class="x" id="cx" aria-label="Cerrar">&times;</button>'+carr(it,'mph',1)+'<div class="mb">'
     +'<h2>'+esc(it.titulo)+'</h2><p class="zh">'+esc(it.titulo_zh)+'</p>'
-    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
+    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span>'
     +(it.envio==='incluido'?'<span class="free">envío incluido</span>':'')+'</div>'
     +'<div class="sp">'
       +(it.interior?'<div><div class="k">Interior</div><div class="v mono">'+it.interior.join(' \u00d7 ')+' cm \u00b7 '+volumen(it).toLocaleString('es')+' cm\u00b3</div></div>'
@@ -348,7 +349,7 @@ const ORDENES=[
   {v:'precio_desc', t:'Precio: de mayor a menor'},
   {v:'vol',         t:'Tama\u00f1o: m\u00e1s compacto primero'}
 ];
-const TOPES=[{v:0,t:'Sin l\u00edmite'},{v:20,t:'\u00a520'},{v:30,t:'\u00a530'},{v:40,t:'\u00a540'},{v:60,t:'\u00a560'}];
+const TOPES=[0,20,30,40,60];
 
 function controles(){
   const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+' ('+n+')</option>';
@@ -367,7 +368,8 @@ function controles(){
       + ORDENES.map(o=>'<button class="opt'+(orden===o.v?' on':'')+'" data-ord="'+o.v+'">'+o.t+'</button>').join('')
       +'</div>'
       +'<h5 style="margin-top:14px">Precio m\u00e1ximo</h5><div class="chips">'
-      + TOPES.map(t=>'<button class="chip2'+(pmax==t.v?' on':'')+'" data-tope="'+t.v+'">'+t.t+'</button>').join('')
+      + TOPES.map(v=>'<button class="chip2'+(pmax==v?' on':'')+'" data-tope="'+v+'">'
+          +(v?'\u00a5'+v+' <span class="cu">(US$ '+usd(v)+')</span>':'Sin l\u00edmite')+'</button>').join('')
       +'</div>'
       + (activos?'<button class="limpiar" id="limpiar">Quitar filtros</button>':'')
       +'</div>';
