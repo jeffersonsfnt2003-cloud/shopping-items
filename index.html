@@ -51,6 +51,18 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 .chip2.on{background:var(--acc);border-color:var(--acc);color:#15151c;font-weight:600}
 .limpiar{background:none;border:0;color:var(--mute);font-size:12px;font-family:inherit;
   cursor:pointer;padding:10px 0 0;text-decoration:underline}
+.busq{margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 14px}
+.busq summary{cursor:pointer;color:var(--dim);font-size:13px;padding:11px 0;list-style:none}
+.busq summary::-webkit-details-marker{display:none}
+.busq summary::before{content:'\25b8 ';color:var(--mute)}
+.busq[open] summary::before{content:'\25be '}
+.busq .ayuda{color:var(--mute);font-size:11.5px;margin:0 0 9px}
+.terms{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:14px}
+.term{background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:7px;
+  padding:7px 11px;font-size:13.5px;font-family:inherit;cursor:pointer;text-align:left;line-height:1.35}
+.term:hover{border-color:var(--acc)}
+.term .en{color:var(--mute);font-size:11px;font-family:var(--mono)}
+.term.ok{border-color:var(--ok);color:var(--ok)}
 .catnote{color:var(--mute);font-size:12.5px;margin:0 0 16px;max-width:80ch}
 
 /* ---------- grilla ---------- */
@@ -349,6 +361,13 @@ function pintar(){
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
     +controles()
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
+    +((cat&&cat.busquedas&&cat.busquedas.length)
+      ? '<details class="busq"><summary>Buscar por mi cuenta en Goofish ('+cat.busquedas.length+' t\u00e9rminos)</summary>'
+        +'<p class="ayuda">Toc\u00e1 un t\u00e9rmino y se copia en chino. Peg\u00e1lo en el buscador de goofish.com.</p>'
+        +'<div class="terms">'+cat.busquedas.map(t=>
+            '<button class="term" data-zh="'+esc(t.zh)+'">'+esc(t.zh)+'<br><span class="en">'+esc(t.en)+'</span></button>').join('')
+        +'</div></details>'
+      : '')
     +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Nada coincide con estos filtros.</div>')+'</div>'
     +(function(){
         const d=ordenar(C.descartados.filter(x=>(filtro==='todos'||x.categoria===filtro)&&(!pmax||x.precio_cny<=pmax)));
@@ -376,6 +395,22 @@ function pintar(){
   });
   const j=document.getElementById('jump');
   if(j) j.onchange=()=>{ filtro=j.value||'todos'; pintar(); window.scrollTo({top:0}); };
+  document.querySelectorAll('[data-zh]').forEach(b=>b.onclick=async e=>{
+    e.stopPropagation();
+    const zh=b.dataset.zh, orig=b.innerHTML;
+    let ok=false;
+    try{ await navigator.clipboard.writeText(zh); ok=true; }
+    catch(_){
+      try{ const t=document.createElement('textarea'); t.value=zh;
+        t.style.cssText='position:fixed;opacity:0'; document.body.appendChild(t);
+        t.select(); ok=document.execCommand('copy'); t.remove(); }catch(__){}
+    }
+    b.classList.add('ok');
+    b.innerHTML = ok ? '\u2713 copiado<br><span class="en">'+esc(zh)+'</span>'
+                     : zh+'<br><span class="en">copialo a mano</span>';
+    setTimeout(()=>{ b.classList.remove('ok'); b.innerHTML=orig; }, 1600);
+  });
+
   const fb=document.getElementById('fbtn');
   if(fb) fb.onclick=()=>{ panel=!panel; pintar(); };
   document.querySelectorAll('[data-ord]').forEach(b=>b.onclick=()=>{ orden=b.dataset.ord; pintar(); });

@@ -21,9 +21,37 @@ window.CATALOGO = {
   categorias: [
     { id:"estuche-gamecube", nombre:"Estuches", tab:"Estuches",
       objetivo:"El estuche MÁS COMPACTO que admita 4 mandos de GameCube (14×10×6.5 cm c/u) y el adaptador (12×6×3). Interior libre, sin bandeja moldeada. Sin cables. Mínimo teórico: ~5.000 cm³.",
+      busquedas:[
+        {zh:"硬壳收纳包",        en:"hard shell storage case"},
+        {zh:"硬质收纳包海绵",     en:"rigid case with foam"},
+        {zh:"手提硬质工具包",     en:"rigid tool case with handle"},
+        {zh:"仪器仪表收纳包",     en:"instrument / equipment case"},
+        {zh:"硬壳收纳盒内尺寸",   en:"hard case, internal dimensions"},
+        {zh:"双层硬壳收纳包",     en:"double-layer hard case"},
+        {zh:"EVA硬壳收纳包手提",  en:"EVA hard case with handle"},
+        {zh:"数码收纳包硬壳小号", en:"small digital hard case"},
+        {zh:"耳机收纳包硬壳大号", en:"large headphone hard case"},
+        {zh:"无人机收纳包硬壳",   en:"drone hard case"},
+        {zh:"相机内胆包硬壳",     en:"camera insert hard case"},
+        {zh:"游戏机收纳包硬壳",   en:"game console hard case"},
+        {zh:"小号硬壳工具包",     en:"small hard tool bag"},
+        {zh:"便携收纳盒EVA加厚",  en:"portable thick EVA box"}
+      ],
       requisito_minimo:"Volumen interior ≤ 6.500 cm³ y alguna disposición válida de los 4 mandos + adaptador." },
     { id:"base-xbox", nombre:"Bases y coolers", tab:"Bases y coolers",
       objetivo:"Cargar 4 mandos de Xbox One (micro USB) y, si se puede, refrigerar la Series X. NO interesa el almacenaje de discos.",
+      busquedas:[
+        {zh:"xbox手柄充电座",         en:"xbox controller charging dock"},
+        {zh:"xboxone手柄充电座",      en:"xbox ONE controller dock (micro USB)"},
+        {zh:"xbox散热底座充电",       en:"xbox cooling base with charging"},
+        {zh:"xbox多功能底座散热充电", en:"xbox multifunction cooling + charging stand"},
+        {zh:"xbox series x 散热支架", en:"series x cooling stand"},
+        {zh:"xbox手柄四充",           en:"xbox 4-controller charger"},
+        {zh:"手柄座充4座",            en:"4-bay controller dock"},
+        {zh:"xbox座充四座",           en:"xbox 4-bay dock"},
+        {zh:"xbox手柄电池充电套装",   en:"xbox controller battery + charger kit"},
+        {zh:"手柄充电座 四个",        en:"controller dock, four"}
+      ],
       requisito_minimo:"Compatible con Xbox One: conector micro USB o contactos de batería. Las bases USB-C son solo para mandos Series X|S y NO sirven." }
   ],
 
