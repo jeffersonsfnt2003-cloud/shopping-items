@@ -41,38 +41,6 @@ Lo que se revisa y no pasa queda registrado en `descartados` con el motivo, para
 
 GitHub Pages sirve `index.html` desde la raíz de `main`.
 
-## Publicación automática
-
-Claude commitea desde una VM Linux aislada **sin credenciales de GitHub y sin SSH**
-(solo salida HTTPS por proxy). Esta Mac sí tiene credenciales que funcionan, así que
-el push lo hace ella. **Ningún token ni clave pasa por el chat.**
-
-Instalación, una sola vez, desde la Terminal de la Mac:
-
-```bash
-cat > ~/Library/LaunchAgents/com.jefferson.shopping-autopush.plist <<'PLIST'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-  <key>Label</key><string>com.jefferson.shopping-autopush</string>
-  <key>ProgramArguments</key>
-  <array><string>/bin/bash</string>
-    <string>/Users/IntelProyects/Documents/GitHub/shopping-items/tools/autopush.sh</string></array>
-  <key>StartInterval</key><integer>120</integer>
-  <key>RunAtLoad</key><true/>
-</dict></plist>
-PLIST
-launchctl unload ~/Library/LaunchAgents/com.jefferson.shopping-autopush.plist 2>/dev/null
-launchctl load  ~/Library/LaunchAgents/com.jefferson.shopping-autopush.plist
-echo "agente instalado"
-```
-
-Revisar qué hizo: `tail -f ~/Library/Logs/shopping-autopush.log`
-Apagarlo: `launchctl unload ~/Library/LaunchAgents/com.jefferson.shopping-autopush.plist`
-
-> **Advertencia:** con esto activo, todo commit que Claude haga se publica solo,
-> sin revisión previa. Es el precio de operar desde el celular.
-
 ## Requisito para GitHub Pages
 
 En cuentas gratuitas, **Pages solo funciona con el repositorio público**. Este repo
