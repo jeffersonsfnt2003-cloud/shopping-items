@@ -56,6 +56,17 @@ window.CATALOGO = {
         {zh:"真皮桌垫",         en:"genuine leather desk mat"},
         {zh:"桌面垫键盘",       en:"desk mat for keyboard"}
       ] },
+    { id:"casa-contenedor", nombre:"Casas contenedor", tab:"Casas contenedor",
+      objetivo:"Casas modulares tipo contenedor: precios de referencia en origen. ATENCIÓN: ningún vendedor de Goofish exporta. Todos entregan solo dentro de China. Esta categoría sirve para saber cuánto vale la casa en fábrica, no para comprar desde El Salvador.",
+      requisito_minimo:"El precio del anuncio es el costo MENOR. Flete marítimo, arancel, 13% de IVA y transporte terrestre pesan varias veces más que la casa.",
+      busquedas:[
+        {zh:"集装箱房屋",     en:"container house"},
+        {zh:"打包箱房",       en:"flat-pack container house"},
+        {zh:"活动板房",       en:"mobile prefab house"},
+        {zh:"折叠集装箱房",   en:"folding container house"},
+        {zh:"集装箱别墅",     en:"container villa"},
+        {zh:"二手集装箱房",   en:"second-hand container house"}
+      ] },
     { id:"base-xbox", nombre:"Bases y coolers", tab:"Bases y coolers",
       objetivo:"Cargar 4 mandos de Xbox One (micro USB) y, si se puede, refrigerar la Series X. NO interesa el almacenaje de discos.",
       busquedas:[
@@ -393,10 +404,125 @@ window.CATALOGO = {
         "https://img.alicdn.com/bao/uploaded/i3/774829928/O1CN011PyiEN2ND5FajwSXi_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
         "https://img.alicdn.com/bao/uploaded/i2/774829928/O1CN016VfW8w2ND5FaQr3aC_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp"
       ]
+    },
+    {
+      id:"998200173600", categoria:"casa-contenedor", estado:"aprobado",
+      titulo:"Usada 3×6 m — la más barata",
+      titulo_zh:"二手集装箱房，3x6米白色款，带窗户和门",
+      url:"https://www.goofish.com/item?id=998200173600",
+      precio_cny:800, envio:"incluido",
+      material:"Estructura de acero con paneles", color:"Blanco", condicion:"Usada, casi nueva según el vendedor",
+      spec:"3 × 6 m · 18 m² · una planta · puerta y ventanas",
+      vendedor:{ nombre:"网红集装箱", ciudad:"Baoding", antiguedad:"1 año", ventas:95, reputacion:"100%" },
+      resumen:"18 m² por US$119 en origen. El vendedor mejor valorado de toda la categoría.",
+      descripcion:"Módulo usado de 3 × 6 metros, o sea 18 m² de piso, en blanco, con puerta y ventanas. El vendedor declara interior limpio y estructura sólida, y ofrece verla en persona. Con 95 ventas y 100% de valoraciones es el vendedor más fiable de los que aparecieron. Baja a ¥760 si van dos compradores. Es el precio de suelo del mercado: por debajo de esto solo hay casetas de comida y chatarra.",
+      verificacion:[
+        "Las cuatro fotos son del módulo real en el patio del vendedor, no de catálogo.",
+        "1.440 visitas y 108 personas interesadas: es de los anuncios más vistos de la categoría.",
+        "El vendedor ofrece recogida en la misma ciudad y visita presencial para ver la casa antes de pagar.",
+        "100% de valoraciones sobre 95 ventas."
+      ],
+      reservas:[
+        "NO SE PUEDE EXPORTAR. El vendedor entrega en Baoding o envía dentro de China. No hay opción internacional.",
+        "El 包邮 (envío incluido) aplica solo a China. Un módulo de dos toneladas no viaja gratis.",
+        "Es usada: el vendedor dice buen estado pero no detalla óxido, filtraciones ni aislamiento.",
+        "No incluye instalación, fundación, ni conexiones de agua o electricidad."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01KzyBZY1fWvJMVhADr_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01Rlnilv1fWvJMr7lX5_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01GQFXPg1fWvJMq56gX_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01OVwmxS1fWvJN6XldX_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"1039908953531", categoria:"casa-contenedor", estado:"aprobado",
+      titulo:"Doble planta con terraza",
+      titulo_zh:"全新双层打包箱房，米白简约风，带超大露台和外置楼梯",
+      url:"https://www.goofish.com/item?id=1039908953531",
+      precio_cny:2700, envio:"incluido",
+      material:"Marco de acero, paneles con aislamiento térmico y acústico", color:"Blanco hueso", condicion:"Nueva, recién terminada",
+      spec:"2 plantas · terraza grande · escalera exterior · medidas a medida",
+      vendedor:{ nombre:"内蒙古同创岗亭集装箱房厂", ciudad:"Ordos", antiguedad:"8 años", ventas:11, reputacion:"100%" },
+      resumen:"La más parecida a la foto que mandaste. Fábrica con 8 años y 100%, US$402 en origen.",
+      descripcion:"Es prácticamente el modelo de tu foto: dos plantas, terraza grande y escalera exterior, en blanco hueso. Marco de acero, con aislamiento térmico y acústico declarados. La vende una fábrica de Mongolia Interior con 8 años en la plataforma y 100% de valoraciones, que ofrece inspección por video antes de pagar y permite personalizar medidas, tabiques y distribución.",
+      verificacion:[
+        "El vendedor es una fábrica registrada, 8 años en la plataforma, 100% sobre 11 ventas.",
+        "Ofrece verificación por video o visita presencial antes de pagar: es el único de la categoría que lo propone explícitamente.",
+        "487 visitas y 17 interesados.",
+        "Declara medidas y distribución personalizables, con tabiques y acabados a elegir."
+      ],
+      reservas:[
+        "NO SE PUEDE EXPORTAR. Envía dentro de China o entrega en Ordos.",
+        "El precio de ¥2.700 es de partida: el propio anuncio dice que las medidas y la cotización se acuerdan por privado. Una unidad de dos plantas real cuesta más.",
+        "Solo 11 ventas: la fábrica es antigua en la plataforma pero mueve poco volumen ahí.",
+        "Una sola foto disponible en el anuncio."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i4/3368239536/O1CN01XiOPWP2KJY0zhuNQQ_!!4611686018427380144-53-xy_item.heic_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"1079805790421", categoria:"casa-contenedor", estado:"aprobado",
+      titulo:"Doble planta con muro de vidrio",
+      titulo_zh:"全新双层集装箱房，玻璃幕墙，采光好",
+      url:"https://www.goofish.com/item?id=1079805790421",
+      precio_cny:2888, envio:"incluido",
+      material:"Estructura de acero con muro cortina de vidrio", color:"Blanco y vidrio", condicion:"Nueva",
+      spec:"2 plantas · muro cortina acristalado · marca 中远",
+      vendedor:{ nombre:"x***3", ciudad:"Suzhou", antiguedad:"1 DÍA", ventas:0, reputacion:"sin historial" },
+      resumen:"Fotos reales en sitio y el mejor aspecto de la categoría. Pero el vendedor abrió la cuenta ayer.",
+      descripcion:"Dos plantas con muro cortina de vidrio, el modelo con mejor aspecto del barrido y muy cercano a tu foto de referencia. El anuncio dice 现场实拍, o sea fotos tomadas en el sitio, y eso se nota: se ve la unidad montada, no un render. Marca declarada 中远 (COSCO).",
+      verificacion:[
+        "Las fotos son del montaje real, no renders ni catálogo.",
+        "El anuncio declara la marca 中远 y estado nuevo."
+      ],
+      reservas:[
+        "EL VENDEDOR LLEVA UN DÍA EN LA PLATAFORMA. Cero ventas, cero valoraciones, 8 visitas al anuncio. Para ¥2.888 eso es un riesgo serio: es el perfil típico de una cuenta desechable.",
+        "NO SE PUEDE EXPORTAR. Solo recogida en Suzhou.",
+        "No declara medidas, ni materiales de aislamiento, ni qué incluye.",
+        "Lo dejo en la lista solo como referencia visual y de precio. No lo compraría."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i3/2223023054103/O1CN01BQqloEbTTjD2b8N0_!!4611686018427387159-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/2223023054103/O1CN01kFKKV8XtT1G2b8N0_!!4611686018427387159-0-xy_item.jpg_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"861856882732", categoria:"casa-contenedor", estado:"aprobado",
+      titulo:"Nueva plegable 3×6 m",
+      titulo_zh:"全新折叠集装箱房，米黄色，3米×6米",
+      url:"https://www.goofish.com/item?id=861856882732",
+      precio_cny:3000, envio:"no especificado",
+      material:"Acero plegable, paneles sándwich", color:"Beige", condicion:"Nueva, sin uso",
+      spec:"3 × 6 m · 18 m² · se entrega plegada y se arma en sitio",
+      vendedor:{ nombre:"活动房厂家", ciudad:"Haixi", antiguedad:"1 año", ventas:1, reputacion:"sin historial" },
+      resumen:"Plegable: viaja plana y se arma en sitio. Es el formato que sí tiene sentido exportar.",
+      descripcion:"Módulo nuevo plegable de 3 × 6 metros en beige. El formato plegable es el técnicamente relevante para vos: viaja plano, así que entran varias unidades en un contenedor marítimo y el flete por casa baja mucho frente a un módulo rígido. Las fotos son de catálogo de fábrica y muestran el rango completo: paneles apilados en nave, una grúa colocando un módulo, interiores acabados y una unidad de dos plantas acristalada.",
+      verificacion:[
+        "Las fotos muestran el proceso completo: paneles plegados apilados en la nave, montaje con grúa e interior terminado.",
+        "El anuncio declara transporte a todo China y aceptar devolución si llega con defectos de calidad."
+      ],
+      reservas:[
+        "El vendedor tiene 1 año en la plataforma y UNA sola venta. Sin reputación acumulada.",
+        "Las fotos son de catálogo, no del producto concreto que te mandarían: muestran al menos cinco modelos distintos.",
+        "NO SE PUEDE EXPORTAR desde Goofish. 支持全国运输 significa transporte dentro de China.",
+        "No dice si el envío está incluido."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01A7XHGV1puPh3gZoKT_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01LDbYP21puPhCfYRpt_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01K1Ny1m1puPhC5kuSP_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01KqfxUa1puPh3gYP01_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
+      ]
     }
   ],
 
   descartados: [
+    { id:"1053731928915", url:"https://www.goofish.com/item?id=1053731928915", titulo:"Villa con balcón — el precio es una seña", precio_cny:500,
+      motivo:"TRAMPA DE PRECIO. Aparece como la más barata de toda la categoría a ¥500, pero el propio título dice 500定金，全款4.9万: esos ¥500 son la seña y el precio real son ¥49.000, unos US$7.296. Es 61 veces más caro de lo que muestra el listado." },
+    { id:"854134162961", url:"https://www.goofish.com/item?id=854134162961", titulo:"Módulos a medida — el precio es una seña", precio_cny:2000,
+      motivo:"Misma trampa: 标价为定金, el precio publicado es solo la seña. Ofrece 3×6, 3.6×6, 4×6 y 4.8×6 metros a medida, pero no publica ninguna tarifa real. Encontré 5 anuncios así entre los 141 de la categoría." },
     { id:"1036682017705", url:"https://www.goofish.com/item?id=1036682017705", titulo:"Xiaomi 11º aniversario 80×40", precio_cny:14,
       motivo:"Tela sobre goma y marca oficial Xiaomi, pero lleva una caligrafía naranja gigante que ocupa medio tapete: es lo contrario de un color oscuro discreto. Y el vendedor dice explícitamente 不包邮, o sea que el envío NO está incluido, así que el precio real no son ¥14." },
     { id:"942469861593", url:"https://www.goofish.com/item?id=942469861593", titulo:"Cuero 120×60, nueve colores", precio_cny:16,
@@ -461,11 +587,14 @@ window.CATALOGO = {
   };
   IM["1036682017705"]=["i4/O1CN01tonZge240HV5JyDJk_!!4611686018427385360-0-fleamarket.jpg","i1/O1CN01NFxvrH240HV3abdVg_!!4611686018427385360-0-fleamarket.jpg","i4/O1CN01bZ1Zvg240HV3RdgVE_!!4611686018427385360-0-fleamarket.jpg"];
   IM["942469861593"]=["i1/O1CN01kZNvSd1Gc5L9L8jwS_!!4611686018427381010-53-fleamarket.heic","i4/O1CN012Ez0Ss1Gc5LA1zSb9_!!4611686018427381010-53-fleamarket.heic","i4/O1CN01i7HbYv1Gc5L9jDl7z_!!4611686018427381010-0-fleamarket.jpg"];
+  IM["1053731928915"]=["i3/O1CN01TEfjK91YwO3SqD7sv_!!4611686018427381379-0-fleamarket.jpg","i2/O1CN01c4GpA91YwO3Sq9R4g_!!4611686018427381379-0-fleamarket.jpg","i4/O1CN01fkDaBV1YwO3Su49eF_!!4611686018427381379-0-fleamarket.jpg"];
+  IM["854134162961"]=["i2/O1CN01fHa1Hf2IdZzHTiWDc_!!4611686018427384509-0-fleamarket.jpg","i2/O1CN01xkTHH72IdZzJPJekW_!!4611686018427384509-53-fleamarket.heic","i1/O1CN01m9BOTx2IdZzS2JfCX_!!4611686018427384509-53-fleamarket.heic"];
+  var CASA={"1053731928915":1,"854134162961":1};
   var PAD={"1036682017705":1,"942469861593":1};
   var XBOX={"909429995079":1,"899536886280":1,"1058087644676":1,"1079501886618":1};
   window.CATALOGO.descartados.forEach(function(d){
     d.imagenes = X(IM[d.id]);
-    d.categoria = XBOX[d.id] ? "base-xbox" : (PAD[d.id] ? "desk-pad" : "estuche-gamecube");
+    d.categoria = XBOX[d.id] ? "base-xbox" : PAD[d.id] ? "desk-pad" : CASA[d.id] ? "casa-contenedor" : "estuche-gamecube";
     d.estado = "descartado";
   });
 })();
