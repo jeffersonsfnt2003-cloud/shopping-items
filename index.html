@@ -347,23 +347,24 @@ function diagrama(it){
 function bloqueSB(it){
   const c=costoSB(it), P=P2(); if(!c) return '';
   if(c.estado==='bloqueado')
-    return '<div class="sb mal"><h4>Costo puesto en El Salvador \u2014 v\u00eda '+esc(P.nombre)+'</h4>'
+    return '<div class="sb mal"><h4>Costo v\u00eda '+esc(P.nombre)+'</h4>'
       +'<p class="obs" style="color:var(--bad)">Superbuy NO puede comprar este art\u00edculo. Al pegar su enlace responde '
       +'<em>"Unable to Purchase: restricted by customs and security check policies"</em>. Verificado el '+P.verificado+'.</p></div>';
   const fila=(k,v)=>'<tr><td>'+k+'</td><td>'+v+'</td></tr>';
   const pct=Math.round(it.precio_cny/c.total*100);
   const ojo=c.estado==='expres';
-  return '<div class="sb'+(ojo?' ojo':'')+'"><h4>Costo puesto en El Salvador \u2014 v\u00eda '+esc(P.nombre)+'</h4><table>'
+  return '<div class="sb'+(ojo?' ojo':'')+'"><h4>Costo v\u00eda '+esc(P.nombre)+' \u2014 hasta el flete internacional</h4><table>'
     + fila('Producto en Goofish','\u00a5'+it.precio_cny)
     + fila('Env\u00edo dentro de China', it.envio==='incluido'?'\u00a50':'a confirmar')
     + fila('Comisi\u00f3n '+esc(P.nombre)+' (por \u00edtem)','\u00a5'+P.comision_cny)
     + fila('Flete '+(ojo?'expr\u00e9s':'EUB postal')+(it.peso_g?' \u00b7 '+it.peso_g+' g':'')+' \u00b7 '+c.dias+' d\u00edas','\u00a5'+c.flete)
-    + '<tr class="tot"><td>Total estimado</td><td>\u00a5'+c.total+'  (US$ '+usd(c.total)+')</td></tr>'
+    + '<tr class="tot"><td>Total que cotiza '+esc(P.nombre)+'</td><td>\u00a5'+c.total+'  (US$ '+usd(c.total)+')</td></tr>'
     + '</table>'
     + (ojo
         ? '<p class="obs" style="color:var(--warn)">No cabe en el correo econ\u00f3mico: EUB limita el lado m\u00e1s largo a '+P.eub.limite_lado_cm+' cm y este art\u00edculo enrollado mide m\u00e1s. Obliga a courier expr\u00e9s, que adem\u00e1s cobra por peso volum\u00e9trico. Por eso el flete casi se duplica.</p>'
         : '<p class="obs">El producto es el '+pct+'% del total. El flete es el resto.</p>')
-    + '<p class="obs">Estimaci\u00f3n con tarifas le\u00eddas de la calculadora oficial de '+esc(P.nombre)+' el '+P.verificado+'. El flete definitivo lo fija la factura del transportista y se ajusta despu\u00e9s.</p></div>';
+    + '<p class="obs">Estimaci\u00f3n con tarifas le\u00eddas de la calculadora oficial de '+esc(P.nombre)+' el '+P.verificado+'. El flete definitivo lo fija la factura del transportista y se ajusta despu\u00e9s.</p>'
+    + '<p class="obs">Hasta aqu\u00ed llega la cotizaci\u00f3n del proxy: es lo que '+esc(P.nombre)+' te cobra al pegar el enlace. Aranceles, IVA y cualquier gasto de aduana en El Salvador van aparte y no est\u00e1n contados.</p></div>';
 }
 
 function tarjeta(it){
@@ -375,7 +376,7 @@ function tarjeta(it){
     +(function(){const c=costoSB(it); if(!c) return '';
       return c.estado==='bloqueado'
         ? '<p class="sv mal">\u2192 <b>Superbuy no lo puede comprar</b></p>'
-        : '<p class="sv">\u2192 <b>US$ '+usd(c.total)+'</b> puesto en El Salvador</p>';})()
+        : '<p class="sv">\u2192 <b>US$ '+usd(c.total)+'</b> v\u00eda '+esc(P2().nombre)+'</p>';})()
     +'<p class="rs">'+esc(it.resumen||it.motivo||it.descripcion||'')+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
