@@ -26,8 +26,8 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 
 /* ---------- pestañas ---------- */
 .navrow{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
-.jump{flex:1;min-width:190px;background:var(--card);color:var(--tx);border:1px solid var(--line);
-  border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit;cursor:pointer;max-width:340px}
+.jump{flex:1;min-width:0;font-weight:600;background:var(--card);color:var(--tx);border:1px solid var(--line);
+  border-radius:8px;padding:9px 12px;font-size:14px;font-family:inherit;cursor:pointer;max-width:380px}
 .jump:focus{outline:none;border-color:var(--acc)}
 .err{color:var(--bad);font-size:14px;padding:30px;text-align:center}
 nav.tabs{flex:0 1 auto;margin-bottom:0;display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:6px;scrollbar-width:none}
@@ -252,27 +252,20 @@ function activarCarr(root){
 }
 
 function selector(){
-  const g=C.categorias.map(c=>{
-    const its=C.items.filter(i=>i.categoria===c.id);
-    if(!its.length) return '';
-    return '<optgroup label="'+esc(c.tab||c.nombre)+'">'
-      +its.map(i=>'<option value="'+i.id+'">'+esc(i.titulo)+' — \u00a5'+i.precio_cny+' / US$ '+usd(i.precio_cny)+'</option>').join('')
-      +'</optgroup>';
-  }).join('');
-  return '<select class="jump" id="jump"><option value="">Ir a un ítem\u2026 ('+C.items.length+')</option>'+g+'</select>';
+  const op=(v,txt,n)=>'<option value="'+v+'"'+(filtro===v?' selected':'')+'>'+esc(txt)+' ('+n+')</option>';
+  return '<select class="jump" id="jump" aria-label="Categoría">'
+    + op('todos','Todas las categorías',C.items.length)
+    + C.categorias.map(c=>op(c.id, c.tab||c.nombre, C.items.filter(i=>i.categoria===c.id).length)).join('')
+    + '</select>';
 }
 
 let filtro='todos';
 function pintar(){
-  const cats=C.categorias;
-  const tabs='<button class="tab'+(filtro==='todos'?' on':'')+'" data-f="todos">Todos<span class="n">'+C.items.length+'</span></button>'
-    +cats.map(c=>{const n=C.items.filter(i=>i.categoria===c.id).length;
-      return '<button class="tab'+(filtro===c.id?' on':'')+'" data-f="'+c.id+'">'+esc(c.tab||c.nombre)+'<span class="n">'+n+'</span></button>';}).join('');
-  const cat=cats.find(c=>c.id===filtro);
+  const cat=C.categorias.find(c=>c.id===filtro);
   const vis=C.items.filter(i=>filtro==='todos'||i.categoria===filtro);
   document.getElementById('app').innerHTML=
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
-    +'<div class="navrow"><nav class="tabs">'+tabs+'</nav>'+selector()+'</div>'
+    +'<div class="navrow">'+selector()+'</div>'
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
     +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Todavía no hay nada verificado en esta categoría.</div>')+'</div>'
     +'<details class="rejs"><summary>Descartados y por qué ('+C.descartados.length+')</summary>'
@@ -281,12 +274,11 @@ function pintar(){
     +'</details>'
     +'<footer>Miniaturas servidas por el CDN de Goofish. Última actualización: '+M.tasa_fecha+'.</footer>';
   activarCarr(document.getElementById('app'));
-  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filtro=b.dataset.f;pintar();window.scrollTo({top:0});});
   document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=e=>{e.stopPropagation();abrir(b.dataset.ver);});
   document.querySelectorAll('[data-stop]').forEach(a=>a.onclick=e=>e.stopPropagation());
   document.querySelectorAll('[data-open]').forEach(c=>c.onclick=()=>abrir(c.dataset.open));
   const j=document.getElementById('jump');
-  if(j) j.onchange=()=>{ if(j.value){ abrir(j.value); j.value=''; } };
+  if(j) j.onchange=()=>{ filtro=j.value||'todos'; pintar(); window.scrollTo({top:0}); };
 }
 
 const ov=document.getElementById('ov'), md=document.getElementById('md');
