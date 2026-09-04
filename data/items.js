@@ -69,8 +69,8 @@ window.CATALOGO = {
         {zh:"桌面垫键盘",       en:"desk mat for keyboard"}
       ] },
     { id:"casa-contenedor", nombre:"Casas contenedor", tab:"Casas contenedor",
-      objetivo:"Casas modulares tipo contenedor: precios de referencia en origen. ATENCIÓN: ningún vendedor de Goofish exporta. Todos entregan solo dentro de China. Esta categoría sirve para saber cuánto vale la casa en fábrica, no para comprar desde El Salvador.",
-      requisito_minimo:"El precio del anuncio es el costo MENOR. Flete marítimo, arancel, 13% de IVA y transporte terrestre pesan varias veces más que la casa.",
+      objetivo:"Casas modulares tipo contenedor: precios de referencia en origen. Ningún vendedor de Goofish exporta, pero Superbuy SÍ tiene un canal para carga pesada — su Customized Logistics Service, marítimo o ferroviario, para envíos de 30 kg en adelante. No publica tarifas: hay que pedir cotización y contestan en 3 días hábiles.",
+      requisito_minimo:"El precio del anuncio es el costo MENOR. Antes del flete marítimo hay que pagar el transporte terrestre dentro de China hasta la bodega de Superbuy en Guangdong: las casas verificadas están en Ordos, Suzhou, Baoding y Haixi, hasta 2.500 km. Después vienen arancel, 13% de IVA y el traslado desde Acajutla. Y Superbuy aclara que su servicio de carga es SOLO transporte, con inspección visual del exterior: nadie verifica que la casa esté bien antes de embarcarla.",
       busquedas:[
         {zh:"集装箱房屋",     en:"container house"},
         {zh:"打包箱房",       en:"flat-pack container house"},
