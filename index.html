@@ -37,11 +37,13 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 
 /* ---------- pestañas ---------- */
 .navrow{display:flex;gap:8px;align-items:stretch;margin-bottom:10px}
+.navrow .fbtn{white-space:nowrap}
+@media(max-width:400px){.navrow{gap:6px}.navrow .fbtn{padding:0 11px;font-size:12.5px}}
 .catwrap{flex:1 1 auto;min-width:0;position:relative}
 .catlbl{position:absolute;left:12px;top:6px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--mute);font-family:var(--mono);pointer-events:none}
-.caret{position:absolute;right:12px;top:50%;transform:translateY(-25%);color:var(--dim);
-  font-size:11px;pointer-events:none}
+.caret{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--dim);
+  font-size:13px;line-height:1;pointer-events:none}
 .jump{width:100%;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:9px;
   padding:20px 28px 8px 12px;font-size:14.5px;font-weight:600;font-family:inherit;cursor:pointer;
   appearance:none;-webkit-appearance:none}
@@ -491,6 +493,9 @@ function detalle(it){
     +'</div>'
     +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
     +'<button class="cplink" data-copy="'+esc(it.url)+'">'+ICO+' Copiar link</button>'
+    +(ocEs(it.id)
+        ? '<button class="cplink" data-rest="'+it.id+'">Restaurar este \u00edtem</button>'
+        : '<button class="cplink" data-oc="'+it.id+'">Ocultar este \u00edtem</button>')
     +'<div class="raw">'+esc(it.url)+'</div></div>';
 }
 
