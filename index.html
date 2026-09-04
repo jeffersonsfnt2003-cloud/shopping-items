@@ -219,7 +219,7 @@ function diagrama(it){
 function tarjeta(it){
   return '<article class="prod" data-open="'+it.id+'">'+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
-    +'<p class="dm">'+it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span></p>'
+    +'<p class="dm">'+(it.interior?it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span>':esc(it.spec||''))+'</p>'
     +'<p class="rs">'+esc(it.resumen||it.descripcion)+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
@@ -238,13 +238,14 @@ function detalle(it){
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incluido</span>':'')+'</div>'
     +'<div class="sp">'
-      +'<div><div class="k">Interior</div><div class="v mono">'+it.interior.join(' x ')+' cm</div></div>'
+      +(it.interior?'<div><div class="k">Interior</div><div class="v mono">'+it.interior.join(' \u00d7 ')+' cm \u00b7 '+volumen(it).toLocaleString('es')+' cm\u00b3</div></div>'
+                          :'<div><div class="k">Caracter\u00edsticas</div><div class="v">'+esc(it.spec||'')+'</div></div>')
       +'<div><div class="k">Material</div><div class="v">'+esc(it.material)+'</div></div>'
       +'<div><div class="k">Color</div><div class="v">'+esc(it.color)+'</div></div>'
       +'<div><div class="k">Condición</div><div class="v">'+esc(it.condicion)+'</div></div>'
       +'<div><div class="k">Vendedor</div><div class="v" style="font-size:11.5px">'+vend+'</div></div>'
-    +'</div><p class="fine">'+esc(it.interior_detalle)+'</p>'
-    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+diagrama(it)
+    +'</div>'+(it.interior_detalle?'<p class="fine">'+esc(it.interior_detalle)+'</p>':'')
+    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+((it.interior&&it.encaje)?diagrama(it):'')
     +'<div class="lists">'
       +'<div class="lb v"><h4>Verificado en las fotos</h4><ul>'+it.verificacion.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
       +'<div class="lb r"><h4>Reservas</h4><ul>'+it.reservas.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
@@ -285,7 +286,7 @@ let filtro='todos';
 function pintar(){
   const cat=C.categorias.find(c=>c.id===filtro);
   let vis=C.items.filter(i=>(filtro==='todos'||i.categoria===filtro)&&(!pmax||i.precio_cny<=pmax));
-  vis = vis.slice().sort((a,b)=> orden==='precio' ? a.precio_cny-b.precio_cny : volumen(a)-volumen(b));
+  vis = vis.slice().sort((a,b)=> orden==='precio' ? a.precio_cny-b.precio_cny : ((a.interior?volumen(a):1e9)-(b.interior?volumen(b):1e9))||a.precio_cny-b.precio_cny);
   document.getElementById('app').innerHTML=
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
     +'<div class="navrow">'+selector()+'</div>'

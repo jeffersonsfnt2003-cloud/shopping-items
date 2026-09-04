@@ -23,8 +23,8 @@ window.CATALOGO = {
       objetivo:"El estuche MÁS COMPACTO que admita 4 mandos de GameCube (14×10×6.5 cm c/u) y el adaptador (12×6×3). Interior libre, sin bandeja moldeada. Sin cables. Mínimo teórico: ~5.000 cm³.",
       requisito_minimo:"Volumen interior ≤ 6.500 cm³ y alguna disposición válida de los 4 mandos + adaptador." },
     { id:"base-xbox", nombre:"Bases y coolers", tab:"Bases y coolers",
-      objetivo:"Base vertical con ventilación y carga para Xbox Series X, compatible con 2 mandos de Xbox One.",
-      requisito_minimo:"Pendiente: modelo exacto de los mandos (1537 / 1697 / 1708)." }
+      objetivo:"Cargar 4 mandos de Xbox One (micro USB) y, si se puede, refrigerar la Series X. NO interesa el almacenaje de discos.",
+      requisito_minimo:"Compatible con Xbox One: conector micro USB o contactos de batería. Las bases USB-C son solo para mandos Series X|S y NO sirven." }
   ],
 
   items: [
@@ -132,10 +132,112 @@ window.CATALOGO = {
         "https://img.alicdn.com/bao/uploaded/i4/2220341818241/O1CN01XZN2dv2AkR73uM8qE_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
         "https://img.alicdn.com/bao/uploaded/i4/2220341818241/O1CN01lrEXlm2AkR75BPFoF_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp"
       ]
+    },
+    {
+      id:"1077229995123", categoria:"base-xbox", estado:"aprobado",
+      titulo:"Wirelessor — carga doble",
+      titulo_zh:"全新未使用的Xbox One双手柄充电底座 Wirelessor",
+      url:"https://www.goofish.com/item?id=1077229995123",
+      precio_cny:13, envio:"incluido",
+      material:"Plástico", color:"Negro", condicion:"Nuevo, sin abrir",
+      spec:"2 mandos · micro USB · con adaptador de corriente",
+      vendedor:{ nombre:"厨房胸有大志的薯片", ciudad:"Beijing", antiguedad:"1 año", ventas:931, reputacion:"95%" },
+      resumen:"El único con conector micro USB confirmado en foto. Comprá dos y tenés tus 4 mandos por ¥26.",
+      descripcion:"La caja dice literalmente 'Dual Charge Base for Xbox One Controllers' y 'Suitable for XBOX ONE'. La foto 4 muestra el conector del soporte de cerca: es micro USB, el que llevan tus mandos. Trae adaptador de corriente y cable, o sea que funciona solo, sin depender de la consola. Es la pieza más barata y más segura de toda la categoría: dos unidades cubren tus cuatro mandos por ¥26 (US$ 3.87).",
+      verificacion:[
+        "Caja rotulada en inglés: 'Dual Charge Base for Xbox One Controllers', con el sello 'Suitable for XBOX ONE' en la esquina (fotos 1 y 10).",
+        "La foto 4 es un primer plano del conector del soporte: micro USB, no USB-C.",
+        "La foto 2 muestra el contenido completo: base, adaptador de corriente y cable USB.",
+        "Fotos 7, 8 y 9: cajas selladas apiladas y etiquetas de fábrica. Es stock nuevo, no un usado."
+      ],
+      reservas:[
+        "IMPORTANTE: cargar por micro USB solo funciona si el mando lleva dentro una batería recargable (pack Play & Charge o pilas AA recargables). Con pilas alcalinas desechables NO carga nada.",
+        "No refrigera. Es solo cargador.",
+        "Para tus 4 mandos hacen falta dos unidades.",
+        "Vendedor con 1 año y 95%. Aceptable pero no de los mejores."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01Ja5lskdqigH2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01WhQ064AIPUK2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01gFYvKhtUNWE2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01VRYY7cCgbDJ2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01ahZNjFVwpoF2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01szCMkFVm0pI2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN016RmE5qT7bcL2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"1076615980193", categoria:"base-xbox", estado:"aprobado",
+      titulo:"IINE L727 — base con ventilador",
+      titulo_zh:"良值IINE L727 XboxSeries X/S主机散热风扇底座支架 双手柄座充",
+      url:"https://www.goofish.com/item?id=1076615980193",
+      precio_cny:32, envio:"incluido",
+      material:"Plástico", color:"Negro", condicion:"Caja abierta, marcas de uso leves",
+      spec:"2 mandos · contactos de batería · ventilador · 3 USB",
+      vendedor:{ nombre:"任索微游戏配件", ciudad:"Nanjing", antiguedad:"10 años", ventas:13230, reputacion:"98%" },
+      resumen:"Refrigeración y carga en una sola pieza, a menos de la mitad que tu referencia. Le falta una batería.",
+      descripcion:"Marca IINE (良值), modelo L727, con etiqueta técnica visible: 'Charging Stand with Cooling Fan for Xbox Series Console and Controller', entrada y salida 5V/1A. La consola se para encima, lleva ventilador y tres puertos USB al frente. Carga por contactos de batería, no por cable: eso es compatible con tus mandos de One porque la bahía de pilas es la misma. Cuesta ¥32 contra los ¥67 de tu referencia y el vendedor tiene 13.230 ventas con 98%.",
+      verificacion:[
+        "Fotos 4 y 9: etiqueta del fabricante con marca, modelo L727 y especificación eléctrica 5V/1A.",
+        "Fotos 3 y 8: los tres puertos USB en el canto frontal de la base.",
+        "Fotos 5 y 10: el soporte de carga del mando en un lateral, con la batería recargable puesta.",
+        "Fotos 1 y 6: contenido real desplegado — base, una batería y el cable."
+      ],
+      reservas:[
+        "SOLO TRAE UNA BATERÍA. El producto es de dos y el vendedor lo dice: 'incluye una batería'. Para dos mandos hay que comprar otra.",
+        "Caja abierta y marcas de uso leves. No es nuevo.",
+        "Carga 2 mandos, no 4. Sigue haciendo falta un segundo cargador.",
+        "Refrigerar una Series X es discutible: la consola aspira por abajo y expulsa por arriba, y su propio ventilador está bien dimensionado."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i1/2023778554/O1CN01vxBQcHqq4pD2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/2023778554/O1CN01K0eoOemxI2D2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/2023778554/O1CN01ybHyPDtmAtF3thGS_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/2023778554/O1CN010fFBj33aTJH2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/2023778554/O1CN01jBFoW11lXkJ2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp"
+      ]
+    },
+    {
+      id:"1075653955750", categoria:"base-xbox", estado:"aprobado",
+      titulo:"iPlay — tu referencia",
+      titulo_zh:"全新Xbox Series X多功能底座 RGB 双风扇 手柄双充",
+      url:"https://www.goofish.com/item?id=1075653955750",
+      precio_cny:67, envio:"incluido",
+      material:"Plástico", color:"Negro con RGB", condicion:"Nuevo, sin abrir",
+      spec:"2 mandos · 2 baterías 1400mAh · doble ventilador · RGB",
+      vendedor:{ nombre:"万物闲置屋", ciudad:"Jieyang", antiguedad:"176 días", ventas:111, reputacion:"100%" },
+      resumen:"La más completa y la más cara. Incluye las dos baterías, pero trae el soporte de discos que no querés.",
+      descripcion:"El que mandaste como referencia. Es el más equipado: doble ventilador, iluminación RGB, alimentación por USB, indicadores de carga y las dos baterías de 1400 mAh incluidas — eso resuelve el problema de tener que comprarlas aparte. Sellado y sin abrir. Los peros son el precio, más del doble que la IINE, y que buena parte de su volumen está dedicado al soporte de discos que dijiste que no te interesa.",
+      verificacion:[
+        "Caja sellada, rotulada 'Multifunctional Charging Stand-Cooling Fan Set For X-BOX SX' (fotos 1, 5 y 10).",
+        "Fotos 4, 8 y 9: el dorso de la caja detalla el contenido — soporte refrigerador, ranura de discos, ventilador RGB y dos packs de batería.",
+        "Fotos 2, 3, 6 y 7: los laterales muestran el ventilador, el diseño de carga del mando y la doble interfaz USB.",
+        "Fotos 8 y 9: parámetros eléctricos entrada 5V/2000mA, salida 5V/2000mA."
+      ],
+      reservas:[
+        "El doble de caro que la IINE por dos funciones que no pediste: RGB y almacenaje de discos.",
+        "Sigue cargando solo 2 mandos.",
+        "Vendedor con apenas 176 días y 111 ventas, aunque con 100%. El menos rodado de los tres.",
+        "Todas las fotos son de la caja cerrada: nadie ha visto el producto real."
+      ],
+      imagenes:[
+        "https://img.alicdn.com/bao/uploaded/i1/2222134607863/O1CN01F3RamcBI0UG2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/2222134607863/O1CN01me5RJFNFnvH2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/2222134607863/O1CN01pDjr0FhXkRL2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/2222134607863/O1CN01oPjwQTUKWHH2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp"
+      ]
     }
   ],
 
   descartados: [
+    { id:"909429995079", url:"https://www.goofish.com/item?id=909429995079", titulo:"Base 4-en-1 Xbox One ¥25", precio_cny:25,
+      motivo:"El '4-en-1' son CUATRO PUERTOS USB, no cuatro mandos: la caja dice 'can charge up to two Xbox One controllers'. Y peor, se abrocha al costado de una consola Xbox One con enganches ('snap joints'). No se monta en una Series X." },
+    { id:"899536886280", url:"https://www.goofish.com/item?id=899536886280", titulo:"Base KJH 4-en-1 ¥8.90", precio_cny:8.90,
+      motivo:"La caja dice 'FOR XBOXONES 4-in-1': es para la consola Xbox One S, no para Series X. El anuncio la lista bajo 'Series X' pero las fotos del empaque muestran la One S. Además dos de sus fotos son un selfie y un meme." },
+    { id:"1058087644676", url:"https://www.goofish.com/item?id=1058087644676", titulo:"Soporte vertical XSX 4 ventiladores ¥32.20", precio_cny:32.20,
+      motivo:"Sí es para Series X y tiene 4 ventiladores, pero NO carga mandos: son 3 puertos USB y 18 ranuras de discos, justo lo que no querés. Encima viene sin fuente de alimentación." },
+    { id:"1079501886618", url:"https://www.goofish.com/item?id=1079501886618", titulo:"Base Series X con carga Type-C ¥19", precio_cny:19,
+      motivo:"Conector Type-C. Sirve para mandos de Series X|S pero NO para los tuyos de Xbox One, que son micro USB. Es exactamente la trampa de compatibilidad que hay que evitar en esta categoría." },
     { id:"804675975389", url:"https://www.goofish.com/item?id=804675975389", titulo:"Estuche P8 — interior 40×24×11", precio_cny:18,
       motivo:"DESCARTADO POR VOLUMEN. 10.560 cm³: casi el doble que el Bestico y más grande que la propia referencia del dueño. Interior libre y barato, pero 40 cm de largo no es compacto. Fue un error de criterio proponerlo." },
     { id:"1006598143817", url:"https://www.goofish.com/item?id=1006598143817", titulo:"Organizador negro — exterior 37×26×13", precio_cny:25,
