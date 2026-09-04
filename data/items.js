@@ -10,6 +10,18 @@ window.CATALOGO = {
     tasa_fuente: "https://wise.com/us/currency-converter/cny-to-usd-rate",
     fuente_unica: "https://www.goofish.com/",
     barrido: { consultas: 18, items_vistos: 487, con_medidas: 173, que_encajan: 14, verificados: 4 },
+    proxy: {
+      nombre: "Superbuy",
+      verificado: "2026-09-04",
+      destino: "El Salvador",
+      bodega: "Guangdong",
+      comision_cny: 20,
+      comision_nota: "Tarifa plana por ÍTEM para plataformas de segunda mano (闲鱼/Goofish). Leída en la propia ficha de Superbuy: 'Service Fee CN ¥20 / item'.",
+      eub: { g1000: 324, g2000: 578, dias: "15-28",
+             limite_peso_g: 2000, limite_lado_cm: 60, limite_suma_cm: 90, limite_valor_usd: 130 },
+      expres: { desde_cny: 721, dias: "8-11", nota: "Cobra por peso volumétrico, no real." },
+      nota: "Tarifas leídas de la calculadora oficial de Superbuy con destino El Salvador el 2026-09-04. Superbuy consolida varios ítems en un paquete sin costo. El flete definitivo lo fija la factura del transportista y se ajusta después."
+    },
     referencias: {
       mando_gamecube: { nombre: "Mando Nintendo GameCube (DOL-003)", largo:14.0, ancho:10.0, alto:6.5, peso_g:200,
         fuente: "https://www.dimensions.com/element/gamecube-controller" },
@@ -96,6 +108,7 @@ window.CATALOGO = {
       interior_detalle:"Rotulado por el vendedor sobre la foto 4: 28 / 18 / base 6.5 + tapa 4.5. Precio original ¥108.",
       vendedor:{ nombre:"五金工具箱包清仓特价", ciudad:"Wuxi", antiguedad:"11 años", ventas:3277, reputacion:"93%" },
       encaje:{ layout:"edge4" },
+      peso_g:800, sb:"eub",
       resumen:"El más chico que existe para esto: 5.544 cm³. Los mandos van de canto, como libros.",
       descripcion:"El volumen interior más chico de todo el barrido y un 39% menor que tu referencia. Los 4 mandos no entran acostados — entran de canto, apoyados sobre su borde como libros en un estante: dos filas de dos, ocupando 28 × 13 cm de los 28 × 18 disponibles. El adaptador entra parado en la franja de 5 cm que sobra. Interior completamente liso, sin molde ni espuma, con una banda elástica y un bolsillo de malla en la tapa.",
       verificacion:[
@@ -131,6 +144,7 @@ window.CATALOGO = {
       interior_detalle:"Interior declarado por el vendedor en la descripción: 31×22×9 cm. Precio original ¥39.",
       vendedor:{ nombre:"蚂蚁它家", ciudad:"Jinhua", antiguedad:"8 años", ventas:17548, reputacion:"94%" },
       encaje:{ layout:"flat2x2" },
+      peso_g:900, sb:"bloqueado",
       resumen:"6.138 cm³ y holgura real en los tres ejes. Más barato que el chico y más fácil de usar.",
       descripcion:"Once por ciento más grande que el Bestico, pero es la compra que recomiendo. Los 4 mandos entran acostados en 2×2 y sobran 3 cm de largo, 2 de ancho y 2.5 de alto: se meten y se sacan sin pelear. El adaptador entra parado en la franja lateral. Trae un bloque de espuma de cubos troquelados que sale entero (foto 7) y deja la concha lisa — o podés arrancar los cubos y hacerle huecos con la forma exacta de tus mandos, que no es un molde de fábrica para otro aparato sino uno que definís vos. Además es ¥9 más barato.",
       verificacion:[
@@ -140,6 +154,7 @@ window.CATALOGO = {
         "Fotos 2, 4, 6 y 9: exterior EVA negro, asa, marca AOVER SMART, con cinta métrica en cuadro."
       ],
       reservas:[
+        "SUPERBUY NO LO PUEDE COMPRAR. Al pegar su enlace devuelve 'Unable to Purchase: restricted by customs and security check policies'. El anuncio está catalogado como estuche de DRON y el filtro automático lo bloquea por esa palabra, aunque el producto sea una caja vacía. Verificado el 2026-09-04.",
         "Los 9 cm de alto solo permiten UNA capa de mandos. No sirve si algún día querés meter más de cuatro.",
         "Está catalogado como estuche de dron DJI: el vendedor lo describe por ese uso, no por sus medidas libres.",
         "Reputación 94%. Vendedor grande (17.548 ventas) pero no impecable.",
@@ -166,6 +181,7 @@ window.CATALOGO = {
       interior_detalle:"Interior declarado por el vendedor en la descripción.",
       vendedor:{ nombre:"包你心动", ciudad:"Dongguan", antiguedad:"1 año", ventas:629, reputacion:"99%" },
       encaje:{ layout:"stack2" },
+      peso_g:1200, sb:"eub",
       resumen:"9.063 cm³: el más grande de los tres. Sobrio y bien hecho, pero desperdicia casi la mitad.",
       descripcion:"El que trajiste vos. Cumple todas las reglas y está bien construido, pero es el más voluminoso de la lista: los 4 mandos apilados en 2 capas ocupan 14 × 20 × 13 y el estuche mide 26.5 × 22.8 × 15, o sea que casi la mitad del espacio queda vacío. Lo mantengo porque es el único con 99% de reputación y porque es tu punto de comparación.",
       verificacion:[
@@ -199,6 +215,7 @@ window.CATALOGO = {
       material:"Plástico", color:"Negro", condicion:"Nuevo, sin abrir",
       spec:"2 mandos · micro USB · con adaptador de corriente",
       vendedor:{ nombre:"厨房胸有大志的薯片", ciudad:"Beijing", antiguedad:"1 año", ventas:931, reputacion:"95%" },
+      peso_g:400, sb:"eub",
       resumen:"El único con conector micro USB confirmado en foto. Comprá dos y tenés tus 4 mandos por ¥26.",
       descripcion:"La caja dice literalmente 'Dual Charge Base for Xbox One Controllers' y 'Suitable for XBOX ONE'. La foto 4 muestra el conector del soporte de cerca: es micro USB, el que llevan tus mandos. Trae adaptador de corriente y cable, o sea que funciona solo, sin depender de la consola. Es la pieza más barata y más segura de toda la categoría: dos unidades cubren tus cuatro mandos por ¥26 (US$ 3.87).",
       verificacion:[
@@ -232,6 +249,7 @@ window.CATALOGO = {
       material:"Plástico", color:"Negro", condicion:"Caja abierta, marcas de uso leves",
       spec:"2 mandos · contactos de batería · ventilador · 3 USB",
       vendedor:{ nombre:"任索微游戏配件", ciudad:"Nanjing", antiguedad:"10 años", ventas:13230, reputacion:"98%" },
+      peso_g:700, sb:"eub",
       resumen:"Refrigeración y carga en una sola pieza, a menos de la mitad que tu referencia. Le falta una batería.",
       descripcion:"Marca IINE (良值), modelo L727, con etiqueta técnica visible: 'Charging Stand with Cooling Fan for Xbox Series Console and Controller', entrada y salida 5V/1A. La consola se para encima, lleva ventilador y tres puertos USB al frente. Carga por contactos de batería, no por cable: eso es compatible con tus mandos de One porque la bahía de pilas es la misma. Cuesta ¥32 contra los ¥67 de tu referencia y el vendedor tiene 13.230 ventas con 98%.",
       verificacion:[
@@ -263,6 +281,7 @@ window.CATALOGO = {
       material:"Plástico", color:"Negro con RGB", condicion:"Nuevo, sin abrir",
       spec:"2 mandos · 2 baterías 1400mAh · doble ventilador · RGB",
       vendedor:{ nombre:"万物闲置屋", ciudad:"Jieyang", antiguedad:"176 días", ventas:111, reputacion:"100%" },
+      peso_g:900, sb:"eub",
       resumen:"La más completa y la más cara. Incluye las dos baterías, pero trae el soporte de discos que no querés.",
       descripcion:"El que mandaste como referencia. Es el más equipado: doble ventilador, iluminación RGB, alimentación por USB, indicadores de carga y las dos baterías de 1400 mAh incluidas — eso resuelve el problema de tener que comprarlas aparte. Sellado y sin abrir. Los peros son el precio, más del doble que la IINE, y que buena parte de su volumen está dedicado al soporte de discos que dijiste que no te interesa.",
       verificacion:[
@@ -294,6 +313,7 @@ window.CATALOGO = {
       pad:[90,40], grosor_mm:4,
       spec:"90 × 40 cm · 4 mm · tela · negro liso",
       vendedor:{ nombre:"老刘好运优品", ciudad:"Langfang", antiguedad:"7 años", ventas:8166, reputacion:"97%" },
+      peso_g:1000, sb:"expres",
       resumen:"El más grueso y el único con etiqueta oficial visible en foto. Devolución incluida. Mi recomendación.",
       descripcion:"Marca real (AOC, la de los monitores), modelo GM171D, precio de tienda ¥199. Tejido de alta densidad: es la superficie más agradable al tacto de la selección y la que mejor lee cualquier sensor de ratón. Con 4 mm es un milímetro más grueso que el resto, y ese milímetro es el que amortigua la muñeca. Negro liso, sin gráficos. Impermeable de nivel 3 y fácil de limpiar. Es el único de los cuatro que acepta devolución si no coincide.",
       verificacion:[
@@ -325,6 +345,7 @@ window.CATALOGO = {
       pad:[90,40], grosor_mm:3,
       spec:"90 × 40 cm · 3 mm · tela · negro con estampado",
       vendedor:{ nombre:"京品百货折扣", ciudad:"Guangzhou", antiguedad:"10 años", ventas:7140, reputacion:"97%" },
+      peso_g:900, sb:"expres",
       resumen:"Mismo tamaño que el AOC y 40 centavos más barato, pero ninguna foto es del artículo real.",
       descripcion:"Tela lisa, 3 mm, con borde cosido en V — ese cosido es lo que evita que el tapete se deshilache por las esquinas al año, y es un detalle que los baratos suelen omitir. Base con dibujo antideslizante. El estampado son constelaciones en línea blanca fina sobre negro: discreto, pero no es negro liso. Precio original ¥66.",
       verificacion:[
@@ -356,6 +377,7 @@ window.CATALOGO = {
       pad:[80,40], grosor_mm:2,
       spec:"80 × 40 cm · cuero PU · negro liso",
       vendedor:{ nombre:"石油城真诚的南瓜", ciudad:"Lanzhou", antiguedad:"10 años", ventas:198, reputacion:"100%" },
+      peso_g:700, sb:"expres",
       resumen:"La única foto real muestra justo tu escenario: portátil, teclado y ratón sobre el tapete negro.",
       descripcion:"Cuero sintético negro liso de 80 × 40. Frente a la tela, el PU gana en limpieza — se pasa un trapo y queda como nuevo, aguanta líquidos y grasa — y pierde en tacto: es más frío y más duro. Si te importa más que no se manche que la sensación mullida, esta es la opción. Único vendedor con 100% de valoraciones.",
       verificacion:[
@@ -384,6 +406,7 @@ window.CATALOGO = {
       pad:[80,40], grosor_mm:2,
       spec:"80 × 40 cm · cuero PU · marrón moca",
       vendedor:{ nombre:"宝藏百货小铺", ciudad:"Jinhua", antiguedad:"8 años", ventas:928, reputacion:"98%" },
+      peso_g:700, sb:"expres",
       resumen:"El único café de la selección. También el más caro y el que menos pruebas tiene.",
       descripcion:"Pediste café y esta es la única opción real que apareció en todo el barrido. Cuero sintético de 80 × 40 con esquinas redondeadas, impermeable, resistente a la grasa y a los arañazos, y se puede recortar a medida con tijeras. La tinta de bolígrafo se borra con un trapo. Acepta devolución si no coincide.",
       verificacion:[
@@ -414,6 +437,7 @@ window.CATALOGO = {
       material:"Estructura de acero con paneles", color:"Blanco", condicion:"Usada, casi nueva según el vendedor",
       spec:"3 × 6 m · 18 m² · una planta · puerta y ventanas",
       vendedor:{ nombre:"网红集装箱", ciudad:"Baoding", antiguedad:"1 año", ventas:95, reputacion:"100%" },
+      peso_g:null, sb:"na",
       resumen:"18 m² por US$119 en origen. El vendedor mejor valorado de toda la categoría.",
       descripcion:"Módulo usado de 3 × 6 metros, o sea 18 m² de piso, en blanco, con puerta y ventanas. El vendedor declara interior limpio y estructura sólida, y ofrece verla en persona. Con 95 ventas y 100% de valoraciones es el vendedor más fiable de los que aparecieron. Baja a ¥760 si van dos compradores. Es el precio de suelo del mercado: por debajo de esto solo hay casetas de comida y chatarra.",
       verificacion:[
@@ -444,6 +468,7 @@ window.CATALOGO = {
       material:"Marco de acero, paneles con aislamiento térmico y acústico", color:"Blanco hueso", condicion:"Nueva, recién terminada",
       spec:"2 plantas · terraza grande · escalera exterior · medidas a medida",
       vendedor:{ nombre:"内蒙古同创岗亭集装箱房厂", ciudad:"Ordos", antiguedad:"8 años", ventas:11, reputacion:"100%" },
+      peso_g:null, sb:"na",
       resumen:"La más parecida a la foto que mandaste. Fábrica con 8 años y 100%, US$402 en origen.",
       descripcion:"Es prácticamente el modelo de tu foto: dos plantas, terraza grande y escalera exterior, en blanco hueso. Marco de acero, con aislamiento térmico y acústico declarados. La vende una fábrica de Mongolia Interior con 8 años en la plataforma y 100% de valoraciones, que ofrece inspección por video antes de pagar y permite personalizar medidas, tabiques y distribución.",
       verificacion:[
@@ -471,6 +496,7 @@ window.CATALOGO = {
       material:"Estructura de acero con muro cortina de vidrio", color:"Blanco y vidrio", condicion:"Nueva",
       spec:"2 plantas · muro cortina acristalado · marca 中远",
       vendedor:{ nombre:"x***3", ciudad:"Suzhou", antiguedad:"1 DÍA", ventas:0, reputacion:"sin historial" },
+      peso_g:null, sb:"na",
       resumen:"Fotos reales en sitio y el mejor aspecto de la categoría. Pero el vendedor abrió la cuenta ayer.",
       descripcion:"Dos plantas con muro cortina de vidrio, el modelo con mejor aspecto del barrido y muy cercano a tu foto de referencia. El anuncio dice 现场实拍, o sea fotos tomadas en el sitio, y eso se nota: se ve la unidad montada, no un render. Marca declarada 中远 (COSCO).",
       verificacion:[
@@ -497,6 +523,7 @@ window.CATALOGO = {
       material:"Acero plegable, paneles sándwich", color:"Beige", condicion:"Nueva, sin uso",
       spec:"3 × 6 m · 18 m² · se entrega plegada y se arma en sitio",
       vendedor:{ nombre:"活动房厂家", ciudad:"Haixi", antiguedad:"1 año", ventas:1, reputacion:"sin historial" },
+      peso_g:null, sb:"na",
       resumen:"Plegable: viaja plana y se arma en sitio. Es el formato que sí tiene sentido exportar.",
       descripcion:"Módulo nuevo plegable de 3 × 6 metros en beige. El formato plegable es el técnicamente relevante para vos: viaja plano, así que entran varias unidades en un contenedor marítimo y el flete por casa baja mucho frente a un módulo rígido. Las fotos son de catálogo de fábrica y muestran el rango completo: paneles apilados en nave, una grúa colocando un módulo, interiores acabados y una unidad de dos plantas acristalada.",
       verificacion:[

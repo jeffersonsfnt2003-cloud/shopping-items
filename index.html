@@ -167,6 +167,26 @@ h1{font-size:20px;margin:0;letter-spacing:-.02em}
 .tagno{position:absolute;top:7px;left:8px;z-index:2;font-family:var(--mono);font-size:9.5px;
   letter-spacing:.06em;text-transform:uppercase;background:rgba(224,100,95,.16);color:var(--bad);
   border:1px solid rgba(224,100,95,.45);border-radius:10px;padding:2px 8px;backdrop-filter:blur(3px)}
+.sb{background:var(--card2);border-radius:8px;padding:13px 15px;margin:14px 0}
+.sb h4{margin:0 0 9px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-family:var(--mono);color:var(--mute)}
+.sb table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12.5px}
+.sb td{padding:3px 0;color:var(--dim)}
+.sb td:last-child{text-align:right;color:var(--tx);white-space:nowrap}
+.sb tr.tot td{border-top:1px solid var(--line);padding-top:7px;font-weight:600;font-size:14px;color:var(--tx)}
+.sb tr.tot td:last-child{color:var(--amber)}
+.sb .obs{font-size:12px;color:var(--mute);margin:9px 0 0;font-family:inherit}
+.sb.mal{background:rgba(224,100,95,.07);border-left:2px solid var(--bad)}
+.sb.mal h4{color:var(--bad)}
+.sb.ojo{background:rgba(217,164,65,.07);border-left:2px solid var(--warn)}
+.sb.ojo h4{color:var(--warn)}
+.sv{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin:-2px 0 0}
+.sv b{color:var(--amber);font-weight:600}
+.sv.mal b{color:var(--bad)}
+.carro{background:var(--card);border:1px solid var(--line);border-left:2px solid var(--ok);
+  border-radius:9px;padding:13px 15px;margin:0 0 16px}
+.carro h5{margin:0 0 7px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);color:var(--ok)}
+.carro p{margin:0;font-size:13px;color:var(--dim)}
+.carro b{color:var(--tx)}
 .motivo{background:rgba(224,100,95,.07);border-left:2px solid var(--bad);border-radius:6px;
   padding:12px 14px;margin:14px 0}
 .motivo h4{margin:0 0 6px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;
@@ -242,6 +262,17 @@ const LAYOUTS={
   stack2 :{u:[14,10],  cols:1, rows:2, alto:13,  nom:'2 capas de 2', capas:2},
   edge4  :{u:[14,6.5], cols:2, rows:2, alto:10,  nom:'4 de canto, como libros'}
 };
+const P2=()=>M.proxy;
+const fleteEUB=g=>{const P=P2();return g<=1000?P.eub.g1000:Math.round(P.eub.g1000+(g-1000)/1000*(P.eub.g2000-P.eub.g1000));};
+const n2=v=>Math.round(v*100)/100;
+function costoSB(it){
+  const P=P2(); if(!P||!it.sb||it.sb==='na') return null;
+  const e1=n2(it.precio_cny+P.comision_cny);
+  if(it.sb==='bloqueado') return {estado:'bloqueado', e1};
+  const f = it.sb==='expres' ? P.expres.desde_cny : fleteEUB(it.peso_g||1000);
+  return {estado:it.sb, e1, flete:f, total:n2(e1+f),
+          dias: it.sb==='expres'?P.expres.dias:P.eub.dias};
+}
 const volumen=it=>Math.round(it.interior[0]*it.interior[1]*it.interior[2]);
 
 function diagramaPad(it){
@@ -313,12 +344,38 @@ function diagrama(it){
   return '<div class="diag"><h4>Encaje \u2014 planta y alzado, a escala \u00b7 '+volumen(it).toLocaleString('es')+' cm\u00b3</h4><p class="verd" style="color:'+col+'">'+t+'</p>'+planta+alz+'</div>';
 }
 
+function bloqueSB(it){
+  const c=costoSB(it), P=P2(); if(!c) return '';
+  if(c.estado==='bloqueado')
+    return '<div class="sb mal"><h4>Costo puesto en El Salvador \u2014 v\u00eda '+esc(P.nombre)+'</h4>'
+      +'<p class="obs" style="color:var(--bad)">Superbuy NO puede comprar este art\u00edculo. Al pegar su enlace responde '
+      +'<em>"Unable to Purchase: restricted by customs and security check policies"</em>. Verificado el '+P.verificado+'.</p></div>';
+  const fila=(k,v)=>'<tr><td>'+k+'</td><td>'+v+'</td></tr>';
+  const pct=Math.round(it.precio_cny/c.total*100);
+  const ojo=c.estado==='expres';
+  return '<div class="sb'+(ojo?' ojo':'')+'"><h4>Costo puesto en El Salvador \u2014 v\u00eda '+esc(P.nombre)+'</h4><table>'
+    + fila('Producto en Goofish','\u00a5'+it.precio_cny)
+    + fila('Env\u00edo dentro de China', it.envio==='incluido'?'\u00a50':'a confirmar')
+    + fila('Comisi\u00f3n '+esc(P.nombre)+' (por \u00edtem)','\u00a5'+P.comision_cny)
+    + fila('Flete '+(ojo?'expr\u00e9s':'EUB postal')+(it.peso_g?' \u00b7 '+it.peso_g+' g':'')+' \u00b7 '+c.dias+' d\u00edas','\u00a5'+c.flete)
+    + '<tr class="tot"><td>Total estimado</td><td>\u00a5'+c.total+'  (US$ '+usd(c.total)+')</td></tr>'
+    + '</table>'
+    + (ojo
+        ? '<p class="obs" style="color:var(--warn)">No cabe en el correo econ\u00f3mico: EUB limita el lado m\u00e1s largo a '+P.eub.limite_lado_cm+' cm y este art\u00edculo enrollado mide m\u00e1s. Obliga a courier expr\u00e9s, que adem\u00e1s cobra por peso volum\u00e9trico. Por eso el flete casi se duplica.</p>'
+        : '<p class="obs">El producto es el '+pct+'% del total. El flete es el resto.</p>')
+    + '<p class="obs">Estimaci\u00f3n con tarifas le\u00eddas de la calculadora oficial de '+esc(P.nombre)+' el '+P.verificado+'. El flete definitivo lo fija la factura del transportista y se ajusta despu\u00e9s.</p></div>';
+}
+
 function tarjeta(it){
   const no = it.estado==='descartado';
   return '<article class="prod'+(no?' no':'')+'" data-open="'+it.id+'">'
     +(no?'<span class="tagno">descartado</span>':'')+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
     +'<p class="dm">'+(it.interior?it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span>':esc(it.spec||''))+'</p>'
+    +(function(){const c=costoSB(it); if(!c) return '';
+      return c.estado==='bloqueado'
+        ? '<p class="sv mal">\u2192 <b>Superbuy no lo puede comprar</b></p>'
+        : '<p class="sv">\u2192 <b>US$ '+usd(c.total)+'</b> puesto en El Salvador</p>';})()
     +'<p class="rs">'+esc(it.resumen||it.motivo||it.descripcion||'')+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
@@ -357,7 +414,7 @@ function detalle(it){
       +'<div><div class="k">Condición</div><div class="v">'+esc(it.condicion)+'</div></div>'
       +'<div><div class="k">Vendedor</div><div class="v" style="font-size:11.5px">'+vend+'</div></div>'
     +'</div>'+(it.interior_detalle?'<p class="fine">'+esc(it.interior_detalle)+'</p>':'')
-    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+(it.pad?diagramaPad(it):(it.interior&&it.encaje)?diagrama(it):'')
+    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+(it.pad?diagramaPad(it):(it.interior&&it.encaje)?diagrama(it):'')+bloqueSB(it)
     +'<div class="lists">'
       +'<div class="lb v"><h4>Verificado en las fotos</h4><ul>'+it.verificacion.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
       +'<div class="lb r"><h4>Reservas</h4><ul>'+it.reservas.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
@@ -427,6 +484,26 @@ function pintar(){
     '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
     +controles()
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
+    +(function(){
+        const P=M.proxy; if(!P) return '';
+        const el=vis.filter(i=>i.sb==='eub'&&i.peso_g).slice().sort((x,y)=>y.peso_g-x.peso_g);
+        if(el.length<2) return '';
+        const prod=n2(el.reduce((a,i)=>a+i.precio_cny,0));
+        const com=P.comision_cny*el.length;
+        const peso=el.reduce((a,i)=>a+i.peso_g,0);
+        const paq=[];                                   // reparto voraz en cajas de <=2 kg
+        el.forEach(i=>{ const c=paq.find(x=>x.g+i.peso_g<=P.eub.limite_peso_g);
+                        if(c){c.g+=i.peso_g;} else paq.push({g:i.peso_g}); });
+        const fl=paq.reduce((a,x)=>a+fleteEUB(x.g),0);
+        const juntos=n2(prod+com+fl);
+        const sueltos=n2(el.reduce((a,i)=>a+costoSB(i).total,0));
+        const ahorro=n2(sueltos-juntos);
+        if(ahorro<=0) return '';
+        return '<div class="carro"><h5>Comprarlos juntos sale m\u00e1s barato</h5><p>'
+          +esc(P.nombre)+' consolida varios \u00edtems en un paquete sin costo. Los <b>'+el.length+'</b> art\u00edculos que viajan por correo econ\u00f3mico pesan <b>'+peso+' g</b> y entran en <b>'+paq.length+' paquete'+(paq.length>1?'s':'')+'</b> de hasta '+(P.eub.limite_peso_g/1000)+' kg: '
+          +'<b>US$ '+usd(juntos)+'</b> en total, contra <b>US$ '+usd(sueltos)+'</b> comprados uno por uno. '
+          +'Ahorro: <b>US$ '+usd(ahorro)+'</b>. La comisi\u00f3n de \u00a5'+P.comision_cny+' se paga igual por cada \u00edtem; lo que se reparte es el flete.</p></div>';
+      })()
     +((cat&&cat.busquedas&&cat.busquedas.length)
       ? '<details class="busq"><summary>Buscar por mi cuenta en Goofish ('+cat.busquedas.length+' t\u00e9rminos)</summary>'
         +'<p class="ayuda">Toc\u00e1 un t\u00e9rmino y se copia en chino. Peg\u00e1lo en el buscador de goofish.com.</p>'
