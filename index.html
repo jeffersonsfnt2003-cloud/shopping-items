@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catálogo de compras — Goofish</title>
+<style>
+:root{
+  --bg:#131318; --panel:#1c1c24; --panel2:#23232d; --line:#33333f;
+  --tx:#e6e6ee; --dim:#9a9aac; --mute:#6e6e80;
+  --acc:#a5a3f5; --amber:#e8b04b; --ok:#5fbf8f; --bad:#e0645f; --warn:#d9a441;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 20px 80px}
+a{color:var(--acc)}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:19px;margin:0 0 4px;letter-spacing:-.01em}
+.mono{font-family:var(--mono)}
+.sub{color:var(--dim);font-size:14px;margin:0}
+
+header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:28px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:6px;
+  padding:5px 10px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+.chip b{color:var(--tx);font-weight:600}
+
+.refbox{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;margin:22px 0 34px}
+.refbox h3{margin:0 0 10px;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
+.refgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.ref{background:var(--panel2);border-radius:8px;padding:12px 14px}
+.ref .n{font-size:13px;color:var(--dim)}
+.ref .d{font-family:var(--mono);font-size:17px;color:var(--acc);margin-top:3px}
+.ref .s{font-size:11px;color:var(--mute);margin-top:5px}
+
+section.cat{margin:44px 0 0}
+.cathead{border-left:3px solid var(--acc);padding-left:14px;margin-bottom:8px}
+.catobj{color:var(--dim);font-size:14px;max-width:75ch;margin:6px 0 4px}
+.catreq{font-family:var(--mono);font-size:12.5px;color:var(--warn);margin:6px 0 0}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  margin:22px 0;overflow:hidden}
+.card > .body{padding:20px 22px 22px}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;white-space:nowrap}
+.b-ok{background:rgba(95,191,143,.14);color:var(--ok);border:1px solid rgba(95,191,143,.34)}
+.b-no{background:rgba(224,100,95,.13);color:var(--bad);border:1px solid rgba(224,100,95,.32)}
+.zh{font-family:var(--mono);font-size:12px;color:var(--mute);margin:4px 0 0;word-break:break-all}
+
+.price{display:flex;align-items:baseline;gap:12px;margin:16px 0 4px;flex-wrap:wrap}
+.cny{font-family:var(--mono);font-size:28px;color:var(--amber);font-weight:600;line-height:1}
+.usd{font-family:var(--mono);font-size:17px;color:var(--dim)}
+.ship{font-size:12px;color:var(--ok);border:1px solid rgba(95,191,143,.3);border-radius:4px;padding:2px 7px}
+
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:16px 0}
+.spec{background:var(--panel2);padding:9px 12px}
+.spec .k{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
+.spec .v{font-size:13.5px;margin-top:2px}
+
+.desc{margin:14px 0;max-width:80ch}
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin:18px 0}
+.lbox{background:var(--panel2);border-radius:8px;padding:13px 15px}
+.lbox h4{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono)}
+.lbox.v h4{color:var(--ok)} .lbox.r h4{color:var(--warn)}
+.lbox ul{margin:0;padding-left:17px} .lbox li{margin:5px 0;font-size:13.5px;color:var(--dim)}
+
+/* carrusel */
+.car{position:relative;background:#0d0d11;border-bottom:1px solid var(--line)}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;
+  justify-content:center;height:340px;background:#0d0d11}
+.slide img{max-width:100%;max-height:340px;object-fit:contain;display:block}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(19,19,24,.85);color:var(--tx);cursor:pointer;
+  font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.nav:hover{background:var(--panel2)} .prev{left:10px} .next{right:10px}
+.count{position:absolute;top:10px;right:12px;font-family:var(--mono);font-size:11px;
+  background:rgba(19,19,24,.85);border:1px solid var(--line);border-radius:12px;padding:2px 9px;color:var(--dim)}
+.dots{display:flex;gap:6px;justify-content:center;padding:9px 0;background:#0d0d11}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--line);border:0;padding:0;cursor:pointer}
+.dot.on{background:var(--acc)}
+.noimg{color:var(--mute);font-family:var(--mono);font-size:13px;padding:40px;text-align:center}
+
+.diag{background:var(--panel2);border-radius:8px;padding:15px;margin:18px 0}
+.diag h4{margin:0 0 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
+.diag .verd{font-family:var(--mono);font-size:13px;margin:0 0 12px}
+.diag svg{max-width:100%;height:auto;display:block}
+
+.golink{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#15151c;
+  font-weight:600;font-size:14px;text-decoration:none;padding:10px 18px;border-radius:7px;margin-top:6px}
+.golink:hover{filter:brightness(1.1)}
+.rawurl{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-top:9px;word-break:break-all}
+
+.rej{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--bad);
+  border-radius:8px;padding:13px 16px;margin:11px 0}
+.rej .t{font-size:14.5px}
+.rej .m{color:var(--dim);font-size:13.5px;margin-top:5px;max-width:85ch}
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--mute);font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script src="data/items.js"></script>
+<script>
+const C = window.CATALOGO, M = C.meta;
+const usd = c => (c * M.tasa_cny_usd).toFixed(2);
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+/* ---- diagrama de encaje, generado a escala desde las medidas ---- */
+function diagrama(it){
+  const [L,W,H] = it.interior;
+  const m = M.referencias.mando_gamecube, a = M.referencias.adaptador;
+  const stacked = it.encaje.layout === 'stack2';
+  const cols = stacked ? 1 : 2, rows = 2, capas = stacked ? 2 : 1;
+  const fw = cols * m.largo, fh = rows * m.ancho, alto = capas * m.alto;
+
+  // El adaptador se prueba girado y, como ultimo recurso, en el espacio de la tapa.
+  const sw = L - fw, sh = W - fh;
+  let ad = null;
+  if (sw >= a.largo && W >= a.ancho)
+    ad = {x: fw + (sw-a.largo)/2, y: (W-a.ancho)/2, w: a.largo, h: a.ancho, note:'acostado en la franja lateral'};
+  else if (sw >= a.ancho && W >= a.largo)
+    ad = {x: fw + (sw-a.ancho)/2, y: (W-a.largo)/2, w: a.ancho, h: a.largo, note:'de canto en la franja lateral'};
+  else if (sh >= a.ancho && L >= a.largo)
+    ad = {x: (L-a.largo)/2, y: fh + (sh-a.ancho)/2, w: a.largo, h: a.ancho, note:'acostado en la franja inferior'};
+  else if (sh >= a.largo && L >= a.ancho)
+    ad = {x: (L-a.ancho)/2, y: fh + (sh-a.largo)/2, w: a.ancho, h: a.largo, note:'de canto en la franja inferior'};
+  else if (H - alto >= a.alto)
+    ad = {above:true, note:'encima de los mandos, en el espacio libre de la tapa'};
+
+  const cabe = fw <= L && fh <= W && alto <= H && ad !== null;
+  const col = cabe ? 'var(--ok)' : 'var(--bad)';
+  const s = Math.min(430/L, 240/W), P = 34, px = n => (n*s).toFixed(1);
+  const Wsvg = L*s + P*2, Hsvg = W*s + P*2;
+
+  let mandos = '';
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++){
+    const x = P + c*m.largo*s, y = P + r*m.ancho*s;
+    mandos += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+px(m.largo)+'" height="'+px(m.ancho)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>';
+    mandos += '<text x="'+(x+m.largo*s/2).toFixed(1)+'" y="'+(y+m.ancho*s/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--acc)">'+(stacked?'x2 capas':'mando')+'</text>';
+  }
+  let adap = '';
+  if (ad && !ad.above)
+    adap = '<rect x="'+(P+ad.x*s).toFixed(1)+'" y="'+(P+ad.y*s).toFixed(1)+'" width="'+px(ad.w)+'" height="'+px(ad.h)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/><text x="'+(P+(ad.x+ad.w/2)*s).toFixed(1)+'" y="'+(P+(ad.y+ad.h/2)*s+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--amber)">adapt.</text>';
+
+  const planta = '<svg viewBox="0 0 '+Wsvg.toFixed(0)+' '+Hsvg.toFixed(0)+'" width="'+Wsvg.toFixed(0)+'">'
+    + '<rect x="'+P+'" y="'+P+'" width="'+px(L)+'" height="'+px(W)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'
+    + mandos + adap
+    + '<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P-12)+'" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--dim)">'+L+' cm</text>'
+    + '<text x="'+(P-12)+'" y="'+(P+W*s/2).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--dim)" transform="rotate(-90 '+(P-12)+' '+(P+W*s/2).toFixed(1)+')">'+W+' cm</text>'
+    + '<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P+W*s+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--mute)">planta</text></svg>';
+
+  const s2 = Math.min(430/L, 130/H), P2 = 34, hb = alto*s2, adh = a.alto*s2;
+  let adAlz = '';
+  if (ad && ad.above)
+    adAlz = '<rect x="'+(P2+4)+'" y="'+(P2+H*s2-hb-adh-3).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+adh.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>';
+  else if (ad)
+    adAlz = '<rect x="'+(P2+fw*s2+4).toFixed(1)+'" y="'+(P2+H*s2-adh-2).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+adh.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>';
+
+  const alzado = '<svg viewBox="0 0 '+(L*s2+P2*2).toFixed(0)+' '+(H*s2+P2*2).toFixed(0)+'" width="'+(L*s2+P2*2).toFixed(0)+'">'
+    + '<rect x="'+P2+'" y="'+P2+'" width="'+(L*s2).toFixed(1)+'" height="'+(H*s2).toFixed(1)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'
+    + '<rect x="'+(P2+2)+'" y="'+(P2+H*s2-hb-2).toFixed(1)+'" width="'+(fw*s2).toFixed(1)+'" height="'+hb.toFixed(1)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
+    + '<text x="'+(P2+fw*s2/2).toFixed(1)+'" y="'+(P2+H*s2-hb/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--acc)">'+(capas===2?'2 capas = ':'')+alto+' cm</text>'
+    + adAlz
+    + '<text x="'+(P2+L*s2+13)+'" y="'+(P2+H*s2/2+4).toFixed(1)+'" font-family="var(--mono)" font-size="12" fill="var(--dim)">'+H+' cm</text>'
+    + '<text x="'+(P2+L*s2/2).toFixed(1)+'" y="'+(P2+H*s2+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--mute)">alzado lateral</text></svg>';
+
+  const txt = cabe
+    ? 'ENTRA — ' + (stacked ? '2 capas de 2 mandos' : '4 mandos en 2x2 plano') + ' ocupan ' + fw + ' x ' + fh + ' x ' + alto
+      + ' cm. Adaptador ' + ad.note + '. Sobran ' + (L-fw).toFixed(1) + ' cm de largo, ' + (W-fh).toFixed(1) + ' de ancho y ' + (H-alto).toFixed(1) + ' de alto.'
+    : 'NO ENTRA. Los 4 mandos necesitan ' + fw + ' x ' + fh + ' x ' + alto + ' cm mas sitio para el adaptador, y el interior es ' + L + ' x ' + W + ' x ' + H + ' cm.';
+
+  return '<div class="diag"><h4>Análisis de encaje — planta y alzado, a escala</h4>'
+    + '<p class="verd" style="color:'+col+'">'+txt+'</p>'+planta+'<div style="height:10px"></div>'+alzado+'</div>';
+}
+
+function carrusel(it){
+  if(!it.imagenes || !it.imagenes.length) return `<div class="car"><div class="noimg">sin imágenes</div></div>`;
+  const sl = it.imagenes.map((u,i)=>`<div class="slide"><img src="${esc(u)}" loading="lazy"
+      alt="${esc(it.titulo)} — foto ${i+1}" referrerpolicy="no-referrer"></div>`).join('');
+  const dt = it.imagenes.map((_,i)=>`<button class="dot${i?'':' on'}" data-i="${i}" aria-label="Foto ${i+1}"></button>`).join('');
+  return `<div class="car" data-car>
+    <div class="track">${sl}</div>
+    <span class="count"><span data-cur>1</span>/${it.imagenes.length}</span>
+    ${it.imagenes.length>1?`<button class="nav prev" data-d="-1">&#8249;</button>
+    <button class="nav next" data-d="1">&#8250;</button>`:''}
+  </div>${it.imagenes.length>1?`<div class="dots">${dt}</div>`:''}`;
+}
+
+function ficha(it){
+  const v = it.vendedor||{};
+  const vend = v.nombre && v.nombre!=="no declarado en la ficha"
+    ? `${esc(v.nombre)} · ${esc(v.ciudad)} · ${v.ventas.toLocaleString('es')} ventas · ${esc(v.reputacion)}`
+    : 'no declarado en el anuncio';
+  return `<article class="card">
+    ${carrusel(it)}
+    <div class="body">
+      <div class="ctop">
+        <div style="min-width:0">
+          <h2>${esc(it.titulo)}</h2>
+          <p class="zh">${esc(it.titulo_zh||'')}</p>
+        </div>
+        <span class="badge b-ok">verificado foto por foto</span>
+      </div>
+
+      <div class="price">
+        <span class="cny">&yen;${it.precio_cny}</span>
+        <span class="usd">US$ ${usd(it.precio_cny)}</span>
+        ${it.envio==='incluido'?'<span class="ship">envío incluido</span>':''}
+      </div>
+
+      <div class="specs">
+        <div class="spec"><div class="k">Interior</div><div class="v mono">${it.interior.join(' x ')} cm</div></div>
+        <div class="spec"><div class="k">Material</div><div class="v">${esc(it.material)}</div></div>
+        <div class="spec"><div class="k">Color</div><div class="v">${esc(it.color)}</div></div>
+        <div class="spec"><div class="k">Condición</div><div class="v">${esc(it.condicion)}</div></div>
+        <div class="spec"><div class="k">Vendedor</div><div class="v" style="font-size:12.5px">${vend}</div></div>
+      </div>
+      <p class="sub" style="font-size:12.5px;margin:-6px 0 0">${esc(it.interior_detalle)}</p>
+
+      <p class="desc">${esc(it.descripcion)}</p>
+      ${diagrama(it)}
+
+      <div class="lists">
+        <div class="lbox v"><h4>Qué verifiqué en las fotos</h4>
+          <ul>${it.verificacion.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+        <div class="lbox r"><h4>Reservas — leelas antes de comprar</h4>
+          <ul>${it.reservas.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      </div>
+
+      <a class="golink" href="${esc(it.url)}" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>
+      <div class="rawurl">${esc(it.url)}</div>
+    </div>
+  </article>`;
+}
+
+/* ---- render ---- */
+const r = M.referencias;
+document.getElementById('app').innerHTML = `
+<header>
+  <h1>Catálogo de compras</h1>
+  <p class="sub">Ítems verificados uno por uno en Goofish. Fuente única de compra, sin excepciones.</p>
+  <div class="meta">
+    <span class="chip">Tasa <b>1 ¥ = US$ ${M.tasa_cny_usd}</b> · ${M.tasa_fecha}</span>
+    <span class="chip">Fuente <b>goofish.com</b></span>
+    <span class="chip">Aprobados <b>${C.items.length}</b></span>
+    <span class="chip">Descartados <b>${C.descartados.length}</b></span>
+  </div>
+</header>
+
+<div class="refbox">
+  <h3>Medidas de referencia usadas en todos los cálculos</h3>
+  <div class="refgrid">
+    <div class="ref"><div class="n">${esc(r.mando_gamecube.nombre)}</div>
+      <div class="d">${r.mando_gamecube.largo} x ${r.mando_gamecube.ancho} x ${r.mando_gamecube.alto} cm</div>
+      <div class="s">${r.mando_gamecube.peso_g} g · fuente: dimensions.com</div></div>
+    <div class="ref"><div class="n">${esc(r.adaptador.nombre)}</div>
+      <div class="d">${r.adaptador.largo} x ${r.adaptador.ancho} x ${r.adaptador.alto} cm</div>
+      <div class="s">medida provista por vos</div></div>
+    <div class="ref"><div class="n">4 mandos en 2x2 plano</div>
+      <div class="d">28 x 20 x 6.5 cm</div>
+      <div class="s">disposición preferida: nada apilado</div></div>
+    <div class="ref"><div class="n">4 mandos en 2 capas de 2</div>
+      <div class="d">14 x 20 x 13 cm</div>
+      <div class="s">apilar un mando invertido sobre el otro</div></div>
+  </div>
+</div>
+
+${C.categorias.map(cat=>{
+  const its = C.items.filter(i=>i.categoria===cat.id);
+  return `<section class="cat">
+    <div class="cathead"><h2>${esc(cat.nombre)}</h2>
+      <p class="catobj">${esc(cat.objetivo)}</p>
+      <p class="catreq">Requisito mínimo: ${esc(cat.requisito_minimo)}</p></div>
+    ${its.length ? its.map(ficha).join('') :
+      `<div class="card"><div class="body"><p class="sub">Sin ítems verificados todavía en esta categoría.</p></div></div>`}
+  </section>`;
+}).join('')}
+
+<section class="cat">
+  <div class="cathead" style="border-left-color:var(--bad)">
+    <h2>Descartados y por qué</h2>
+    <p class="catobj">Se revisaron y no pasaron. Quedan registrados para no volver a evaluarlos.</p></div>
+  ${C.descartados.map(d=>`<div class="rej">
+    <div class="t"><b>${esc(d.titulo)}</b> — &yen;${d.precio_cny} · US$ ${usd(d.precio_cny)}
+      <span class="badge b-no" style="margin-left:8px">descartado</span></div>
+    <div class="m">${esc(d.motivo)}</div>
+    <div class="rawurl"><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.url)}</a></div>
+  </div>`).join('')}
+</section>
+
+<footer>Precios convertidos a ${M.tasa_cny_usd} USD por yuan (${M.tasa_fecha}). Las miniaturas se sirven
+desde el CDN de Goofish y pueden cambiar si el vendedor edita el anuncio.<br>
+Última actualización de datos: ${M.tasa_fecha}.</footer>`;
+
+/* carruseles */
+document.querySelectorAll('[data-car]').forEach(car=>{
+  const tr = car.querySelector('.track');
+  const cur = car.querySelector('[data-cur]');
+  const dots = car.parentElement.querySelector('.dots');
+  const go = i => tr.scrollTo({left: i*tr.clientWidth});
+  const idx = () => Math.round(tr.scrollLeft / tr.clientWidth);
+  car.querySelectorAll('.nav').forEach(b=>b.onclick=()=>{
+    const n = tr.children.length;
+    go((idx() + Number(b.dataset.d) + n) % n);
+  });
+  if(dots) dots.querySelectorAll('.dot').forEach(d=>d.onclick=()=>go(Number(d.dataset.i)));
+  tr.addEventListener('scroll', ()=>{
+    const i = idx();
+    if(cur) cur.textContent = i+1;
+    if(dots) dots.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on', j===i));
+  }, {passive:true});
+});
+</script>
+</body>
+</html>
