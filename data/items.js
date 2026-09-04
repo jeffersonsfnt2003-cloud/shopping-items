@@ -25,13 +25,15 @@ window.CATALOGO = {
   categorias: [
     {
       id: "estuche-gamecube",
-      nombre: "Estuche rígido — 4 mandos GameCube + adaptador",
+      nombre: "Estuches",
+      tab: "Estuches",
       objetivo: "Estuche de interior LIBRE (sin bandeja moldeada), no metálico, no tipo flight case. Contenido: 4 mandos de GameCube (14 x 10 x 6.5 cm c/u) y 1 adaptador GameCube->Switch (12 x 6 x 3 cm). Sin cables.",
       requisito_minimo: "Interior >= 28 x 20 x 7 cm para los 4 en 2x2 plano, o >= 15 x 21 x 13 cm para 2 capas de 2."
     },
     {
       id: "base-xbox",
-      nombre: "Base vertical de refrigeración/carga — Xbox Series X",
+      nombre: "Bases y coolers",
+      tab: "Bases y coolers",
       objetivo: "Base vertical con ventilación y carga para 2 mandos de Xbox One (no Series X|S). Pendiente de confirmar el modelo exacto de los mandos.",
       requisito_minimo: "Los contactos y la batería recargable deben ser compatibles con la bahía de pilas del mando Xbox One."
     }
@@ -42,7 +44,7 @@ window.CATALOGO = {
       id: "804675975389",
       categoria: "estuche-gamecube",
       estado: "aprobado",
-      titulo: "Estuche rígido P8 — interior 40 x 24 x 11 cm",
+      titulo: "Estuche rígido P8",
       titulo_zh: "18元包邮手提大号硬质工具包便携维修包仪器仪表防护包键盘收纳包",
       url: "https://www.goofish.com/item?id=804675975389",
       precio_cny: 18,
@@ -54,6 +56,7 @@ window.CATALOGO = {
       interior_detalle: "Base 7 cm + tapa 4 cm. Medidas rotuladas por el vendedor sobre la foto 4.",
       vendedor: { nombre: "白白白大爷", ciudad: "Jinhua", antiguedad: "8 años", ventas: 13435, reputacion: "95%" },
       encaje: { layout: "flat2x2", veredicto: "holgado" },
+      resumen: "Los 4 mandos entran planos, sin apilar nada. Sobra una franja de 12 cm para el adaptador. El más barato de todos.",
       descripcion: "El mejor encaje y el más barato de la selección. Los 4 mandos entran en 2x2 plano ocupando 28 x 24 cm de los 40 x 24 disponibles: sobra una franja de 12 x 24 cm donde el adaptador entra acostado. Los 6.5 cm de grosor del mando caben en la base de 7 cm, así que nada queda apilado y ningún stick analógico soporta peso. Interior completamente liso, sin bandeja ni espuma moldeada.",
       verificacion: [
         "Interior liso confirmado en las fotos 4 y 5: concha negra lisa, sin molde ni espuma precortada.",
@@ -81,7 +84,7 @@ window.CATALOGO = {
       id: "829404094051",
       categoria: "estuche-gamecube",
       estado: "aprobado",
-      titulo: "Estuche rígido EVA A3 — interior 32 x 25 x 10 cm",
+      titulo: "Estuche rígido EVA A3",
       titulo_zh: "手提大号硬壳防水耐磨减震工具收纳包五金工具仪器仪表设备防护包",
       url: "https://www.goofish.com/item?id=829404094051",
       precio_cny: 25,
@@ -93,6 +96,7 @@ window.CATALOGO = {
       interior_detalle: "Exterior 33 x 26 x 11. Base 7 cm + tapa 3 cm. Rotulado por el vendedor sobre las fotos 5 y 10.",
       vendedor: { nombre: "货比三家之后的货", ciudad: "Jinhua", antiguedad: "6 años", ventas: 18390, reputacion: "97%" },
       encaje: { layout: "flat2x2", veredicto: "ajustado pero limpio" },
+      resumen: "Los mandos en la base de 7 cm, el adaptador justo en la tapa de 3. Nuevo y con derecho a devolución.",
       descripcion: "El encaje más elegante de la selección. Los 4 mandos en 2x2 ocupan 28 x 20 de los 32 x 25 de la base, y los 6.5 cm de grosor entran en los 7 cm de profundidad de la base. El adaptador (12 x 6 x 3) cabe exacto en la tapa, que tiene 3 cm libres y un bolsillo de malla. Interior liso en ambas mitades. Es la única opción nueva con devolución si no coincide con la descripción.",
       verificacion: [
         "Interior liso confirmado en las fotos 5 y 10, con las medidas rotuladas sobre la imagen (32 / 25 / base 7 / tapa 3).",
@@ -119,7 +123,7 @@ window.CATALOGO = {
       id: "1045671276496",
       categoria: "estuche-gamecube",
       estado: "aprobado",
-      titulo: "Estuche rígido — interior 26.5 x 22.8 x 15 cm (tu referencia)",
+      titulo: "Estuche rígido — tu referencia",
       titulo_zh: "手提大号硬质工具包便携维修包仪器仪表防护包键盘收纳包",
       url: "https://www.goofish.com/item?id=1045671276496",
       precio_cny: 25,
@@ -131,6 +135,7 @@ window.CATALOGO = {
       interior_detalle: "Medida interna declarada por el vendedor en la descripción.",
       vendedor: { nombre: "包你心动", ciudad: "Dongguan", antiguedad: "1 año", ventas: 629, reputacion: "99%" },
       encaje: { layout: "stack2", veredicto: "solo apilado" },
+      resumen: "Tu referencia. Cumple todo, pero obliga a apilar en 2 capas: le faltan 1.5 cm para los 4 en plano.",
       descripcion: "El estuche que mandaste como referencia. Cumple todas las reglas: cáscara dura PU+EVA, interior completamente libre con un solo divisor de tela, esponja extraíble, asa, negro y sobrio. Pero atención al encaje: con 26.5 cm de largo NO admite los 4 mandos en 2x2 plano, porque esa disposición necesita 28 cm. Solo funciona en 2 capas de 2, aprovechando los 15 cm de altura. El adaptador va en la franja libre de 12.5 x 22.8 cm.",
       verificacion: [
         "Interior libre confirmado en las fotos 4, 6 y 9: concha lisa con un único divisor de cinta, sin molde.",
@@ -157,7 +162,7 @@ window.CATALOGO = {
       id: "1049512704261",
       categoria: "estuche-gamecube",
       estado: "aprobado",
-      titulo: "Estuche rígido camuflado — aprox. 33 x 28 x 11 cm",
+      titulo: "Estuche rígido camuflado",
       titulo_zh: "大号硬壳收纳包一个尺寸如图",
       url: "https://www.goofish.com/item?id=1049512704261",
       precio_cny: 25.88,
@@ -169,6 +174,7 @@ window.CATALOGO = {
       interior_detalle: "El vendedor no declara medidas ('tamaño según la foto'). Estas cifras las leí yo de la cinta métrica en sus fotos 2, 3 y 5: exterior aprox. 33 x 28 x 11 cm. Margen de error de 1 a 2 cm.",
       vendedor: { nombre: "炮兵库存清仓", ciudad: "Chifeng", antiguedad: "5 años", ventas: 19648, reputacion: "98%" },
       encaje: { layout: "flat2x2", veredicto: "entra si las medidas leídas son correctas" },
+      resumen: "Interior libre y espacio de sobra. En contra: es camuflado y las medidas las leí yo de la cinta, no las declara el vendedor.",
       descripcion: "Interior completamente libre, solo con una cinta elástica. Los 4 mandos en 2x2 necesitan 28 x 20 y hay unos 31 x 26, así que entran planos y sobra sitio para el adaptador. Vendedor con casi 20 mil ventas y devolución si no coincide. La pega es estética y de precisión: es camuflado, no negro, y las medidas son mi lectura de la cinta, no un dato del vendedor.",
       verificacion: [
         "Interior libre confirmado en la foto 4: concha lisa con una cinta elástica, sin molde ni espuma.",
@@ -194,7 +200,7 @@ window.CATALOGO = {
       id: "1006598143817",
       categoria: "estuche-gamecube",
       estado: "aprobado",
-      titulo: "Organizador rígido negro — exterior 37 x 26 x 13 cm",
+      titulo: "Organizador rígido negro",
       titulo_zh: "硬壳收纳包，化妆，工具收纳包，黑色，多功能三层多收纳袋",
       url: "https://www.goofish.com/item?id=1006598143817",
       precio_cny: 25,
@@ -206,6 +212,7 @@ window.CATALOGO = {
       interior_detalle: "Exterior 37 x 26 x 13. Interior 36 x 25 según el diagrama de cotas del vendedor en la foto 4.",
       vendedor: { nombre: "no declarado en la ficha", ciudad: "-", antiguedad: "-", ventas: 0, reputacion: "-" },
       encaje: { layout: "flat2x2", veredicto: "entra, pero hay que vaciarlo primero" },
+      resumen: "Divisores de velcro que salen enteros. Entra holgado, pero hay que vaciarlo primero: de fábrica no viene libre.",
       descripcion: "Maletín organizador con divisores de velcro totalmente reconfigurables o extraíbles: sacándolos, el interior queda libre y los 4 mandos entran en 2x2 con margen. Negro, sobrio, tela Oxford impermeable. La contra es que viene pensado como organizador de tres niveles con elásticos en la tapa, así que no es un cajón vacío de fábrica: hay que desmontarlo.",
       verificacion: [
         "La foto 6 declara 'divisores de libre ajuste' y muestra las placas de velcro sueltas: el interior es reconfigurable o vaciable.",

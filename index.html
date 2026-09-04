@@ -3,322 +3,257 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Catálogo de compras — Goofish</title>
+<title>Catálogo</title>
 <style>
 :root{
-  --bg:#131318; --panel:#1c1c24; --panel2:#23232d; --line:#33333f;
-  --tx:#e6e6ee; --dim:#9a9aac; --mute:#6e6e80;
+  --bg:#121217; --card:#1b1b23; --card2:#22222c; --line:#31313d;
+  --tx:#e8e8f0; --dim:#9c9cae; --mute:#6c6c7e;
   --acc:#a5a3f5; --amber:#e8b04b; --ok:#5fbf8f; --bad:#e0645f; --warn:#d9a441;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
+html,body{overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--tx);
-  font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.wrap{max-width:1120px;margin:0 auto;padding:32px 20px 80px}
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 a{color:var(--acc)}
-h1{font-size:26px;margin:0 0 6px;letter-spacing:-.02em}
-h2{font-size:19px;margin:0 0 4px;letter-spacing:-.01em}
 .mono{font-family:var(--mono)}
-.sub{color:var(--dim);font-size:14px;margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 16px 70px}
 
-header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:28px}
-.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-.chip{background:var(--panel);border:1px solid var(--line);border-radius:6px;
-  padding:5px 10px;font-family:var(--mono);font-size:12px;color:var(--dim)}
-.chip b{color:var(--tx);font-weight:600}
+/* ---------- cabecera ---------- */
+header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:20px;margin:0;letter-spacing:-.02em}
+.rate{font-family:var(--mono);font-size:11.5px;color:var(--mute)}
 
-.refbox{background:var(--panel);border:1px solid var(--line);border-radius:10px;
-  padding:16px 18px;margin:22px 0 34px}
-.refbox h3{margin:0 0 10px;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
-.refgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
-.ref{background:var(--panel2);border-radius:8px;padding:12px 14px}
-.ref .n{font-size:13px;color:var(--dim)}
-.ref .d{font-family:var(--mono);font-size:17px;color:var(--acc);margin-top:3px}
-.ref .s{font-size:11px;color:var(--mute);margin-top:5px}
+/* ---------- pestañas ---------- */
+nav.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:6px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--dim);
+  border-radius:20px;padding:6px 14px;font-size:13.5px;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--tx)}
+.tab.on{background:var(--acc);border-color:var(--acc);color:#15151c;font-weight:600}
+.tab .n{font-family:var(--mono);font-size:11px;opacity:.7;margin-left:4px}
+.catnote{color:var(--mute);font-size:12.5px;margin:0 0 16px;max-width:80ch}
 
-section.cat{margin:44px 0 0}
-.cathead{border-left:3px solid var(--acc);padding-left:14px;margin-bottom:8px}
-.catobj{color:var(--dim);font-size:14px;max-width:75ch;margin:6px 0 4px}
-.catreq{font-family:var(--mono);font-size:12.5px;color:var(--warn);margin:6px 0 0}
+/* ---------- grilla ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:11px;
+  overflow:hidden;display:flex;flex-direction:column}
+.ph{position:relative;background:#0c0c10;aspect-ratio:1/1}
+.tr{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;scrollbar-width:none}
+.tr::-webkit-scrollbar{display:none}
+.sl{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center}
+.sl img{width:100%;height:100%;object-fit:contain}
+.ar{position:absolute;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(12,12,16,.8);color:#fff;cursor:pointer;
+  font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transition:.15s}
+.ph:hover .ar,.ph:focus-within .ar{opacity:1}
+.ar.p{left:6px}.ar.n{right:6px}
+.pill{position:absolute;top:7px;right:8px;font-family:var(--mono);font-size:10px;
+  background:rgba(12,12,16,.8);border:1px solid var(--line);border-radius:10px;padding:1px 7px;color:var(--dim)}
+.body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:7px;flex:1}
+.tt{font-size:14px;font-weight:600;line-height:1.3;margin:0}
+.dm{font-family:var(--mono);font-size:11px;color:var(--acc);margin:-3px 0 0}
+.rs{font-size:12.5px;color:var(--dim);margin:0;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pr{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:4px;flex-wrap:wrap}
+.y{font-family:var(--mono);font-size:20px;color:var(--amber);font-weight:600;line-height:1}
+.d{font-family:var(--mono);font-size:13px;color:var(--dim)}
+.free{font-size:10px;color:var(--ok);border:1px solid rgba(95,191,143,.3);border-radius:3px;padding:1px 5px}
+.acts{display:flex;gap:7px}
+.btn{white-space:nowrap}
+.btn{flex:1;text-align:center;border:1px solid var(--line);background:var(--card2);color:var(--tx);
+  border-radius:6px;padding:7px 6px;font-size:12.5px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.go{background:var(--acc);border-color:var(--acc);color:#15151c;font-weight:600}
+.btn.go:hover{filter:brightness(1.1);color:#15151c}
+.empty{grid-column:1/-1;color:var(--mute);font-size:13.5px;padding:26px;text-align:center;
+  border:1px dashed var(--line);border-radius:10px}
 
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  margin:22px 0;overflow:hidden}
-.card > .body{padding:20px 22px 22px}
-.ctop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-  padding:3px 9px;border-radius:20px;white-space:nowrap}
-.b-ok{background:rgba(95,191,143,.14);color:var(--ok);border:1px solid rgba(95,191,143,.34)}
-.b-no{background:rgba(224,100,95,.13);color:var(--bad);border:1px solid rgba(224,100,95,.32)}
-.zh{font-family:var(--mono);font-size:12px;color:var(--mute);margin:4px 0 0;word-break:break-all}
+/* ---------- modal ---------- */
+.ov{position:fixed;inset:0;background:rgba(6,6,9,.8);backdrop-filter:blur(3px);z-index:90;
+  display:none;align-items:flex-start;justify-content:center;padding:26px 14px;overflow-y:auto}
+.ov.on{display:flex}
+.md{background:var(--card);border:1px solid var(--line);border-radius:13px;max-width:820px;width:100%;
+  overflow:hidden;position:relative}
+.x{position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(12,12,16,.9);color:#fff;font-size:17px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:0}
+.mph{background:#0c0c10;height:300px;position:relative;border-bottom:1px solid var(--line)}
+.mph .sl img{object-fit:contain}
+.mph .ar{opacity:1;width:34px;height:34px;font-size:17px}
+.mb{padding:18px 20px 22px}
+.mb h2{font-size:18px;margin:0 0 3px;line-height:1.3}
+.zh{font-family:var(--mono);font-size:11px;color:var(--mute);margin:0 0 12px;word-break:break-all}
+.sp{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:7px;overflow:hidden;margin:13px 0}
+.sp>div{background:var(--card2);padding:7px 10px}
+.sp .k{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
+.sp .v{font-size:12.5px;margin-top:1px}
+.fine{font-size:11.5px;color:var(--mute);margin:-6px 0 0}
+.dsc{font-size:13.5px;margin:13px 0}
+.diag{background:var(--card2);border-radius:7px;padding:13px;margin:14px 0}
+.diag h4,.lb h4{margin:0 0 7px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-family:var(--mono);color:var(--mute)}
+.verd{font-family:var(--mono);font-size:12px;margin:0 0 11px}
+.diag svg{max-width:100%;height:auto}
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:14px 0}
+.lb{background:var(--card2);border-radius:7px;padding:11px 13px}
+.lb.v h4{color:var(--ok)}.lb.r h4{color:var(--warn)}
+.lb ul{margin:0;padding-left:16px}.lb li{margin:4px 0;font-size:12.5px;color:var(--dim)}
+.raw{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:8px;word-break:break-all}
 
-.price{display:flex;align-items:baseline;gap:12px;margin:16px 0 4px;flex-wrap:wrap}
-.cny{font-family:var(--mono);font-size:28px;color:var(--amber);font-weight:600;line-height:1}
-.usd{font-family:var(--mono);font-size:17px;color:var(--dim)}
-.ship{font-size:12px;color:var(--ok);border:1px solid rgba(95,191,143,.3);border-radius:4px;padding:2px 7px}
-
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
-  background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:16px 0}
-.spec{background:var(--panel2);padding:9px 12px}
-.spec .k{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
-.spec .v{font-size:13.5px;margin-top:2px}
-
-.desc{margin:14px 0;max-width:80ch}
-.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin:18px 0}
-.lbox{background:var(--panel2);border-radius:8px;padding:13px 15px}
-.lbox h4{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono)}
-.lbox.v h4{color:var(--ok)} .lbox.r h4{color:var(--warn)}
-.lbox ul{margin:0;padding-left:17px} .lbox li{margin:5px 0;font-size:13.5px;color:var(--dim)}
-
-/* carrusel */
-.car{position:relative;background:#0d0d11;border-bottom:1px solid var(--line)}
-.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;scrollbar-width:none}
-.track::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;
-  justify-content:center;height:340px;background:#0d0d11}
-.slide img{max-width:100%;max-height:340px;object-fit:contain;display:block}
-.nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
-  border:1px solid var(--line);background:rgba(19,19,24,.85);color:var(--tx);cursor:pointer;
-  font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.nav:hover{background:var(--panel2)} .prev{left:10px} .next{right:10px}
-.count{position:absolute;top:10px;right:12px;font-family:var(--mono);font-size:11px;
-  background:rgba(19,19,24,.85);border:1px solid var(--line);border-radius:12px;padding:2px 9px;color:var(--dim)}
-.dots{display:flex;gap:6px;justify-content:center;padding:9px 0;background:#0d0d11}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--line);border:0;padding:0;cursor:pointer}
-.dot.on{background:var(--acc)}
-.noimg{color:var(--mute);font-family:var(--mono);font-size:13px;padding:40px;text-align:center}
-
-.diag{background:var(--panel2);border-radius:8px;padding:15px;margin:18px 0}
-.diag h4{margin:0 0 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
-.diag .verd{font-family:var(--mono);font-size:13px;margin:0 0 12px}
-.diag svg{max-width:100%;height:auto;display:block}
-
-.golink{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#15151c;
-  font-weight:600;font-size:14px;text-decoration:none;padding:10px 18px;border-radius:7px;margin-top:6px}
-.golink:hover{filter:brightness(1.1)}
-.rawurl{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-top:9px;word-break:break-all}
-
-.rej{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--bad);
-  border-radius:8px;padding:13px 16px;margin:11px 0}
-.rej .t{font-size:14.5px}
-.rej .m{color:var(--dim);font-size:13.5px;margin-top:5px;max-width:85ch}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
-  color:var(--mute);font-size:12.5px;font-family:var(--mono)}
+details.rejs{margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
+details.rejs summary{cursor:pointer;color:var(--dim);font-size:13.5px}
+.rej{background:var(--card);border-left:2px solid var(--bad);border-radius:6px;padding:10px 13px;margin:9px 0}
+.rej b{font-size:13px}.rej p{color:var(--dim);font-size:12.5px;margin:4px 0 0}
+footer{margin-top:34px;color:var(--mute);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:520px){
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .tt{font-size:13px}.rs{-webkit-line-clamp:2;font-size:11.5px}.y{font-size:17px}
+  .ov{padding:0}.md{border-radius:0;min-height:100%}.mph{height:230px}
+}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
+<div class="ov" id="ov"><div class="md" id="md"></div></div>
 <script src="data/items.js"></script>
 <script>
-const C = window.CATALOGO, M = C.meta;
-const usd = c => (c * M.tasa_cny_usd).toFixed(2);
-const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const C=window.CATALOGO, M=C.meta;
+const usd=c=>(c*M.tasa_cny_usd).toFixed(2);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
-/* ---- diagrama de encaje, generado a escala desde las medidas ---- */
+function carr(it,cls){
+  const im=it.imagenes||[];
+  if(!im.length) return '<div class="'+cls+'"></div>';
+  return '<div class="'+cls+'" data-c>'
+    +'<div class="tr">'+im.map((u,i)=>'<div class="sl"><img src="'+esc(u)+'" loading="lazy" alt="'+esc(it.titulo)+' '+(i+1)+'" referrerpolicy="no-referrer"></div>').join('')+'</div>'
+    +'<span class="pill"><b data-cur>1</b>/'+im.length+'</span>'
+    +(im.length>1?'<button class="ar p" data-d="-1" aria-label="Anterior">&#8249;</button><button class="ar n" data-d="1" aria-label="Siguiente">&#8250;</button>':'')
+    +'</div>';
+}
+
 function diagrama(it){
-  const [L,W,H] = it.interior;
-  const m = M.referencias.mando_gamecube, a = M.referencias.adaptador;
-  const stacked = it.encaje.layout === 'stack2';
-  const cols = stacked ? 1 : 2, rows = 2, capas = stacked ? 2 : 1;
-  const fw = cols * m.largo, fh = rows * m.ancho, alto = capas * m.alto;
-
-  // El adaptador se prueba girado y, como ultimo recurso, en el espacio de la tapa.
-  const sw = L - fw, sh = W - fh;
-  let ad = null;
-  if (sw >= a.largo && W >= a.ancho)
-    ad = {x: fw + (sw-a.largo)/2, y: (W-a.ancho)/2, w: a.largo, h: a.ancho, note:'acostado en la franja lateral'};
-  else if (sw >= a.ancho && W >= a.largo)
-    ad = {x: fw + (sw-a.ancho)/2, y: (W-a.largo)/2, w: a.ancho, h: a.largo, note:'de canto en la franja lateral'};
-  else if (sh >= a.ancho && L >= a.largo)
-    ad = {x: (L-a.largo)/2, y: fh + (sh-a.ancho)/2, w: a.largo, h: a.ancho, note:'acostado en la franja inferior'};
-  else if (sh >= a.largo && L >= a.ancho)
-    ad = {x: (L-a.ancho)/2, y: fh + (sh-a.largo)/2, w: a.ancho, h: a.largo, note:'de canto en la franja inferior'};
-  else if (H - alto >= a.alto)
-    ad = {above:true, note:'encima de los mandos, en el espacio libre de la tapa'};
-
-  const cabe = fw <= L && fh <= W && alto <= H && ad !== null;
-  const col = cabe ? 'var(--ok)' : 'var(--bad)';
-  const s = Math.min(430/L, 240/W), P = 34, px = n => (n*s).toFixed(1);
-  const Wsvg = L*s + P*2, Hsvg = W*s + P*2;
-
-  let mandos = '';
-  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++){
-    const x = P + c*m.largo*s, y = P + r*m.ancho*s;
-    mandos += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+px(m.largo)+'" height="'+px(m.ancho)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>';
-    mandos += '<text x="'+(x+m.largo*s/2).toFixed(1)+'" y="'+(y+m.ancho*s/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--acc)">'+(stacked?'x2 capas':'mando')+'</text>';
+  const [L,W,H]=it.interior, m=M.referencias.mando_gamecube, a=M.referencias.adaptador;
+  const st=it.encaje.layout==='stack2', cols=st?1:2, capas=st?2:1;
+  const fw=cols*m.largo, fh=2*m.ancho, alto=capas*m.alto, sw=L-fw, sh=W-fh;
+  let ad=null;
+  if(sw>=a.largo&&W>=a.ancho) ad={x:fw+(sw-a.largo)/2,y:(W-a.ancho)/2,w:a.largo,h:a.ancho,note:'acostado en la franja lateral'};
+  else if(sw>=a.ancho&&W>=a.largo) ad={x:fw+(sw-a.ancho)/2,y:(W-a.largo)/2,w:a.ancho,h:a.largo,note:'de canto en la franja lateral'};
+  else if(sh>=a.ancho&&L>=a.largo) ad={x:(L-a.largo)/2,y:fh+(sh-a.ancho)/2,w:a.largo,h:a.ancho,note:'acostado en la franja inferior'};
+  else if(sh>=a.largo&&L>=a.ancho) ad={x:(L-a.ancho)/2,y:fh+(sh-a.largo)/2,w:a.ancho,h:a.largo,note:'de canto en la franja inferior'};
+  else if(H-alto>=a.alto) ad={above:1,note:'encima de los mandos, en el hueco de la tapa'};
+  const ok=fw<=L&&fh<=W&&alto<=H&&ad, col=ok?'var(--ok)':'var(--bad)';
+  const s=Math.min(380/L,215/W), P=30, px=n=>(n*s).toFixed(1);
+  let mn='';
+  for(let r=0;r<2;r++)for(let c=0;c<cols;c++){
+    const x=P+c*m.largo*s, y=P+r*m.ancho*s;
+    mn+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+px(m.largo)+'" height="'+px(m.ancho)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
+      +'<text x="'+(x+m.largo*s/2).toFixed(1)+'" y="'+(y+m.ancho*s/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">'+(st?'x2 capas':'mando')+'</text>';
   }
-  let adap = '';
-  if (ad && !ad.above)
-    adap = '<rect x="'+(P+ad.x*s).toFixed(1)+'" y="'+(P+ad.y*s).toFixed(1)+'" width="'+px(ad.w)+'" height="'+px(ad.h)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/><text x="'+(P+(ad.x+ad.w/2)*s).toFixed(1)+'" y="'+(P+(ad.y+ad.h/2)*s+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--amber)">adapt.</text>';
-
-  const planta = '<svg viewBox="0 0 '+Wsvg.toFixed(0)+' '+Hsvg.toFixed(0)+'" width="'+Wsvg.toFixed(0)+'">'
-    + '<rect x="'+P+'" y="'+P+'" width="'+px(L)+'" height="'+px(W)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'
-    + mandos + adap
-    + '<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P-12)+'" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--dim)">'+L+' cm</text>'
-    + '<text x="'+(P-12)+'" y="'+(P+W*s/2).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--dim)" transform="rotate(-90 '+(P-12)+' '+(P+W*s/2).toFixed(1)+')">'+W+' cm</text>'
-    + '<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P+W*s+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--mute)">planta</text></svg>';
-
-  const s2 = Math.min(430/L, 130/H), P2 = 34, hb = alto*s2, adh = a.alto*s2;
-  let adAlz = '';
-  if (ad && ad.above)
-    adAlz = '<rect x="'+(P2+4)+'" y="'+(P2+H*s2-hb-adh-3).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+adh.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>';
-  else if (ad)
-    adAlz = '<rect x="'+(P2+fw*s2+4).toFixed(1)+'" y="'+(P2+H*s2-adh-2).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+adh.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>';
-
-  const alzado = '<svg viewBox="0 0 '+(L*s2+P2*2).toFixed(0)+' '+(H*s2+P2*2).toFixed(0)+'" width="'+(L*s2+P2*2).toFixed(0)+'">'
-    + '<rect x="'+P2+'" y="'+P2+'" width="'+(L*s2).toFixed(1)+'" height="'+(H*s2).toFixed(1)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'
-    + '<rect x="'+(P2+2)+'" y="'+(P2+H*s2-hb-2).toFixed(1)+'" width="'+(fw*s2).toFixed(1)+'" height="'+hb.toFixed(1)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
-    + '<text x="'+(P2+fw*s2/2).toFixed(1)+'" y="'+(P2+H*s2-hb/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--acc)">'+(capas===2?'2 capas = ':'')+alto+' cm</text>'
-    + adAlz
-    + '<text x="'+(P2+L*s2+13)+'" y="'+(P2+H*s2/2+4).toFixed(1)+'" font-family="var(--mono)" font-size="12" fill="var(--dim)">'+H+' cm</text>'
-    + '<text x="'+(P2+L*s2/2).toFixed(1)+'" y="'+(P2+H*s2+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--mute)">alzado lateral</text></svg>';
-
-  const txt = cabe
-    ? 'ENTRA — ' + (stacked ? '2 capas de 2 mandos' : '4 mandos en 2x2 plano') + ' ocupan ' + fw + ' x ' + fh + ' x ' + alto
-      + ' cm. Adaptador ' + ad.note + '. Sobran ' + (L-fw).toFixed(1) + ' cm de largo, ' + (W-fh).toFixed(1) + ' de ancho y ' + (H-alto).toFixed(1) + ' de alto.'
-    : 'NO ENTRA. Los 4 mandos necesitan ' + fw + ' x ' + fh + ' x ' + alto + ' cm mas sitio para el adaptador, y el interior es ' + L + ' x ' + W + ' x ' + H + ' cm.';
-
-  return '<div class="diag"><h4>Análisis de encaje — planta y alzado, a escala</h4>'
-    + '<p class="verd" style="color:'+col+'">'+txt+'</p>'+planta+'<div style="height:10px"></div>'+alzado+'</div>';
+  const adr=(ad&&!ad.above)?'<rect x="'+(P+ad.x*s).toFixed(1)+'" y="'+(P+ad.y*s).toFixed(1)+'" width="'+px(ad.w)+'" height="'+px(ad.h)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/><text x="'+(P+(ad.x+ad.w/2)*s).toFixed(1)+'" y="'+(P+(ad.y+ad.h/2)*s+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--amber)">adapt.</text>':'';
+  const planta='<svg viewBox="0 0 '+(L*s+P*2).toFixed(0)+' '+(W*s+P*2+14).toFixed(0)+'" width="'+(L*s+P*2).toFixed(0)+'">'
+    +'<rect x="'+P+'" y="'+P+'" width="'+px(L)+'" height="'+px(W)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'+mn+adr
+    +'<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P-10)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--dim)">'+L+' cm</text>'
+    +'<text x="'+(P-11)+'" y="'+(P+W*s/2).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--dim)" transform="rotate(-90 '+(P-11)+' '+(P+W*s/2).toFixed(1)+')">'+W+' cm</text>'
+    +'<text x="'+(P+L*s/2).toFixed(1)+'" y="'+(P+W*s+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--mute)">planta</text></svg>';
+  const s2=Math.min(380/L,110/H), Q=30, hb=alto*s2, ah=a.alto*s2;
+  const adA=ad?(ad.above
+      ?'<rect x="'+(Q+4)+'" y="'+(Q+H*s2-hb-ah-3).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+ah.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>'
+      :'<rect x="'+(Q+fw*s2+4).toFixed(1)+'" y="'+(Q+H*s2-ah-2).toFixed(1)+'" width="'+(a.largo*s2).toFixed(1)+'" height="'+ah.toFixed(1)+'" fill="rgba(232,176,75,.13)" stroke="var(--amber)" stroke-width="1.5" rx="2"/>'):'';
+  const alz='<svg viewBox="0 0 '+(L*s2+Q*2).toFixed(0)+' '+(H*s2+Q*2+14).toFixed(0)+'" width="'+(L*s2+Q*2).toFixed(0)+'">'
+    +'<rect x="'+Q+'" y="'+Q+'" width="'+(L*s2).toFixed(1)+'" height="'+(H*s2).toFixed(1)+'" fill="rgba(255,255,255,.025)" stroke="'+col+'" stroke-width="2" rx="4"/>'
+    +'<rect x="'+(Q+2)+'" y="'+(Q+H*s2-hb-2).toFixed(1)+'" width="'+(fw*s2).toFixed(1)+'" height="'+hb.toFixed(1)+'" fill="rgba(165,163,245,.10)" stroke="var(--acc)" stroke-width="1.5" rx="3"/>'
+    +'<text x="'+(Q+fw*s2/2).toFixed(1)+'" y="'+(Q+H*s2-hb/2+4).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--acc)">'+(capas===2?'2 capas = ':'')+alto+' cm</text>'+adA
+    +'<text x="'+(Q+L*s2+11)+'" y="'+(Q+H*s2/2+4).toFixed(1)+'" font-family="var(--mono)" font-size="11" fill="var(--dim)">'+H+' cm</text>'
+    +'<text x="'+(Q+L*s2/2).toFixed(1)+'" y="'+(Q+H*s2+20).toFixed(1)+'" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--mute)">alzado</text></svg>';
+  const t=ok?('ENTRA — '+(st?'2 capas de 2':'4 en 2x2 plano')+' ocupan '+fw+' x '+fh+' x '+alto+' cm. Adaptador '+ad.note+'. Sobran '+(L-fw).toFixed(1)+' / '+(W-fh).toFixed(1)+' / '+(H-alto).toFixed(1)+' cm.')
+    :('NO ENTRA. Hacen falta '+fw+' x '+fh+' x '+alto+' cm más el adaptador; el interior es '+L+' x '+W+' x '+H+'.');
+  return '<div class="diag"><h4>Encaje — planta y alzado, a escala</h4><p class="verd" style="color:'+col+'">'+t+'</p>'+planta+alz+'</div>';
 }
 
-function carrusel(it){
-  if(!it.imagenes || !it.imagenes.length) return `<div class="car"><div class="noimg">sin imágenes</div></div>`;
-  const sl = it.imagenes.map((u,i)=>`<div class="slide"><img src="${esc(u)}" loading="lazy"
-      alt="${esc(it.titulo)} — foto ${i+1}" referrerpolicy="no-referrer"></div>`).join('');
-  const dt = it.imagenes.map((_,i)=>`<button class="dot${i?'':' on'}" data-i="${i}" aria-label="Foto ${i+1}"></button>`).join('');
-  return `<div class="car" data-car>
-    <div class="track">${sl}</div>
-    <span class="count"><span data-cur>1</span>/${it.imagenes.length}</span>
-    ${it.imagenes.length>1?`<button class="nav prev" data-d="-1">&#8249;</button>
-    <button class="nav next" data-d="1">&#8250;</button>`:''}
-  </div>${it.imagenes.length>1?`<div class="dots">${dt}</div>`:''}`;
+function tarjeta(it){
+  return '<article class="prod">'+carr(it,'ph')+'<div class="body">'
+    +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
+    +'<p class="dm">interior '+it.interior.join(' x ')+' cm</p>'
+    +'<p class="rs">'+esc(it.resumen||it.descripcion)+'</p>'
+    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
+    +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
+    +'<div class="acts"><button class="btn" data-ver="'+it.id+'">Detalle</button>'
+    +'<a class="btn go" href="'+esc(it.url)+'" target="_blank" rel="noopener">Goofish</a></div>'
+    +'</div></article>';
 }
 
-function ficha(it){
-  const v = it.vendedor||{};
-  const vend = v.nombre && v.nombre!=="no declarado en la ficha"
-    ? `${esc(v.nombre)} · ${esc(v.ciudad)} · ${v.ventas.toLocaleString('es')} ventas · ${esc(v.reputacion)}`
+function detalle(it){
+  const v=it.vendedor||{};
+  const vend=(v.nombre&&v.nombre!=='no declarado en la ficha')
+    ? esc(v.nombre)+' · '+esc(v.ciudad)+' · '+Number(v.ventas).toLocaleString('es')+' ventas · '+esc(v.reputacion)
     : 'no declarado en el anuncio';
-  return `<article class="card">
-    ${carrusel(it)}
-    <div class="body">
-      <div class="ctop">
-        <div style="min-width:0">
-          <h2>${esc(it.titulo)}</h2>
-          <p class="zh">${esc(it.titulo_zh||'')}</p>
-        </div>
-        <span class="badge b-ok">verificado foto por foto</span>
-      </div>
-
-      <div class="price">
-        <span class="cny">&yen;${it.precio_cny}</span>
-        <span class="usd">US$ ${usd(it.precio_cny)}</span>
-        ${it.envio==='incluido'?'<span class="ship">envío incluido</span>':''}
-      </div>
-
-      <div class="specs">
-        <div class="spec"><div class="k">Interior</div><div class="v mono">${it.interior.join(' x ')} cm</div></div>
-        <div class="spec"><div class="k">Material</div><div class="v">${esc(it.material)}</div></div>
-        <div class="spec"><div class="k">Color</div><div class="v">${esc(it.color)}</div></div>
-        <div class="spec"><div class="k">Condición</div><div class="v">${esc(it.condicion)}</div></div>
-        <div class="spec"><div class="k">Vendedor</div><div class="v" style="font-size:12.5px">${vend}</div></div>
-      </div>
-      <p class="sub" style="font-size:12.5px;margin:-6px 0 0">${esc(it.interior_detalle)}</p>
-
-      <p class="desc">${esc(it.descripcion)}</p>
-      ${diagrama(it)}
-
-      <div class="lists">
-        <div class="lbox v"><h4>Qué verifiqué en las fotos</h4>
-          <ul>${it.verificacion.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-        <div class="lbox r"><h4>Reservas — leelas antes de comprar</h4>
-          <ul>${it.reservas.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-      </div>
-
-      <a class="golink" href="${esc(it.url)}" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>
-      <div class="rawurl">${esc(it.url)}</div>
-    </div>
-  </article>`;
+  return '<button class="x" id="cx" aria-label="Cerrar">&times;</button>'+carr(it,'mph')+'<div class="mb">'
+    +'<h2>'+esc(it.titulo)+'</h2><p class="zh">'+esc(it.titulo_zh)+'</p>'
+    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
+    +(it.envio==='incluido'?'<span class="free">envío incluido</span>':'')+'</div>'
+    +'<div class="sp">'
+      +'<div><div class="k">Interior</div><div class="v mono">'+it.interior.join(' x ')+' cm</div></div>'
+      +'<div><div class="k">Material</div><div class="v">'+esc(it.material)+'</div></div>'
+      +'<div><div class="k">Color</div><div class="v">'+esc(it.color)+'</div></div>'
+      +'<div><div class="k">Condición</div><div class="v">'+esc(it.condicion)+'</div></div>'
+      +'<div><div class="k">Vendedor</div><div class="v" style="font-size:11.5px">'+vend+'</div></div>'
+    +'</div><p class="fine">'+esc(it.interior_detalle)+'</p>'
+    +'<p class="dsc">'+esc(it.descripcion)+'</p>'+diagrama(it)
+    +'<div class="lists">'
+      +'<div class="lb v"><h4>Verificado en las fotos</h4><ul>'+it.verificacion.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
+      +'<div class="lb r"><h4>Reservas</h4><ul>'+it.reservas.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>'
+    +'</div>'
+    +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
+    +'<div class="raw">'+esc(it.url)+'</div></div>';
 }
 
-/* ---- render ---- */
-const r = M.referencias;
-document.getElementById('app').innerHTML = `
-<header>
-  <h1>Catálogo de compras</h1>
-  <p class="sub">Ítems verificados uno por uno en Goofish. Fuente única de compra, sin excepciones.</p>
-  <div class="meta">
-    <span class="chip">Tasa <b>1 ¥ = US$ ${M.tasa_cny_usd}</b> · ${M.tasa_fecha}</span>
-    <span class="chip">Fuente <b>goofish.com</b></span>
-    <span class="chip">Aprobados <b>${C.items.length}</b></span>
-    <span class="chip">Descartados <b>${C.descartados.length}</b></span>
-  </div>
-</header>
-
-<div class="refbox">
-  <h3>Medidas de referencia usadas en todos los cálculos</h3>
-  <div class="refgrid">
-    <div class="ref"><div class="n">${esc(r.mando_gamecube.nombre)}</div>
-      <div class="d">${r.mando_gamecube.largo} x ${r.mando_gamecube.ancho} x ${r.mando_gamecube.alto} cm</div>
-      <div class="s">${r.mando_gamecube.peso_g} g · fuente: dimensions.com</div></div>
-    <div class="ref"><div class="n">${esc(r.adaptador.nombre)}</div>
-      <div class="d">${r.adaptador.largo} x ${r.adaptador.ancho} x ${r.adaptador.alto} cm</div>
-      <div class="s">medida provista por vos</div></div>
-    <div class="ref"><div class="n">4 mandos en 2x2 plano</div>
-      <div class="d">28 x 20 x 6.5 cm</div>
-      <div class="s">disposición preferida: nada apilado</div></div>
-    <div class="ref"><div class="n">4 mandos en 2 capas de 2</div>
-      <div class="d">14 x 20 x 13 cm</div>
-      <div class="s">apilar un mando invertido sobre el otro</div></div>
-  </div>
-</div>
-
-${C.categorias.map(cat=>{
-  const its = C.items.filter(i=>i.categoria===cat.id);
-  return `<section class="cat">
-    <div class="cathead"><h2>${esc(cat.nombre)}</h2>
-      <p class="catobj">${esc(cat.objetivo)}</p>
-      <p class="catreq">Requisito mínimo: ${esc(cat.requisito_minimo)}</p></div>
-    ${its.length ? its.map(ficha).join('') :
-      `<div class="card"><div class="body"><p class="sub">Sin ítems verificados todavía en esta categoría.</p></div></div>`}
-  </section>`;
-}).join('')}
-
-<section class="cat">
-  <div class="cathead" style="border-left-color:var(--bad)">
-    <h2>Descartados y por qué</h2>
-    <p class="catobj">Se revisaron y no pasaron. Quedan registrados para no volver a evaluarlos.</p></div>
-  ${C.descartados.map(d=>`<div class="rej">
-    <div class="t"><b>${esc(d.titulo)}</b> — &yen;${d.precio_cny} · US$ ${usd(d.precio_cny)}
-      <span class="badge b-no" style="margin-left:8px">descartado</span></div>
-    <div class="m">${esc(d.motivo)}</div>
-    <div class="rawurl"><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.url)}</a></div>
-  </div>`).join('')}
-</section>
-
-<footer>Precios convertidos a ${M.tasa_cny_usd} USD por yuan (${M.tasa_fecha}). Las miniaturas se sirven
-desde el CDN de Goofish y pueden cambiar si el vendedor edita el anuncio.<br>
-Última actualización de datos: ${M.tasa_fecha}.</footer>`;
-
-/* carruseles */
-document.querySelectorAll('[data-car]').forEach(car=>{
-  const tr = car.querySelector('.track');
-  const cur = car.querySelector('[data-cur]');
-  const dots = car.parentElement.querySelector('.dots');
-  const go = i => tr.scrollTo({left: i*tr.clientWidth});
-  const idx = () => Math.round(tr.scrollLeft / tr.clientWidth);
-  car.querySelectorAll('.nav').forEach(b=>b.onclick=()=>{
-    const n = tr.children.length;
-    go((idx() + Number(b.dataset.d) + n) % n);
+function activarCarr(root){
+  root.querySelectorAll('[data-c]').forEach(c=>{
+    const tr=c.querySelector('.tr'), cur=c.querySelector('[data-cur]');
+    const i=()=>Math.round(tr.scrollLeft/tr.clientWidth);
+    c.querySelectorAll('.ar').forEach(b=>b.onclick=e=>{
+      e.stopPropagation(); const n=tr.children.length;
+      tr.scrollTo({left:((i()+Number(b.dataset.d)+n)%n)*tr.clientWidth});
+    });
+    tr.addEventListener('scroll',()=>{if(cur)cur.textContent=i()+1;},{passive:true});
   });
-  if(dots) dots.querySelectorAll('.dot').forEach(d=>d.onclick=()=>go(Number(d.dataset.i)));
-  tr.addEventListener('scroll', ()=>{
-    const i = idx();
-    if(cur) cur.textContent = i+1;
-    if(dots) dots.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on', j===i));
-  }, {passive:true});
-});
+}
+
+let filtro='todos';
+function pintar(){
+  const cats=C.categorias;
+  const tabs='<button class="tab'+(filtro==='todos'?' on':'')+'" data-f="todos">Todos<span class="n">'+C.items.length+'</span></button>'
+    +cats.map(c=>{const n=C.items.filter(i=>i.categoria===c.id).length;
+      return '<button class="tab'+(filtro===c.id?' on':'')+'" data-f="'+c.id+'">'+esc(c.tab||c.nombre)+'<span class="n">'+n+'</span></button>';}).join('');
+  const cat=cats.find(c=>c.id===filtro);
+  const vis=C.items.filter(i=>filtro==='todos'||i.categoria===filtro);
+  document.getElementById('app').innerHTML=
+    '<header><h1>Catálogo</h1><span class="rate">1 ¥ = US$ '+M.tasa_cny_usd+' · '+M.tasa_fecha+' · goofish.com</span></header>'
+    +'<nav class="tabs">'+tabs+'</nav>'
+    +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
+    +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Todavía no hay nada verificado en esta categoría.</div>')+'</div>'
+    +'<details class="rejs"><summary>Descartados y por qué ('+C.descartados.length+')</summary>'
+    +C.descartados.map(d=>'<div class="rej"><b>'+esc(d.titulo)+'</b> — &yen;'+d.precio_cny+' · US$ '+usd(d.precio_cny)
+      +'<p>'+esc(d.motivo)+'</p><div class="raw"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.url)+'</a></div></div>').join('')
+    +'</details>'
+    +'<footer>Miniaturas servidas por el CDN de Goofish. Última actualización: '+M.tasa_fecha+'.</footer>';
+  activarCarr(document.getElementById('app'));
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filtro=b.dataset.f;pintar();window.scrollTo({top:0});});
+  document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=()=>abrir(b.dataset.ver));
+}
+
+const ov=document.getElementById('ov'), md=document.getElementById('md');
+function abrir(id){
+  const it=C.items.find(x=>x.id===id); if(!it)return;
+  md.innerHTML=detalle(it); ov.classList.add('on'); document.body.style.overflow='hidden';
+  activarCarr(md); document.getElementById('cx').onclick=cerrar; md.scrollIntoView();
+}
+function cerrar(){ov.classList.remove('on');md.innerHTML='';document.body.style.overflow='';}
+ov.onclick=e=>{if(e.target===ov)cerrar();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrar();});
+pintar();
 </script>
 </body>
 </html>
