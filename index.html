@@ -128,7 +128,17 @@ nav.tabs::-webkit-scrollbar{display:none}
   align-items:center;justify-content:center;padding:0}
 .lbc{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;
   color:#c3c3cc;background:rgba(0,0,0,.65);border:1px solid #33333d;border-radius:12px;padding:3px 12px;z-index:3}
-.prod{cursor:pointer}
+.prod{cursor:pointer;position:relative}
+.prod.no{opacity:.68;transition:opacity .15s}
+.prod.no:hover,.prod.no:focus-within{opacity:1}
+.tagno{position:absolute;top:7px;left:8px;z-index:2;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.06em;text-transform:uppercase;background:rgba(224,100,95,.16);color:var(--bad);
+  border:1px solid rgba(224,100,95,.45);border-radius:10px;padding:2px 8px;backdrop-filter:blur(3px)}
+.motivo{background:rgba(224,100,95,.07);border-left:2px solid var(--bad);border-radius:6px;
+  padding:12px 14px;margin:14px 0}
+.motivo h4{margin:0 0 6px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  font-family:var(--mono);color:var(--bad)}
+.motivo p{margin:0;font-size:13.5px;color:var(--dim)}
 .prod:hover{border-color:#454556}
 .mph .sl img{cursor:zoom-in}
 details.rejs{margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
@@ -217,10 +227,12 @@ function diagrama(it){
 }
 
 function tarjeta(it){
-  return '<article class="prod" data-open="'+it.id+'">'+carr(it,'ph')+'<div class="body">'
+  const no = it.estado==='descartado';
+  return '<article class="prod'+(no?' no':'')+'" data-open="'+it.id+'">'
+    +(no?'<span class="tagno">descartado</span>':'')+carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
     +'<p class="dm">'+(it.interior?it.interior.join('&times;')+' cm <span class="vol">'+volumen(it).toLocaleString('es')+' cm&sup3;</span>':esc(it.spec||''))+'</p>'
-    +'<p class="rs">'+esc(it.resumen||it.descripcion)+'</p>'
+    +'<p class="rs">'+esc(it.resumen||it.motivo||it.descripcion||'')+'</p>'
     +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span>'
     +(it.envio==='incluido'?'<span class="free">envío incl.</span>':'')+'</div>'
     +'<div class="acts"><button class="btn" data-ver="'+it.id+'">Detalle</button>'
@@ -228,7 +240,18 @@ function tarjeta(it){
     +'</div></article>';
 }
 
+function detalleNo(it){
+  return '<button class="x" id="cx" aria-label="Cerrar">&times;</button>'+carr(it,'mph',1)+'<div class="mb">'
+    +'<div class="ctop" style="align-items:center"><h2 style="margin:0">'+esc(it.titulo)+'</h2>'
+    +'<span class="badge b-no">descartado</span></div>'
+    +'<div class="pr"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">US$ '+usd(it.precio_cny)+'</span></div>'
+    +'<div class="motivo"><h4>Por qu\u00e9 no pas\u00f3</h4><p>'+esc(it.motivo)+'</p></div>'
+    +'<a class="btn go" style="display:inline-block;padding:9px 18px" href="'+esc(it.url)+'" target="_blank" rel="noopener">Ver en Goofish &rarr;</a>'
+    +'<div class="raw">'+esc(it.url)+'</div></div>';
+}
+
 function detalle(it){
+  if(it.estado==='descartado') return detalleNo(it);
   const v=it.vendedor||{};
   const vend=(v.nombre&&v.nombre!=='no declarado en la ficha')
     ? esc(v.nombre)+' · '+esc(v.ciudad)+' · '+Number(v.ventas).toLocaleString('es')+' ventas · '+esc(v.reputacion)
@@ -292,10 +315,13 @@ function pintar(){
     +'<div class="navrow">'+selector()+'</div>'
     +(cat?'<p class="catnote">'+esc(cat.objetivo)+'</p>':'<p class="catnote">Todo lo verificado, en todas las categorías.</p>')
     +'<div class="grid">'+(vis.length?vis.map(tarjeta).join(''):'<div class="empty">Nada coincide con estos filtros.</div>')+'</div>'
-    +'<details class="rejs"><summary>Descartados y por qué ('+C.descartados.length+')</summary>'
-    +C.descartados.map(d=>'<div class="rej"><b>'+esc(d.titulo)+'</b> — &yen;'+d.precio_cny+' · US$ '+usd(d.precio_cny)
-      +'<p>'+esc(d.motivo)+'</p><div class="raw"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.url)+'</a></div></div>').join('')
-    +'</details>'
+    +(function(){
+        const d=C.descartados.filter(x=>filtro==='todos'||x.categoria===filtro)
+                 .sort((x,y)=>x.precio_cny-y.precio_cny);
+        if(!d.length) return '';
+        return '<details class="rejs"><summary>Descartados y por qu\u00e9 ('+d.length+')</summary>'
+          +'<div class="grid" style="margin-top:14px">'+d.map(tarjeta).join('')+'</div></details>';
+      })()
     +'<footer>Miniaturas servidas por el CDN de Goofish. Última actualización: '+M.tasa_fecha+'.</footer>';
   activarCarr(document.getElementById('app'));
   document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=e=>{e.stopPropagation();abrir(b.dataset.ver);});
@@ -345,7 +371,7 @@ lb.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse'&&!lb.classList
 lb.addEventListener('pointerup',e=>{ if(_mx===null)return; const dx=e.clientX-_mx; _mx=null;
   if(Math.abs(dx)>60) moverFoto(dx<0?1:-1); });
 function abrir(id){
-  const it=C.items.find(x=>x.id===id); if(!it)return;
+  const it=C.items.find(x=>x.id===id)||C.descartados.find(x=>x.id===id); if(!it)return;
   md.innerHTML=detalle(it); ov.classList.add('on'); document.body.style.overflow='hidden';
   activarCarr(md); document.getElementById('cx').onclick=cerrar; md.scrollIntoView();
   md.querySelectorAll('.mph .sl img').forEach(im=>im.onclick=e=>{

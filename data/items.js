@@ -264,3 +264,34 @@ window.CATALOGO = {
       motivo:"Demasiado chico por partida doble: para 2×2 plano hacen falta 28 cm de largo y tiene 26; para 2 capas hacen falta 13 de alto y tiene 10." }
   ]
 };
+
+/* --- Fotos y categoría de los descartados.
+   Se guardan solo los tramos variables de la URL; X() reconstruye la completa. --- */
+(function(){
+  var P='https://img.alicdn.com/bao/uploaded/', S='_220x10000Q90.jpg_.webp';
+  var X=function(a){ return (a||[]).map(function(v){ return P+v+S; }); };
+  var IM={
+"804675975389":["i2/O1CN01pt4vkr1UbzmYOtWpR_!!53-fleamarket.heic","i2/O1CN01iOXh6s1UbzmbVwsuA_!!53-fleamarket.heic","i4/O1CN01GiBVrn1UbzmVf1KwV_!!53-fleamarket.heic","i2/O1CN01oCoJe91UbzmYMtXQZ_!!53-fleamarket.heic","i2/O1CN01PWcByL1UbzmVexeDk_!!53-fleamarket.heic"],
+"1006598143817":["i3/890754579/O1CN01Ly5YPP1jhEifxsNWU_!!4611686018427385363-0-xy_item.jpg","i3/890754579/O1CN01R5peEf1jhEhtyt3pU_!!4611686018427385363-53-xy_item.heic","i4/890754579/O1CN010sZcjL1jhEhQvWfXA_!!4611686018427385363-53-xy_item.heic","i1/890754579/O1CN01PTCBFo1jhEhRC0sQY_!!4611686018427385363-53-xy_item.heic","i1/890754579/O1CN01R6oEk81jhEhQYhTIV_!!4611686018427385363-53-xy_item.heic","i3/890754579/O1CN01sGl2hv1jhEhQvX4Uf_!!4611686018427385363-53-xy_item.heic"],
+"829404094051":["i3/O1CN01GBiNM42CIc8aLmXJL_!!53-fleamarket.heic","i1/O1CN01XW2YWR2CIc8ZmMcru_!!53-fleamarket.heic","i1/O1CN010i5zzo2CIc8Y6uG9l_!!53-fleamarket.heic"],
+"1049512704261":["i4/2519555912/O1CN01x1Lo7s1tXkg8g0UIJ_!!4611686018427387720-53-xy_item.heic","i1/2519555912/O1CN01xs4WcJ1tXkg89SqrS_!!4611686018427387720-53-xy_item.heic","i4/2519555912/O1CN01bRSwAh1tXkg8MHeVW_!!4611686018427387720-53-xy_item.heic","i3/2519555912/O1CN01fV2Poy1tXkg8mYyFR_!!4611686018427387720-53-xy_item.heic"],
+"1059421800025":["i4/108797613/O1CN01yNUZKR266oOYUzRWu_!!4611686018427387565-53-xy_item.heic","i2/108797613/O1CN01CdPAfb266oOYOWOoT_!!4611686018427387565-53-xy_item.heic","i2/108797613/O1CN01qqlhTl266oOZzvZ8g_!!4611686018427387565-53-xy_item.heic","i4/108797613/O1CN01A9PWgg266oOYdIp7i_!!4611686018427387565-53-xy_item.heic"],
+"1075060671689":["i4/O1CN011cesENKp4GC1WPoq_!!4611686018427382943-0-fleamarket.jpg","i3/O1CN01a6RnrOqcdIJ1WPoq_!!4611686018427382943-0-fleamarket.jpg","i2/O1CN0130umFGZJEmG1WPoq_!!4611686018427382943-0-fleamarket.jpg","i4/O1CN01ZBZL5X76u9D1WPoq_!!4611686018427382943-0-fleamarket.jpg"],
+"1057346695489":["i4/2220341818241/O1CN01497lHX2AkR7oDTk8Q_!!4611686018427384705-53-xy_item.heic","i4/2220341818241/O1CN01yJXHCx2AkR7nxstNB_!!4611686018427384705-53-xy_item.heic","i4/2220341818241/O1CN01eUSe6c2AkR7oE9DYP_!!4611686018427384705-53-xy_item.heic"],
+"1049179949293":["i3/2220341109392/O1CN01I3ow6ZveYJE2BxV2_!!4611686018427380368-0-xy_item.jpg","i3/2220341109392/O1CN01Ry19rkHNxzJ2BxV2_!!4611686018427380368-0-xy_item.jpg"],
+"976261957842":["i2/O1CN016FX1kg1STB39La3wl_!!4611686018427380023-0-fleamarket.jpg","i4/O1CN01eMX7T31STB38ttyJV_!!4611686018427380023-0-fleamarket.jpg","i3/O1CN01vHabbA1STB37XhQRk_!!4611686018427380023-0-fleamarket.jpg"],
+"974810903058":["i1/O1CN017PI2x71YtBELvwcYl_!!4611686018427384604-53-fleamarket.heic","i2/O1CN01ilkkcm1YtBEMmtEHM_!!4611686018427384604-53-fleamarket.heic","i3/O1CN01Ayy3Va1YtBENCnm4y_!!4611686018427384604-53-fleamarket.heic"],
+"1068776062728":[],
+"702861413513":["i3/O1CN01vn8vNt2M6NXoLe4x4_!!0-fleamarket.jpg","i2/O1CN017VWji22M6NXrX8jMT_!!0-fleamarket.jpg","i3/O1CN01gnVlvY2M6NXse3ANe_!!0-fleamarket.jpg"],
+"909429995079":["i1/O1CN01MOwQbq1icpCdqBQZD_!!4611686018427385506-0-fleamarket.jpg","i3/O1CN01ugPrph1icpCf8dSYE_!!4611686018427385506-0-fleamarket.jpg","i2/O1CN01rB2GHG1icpCgomjtI_!!4611686018427385506-0-fleamarket.jpg"],
+"899536886280":["i4/O1CN01vof1s62HEYmXVN5s7_!!4611686018427386079-0-fleamarket.jpg","i3/O1CN01rddoGV2HEYmZdsy7S_!!4611686018427386079-0-fleamarket.jpg","i2/O1CN01GMt7jA2HEYmXb35P5_!!4611686018427386079-0-fleamarket.jpg"],
+"1058087644676":["i2/2212071193419/O1CN01lwhe2f1b7xIHq1TNw_!!4611686018427386699-0-xy_item.jpg","i2/2212071193419/O1CN01aWMD5J1b7xIIaQDiJ_!!4611686018427386699-0-xy_item.jpg","i1/2212071193419/O1CN01u5DQ751b7xIHq1GuZ_!!4611686018427386699-0-xy_item.jpg"],
+"1079501886618":["i1/2214349725640/O1CN01Bv6mvetNaKB2BxNI_!!4611686018427387848-0-xy_item.jpg"]
+  };
+  var XBOX={"909429995079":1,"899536886280":1,"1058087644676":1,"1079501886618":1};
+  window.CATALOGO.descartados.forEach(function(d){
+    d.imagenes = X(IM[d.id]);
+    d.categoria = XBOX[d.id] ? "base-xbox" : "estuche-gamecube";
+    d.estado = "descartado";
+  });
+})();
