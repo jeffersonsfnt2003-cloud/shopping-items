@@ -46,29 +46,29 @@ window.CATALOGO = {
   recomendacion: {
     "titulo": "Top 3 recomendado",
     "fecha": "2026-09-17",
-    "criterio": "16 de los 63 anuncios declaran exactamente el mismo «Q235, 75×75×3 mm, 1.000 kg». Es texto de plantilla en esta categoría, así que la especificación no distingue a nadie. Este orden pesa lo que sí varía y se puede comprobar: antigüedad y volumen del vendedor, detalle a nivel de componente, consistencia entre los propios anuncios del vendedor, y si el precio publicado es el de la máquina completa o el de una versión recortada.",
+    "criterio": "16 de los 63 anuncios declaran exactamente el mismo «Q235, 75×75×3 mm, 1.000 kg». Es texto de plantilla en esta categoría, así que la especificación no distingue a nadie. Este orden pesa lo que sí varía y se puede comprobar: antigüedad y volumen del vendedor, detalle a nivel de componente, consistencia entre los propios anuncios del vendedor, y si el precio publicado es el de la máquina completa o el de una versión recortada. Se excluyen además los equipos que traen asiento o banco de press: eso ya está comprado, y pagar flete marítimo por un banco repetido no tiene sentido.",
     "descarte": "Quedan fuera los de solo retiro en persona (el agente tendría que ir a buscarlos), los de vendedores con 0 ventas, 0% positivo o más de 200 días sin conectarse, y los que no son equipo completo. De 63 quedaron 8 candidatos reales.",
     "nota": "Esto es un orden de riesgo hecho sobre el texto de los anuncios y las métricas de la plataforma. No se tocó ninguna de las tres máquinas, ninguna tiene reseña de tercero, y «REP» en todas ellas es un estilo de rack copiado, no la marca estadounidense. Ordena riesgo; no certifica calidad.",
     "cierre": "La palanca más grande para bajar el riesgo no es elegir mejor entre estas tres: es que el agente de compras inspeccione y fotografíe el equipo en bodega antes de consolidarlo.",
     "puestos": [
       {
-        "id": "gym-repfab-hefei",
-        "titular": "El mejor equipo de los tres",
-        "porque": "Es el único que nombra componentes que nadie más nombra: poleas de aluminio —contra las de nylon que trae su propio modelo más barato— y asiento regulable. Esas son las piezas que se sienten al año de uso, no el espesor de tubo que todos declaran igual. Y es el único caso donde se pueden cruzar dos anuncios del mismo vendedor y ver que la escalera de precios cierra: el riel de Smith cuesta ¥682 y está explicado.",
-        "debil": "No publica grado de acero ni espesor de pared, y los discos de contrapeso se cotizan aparte.",
-        "preguntar": "Qué acero y qué espesor de pared, y si los ¥2.380 incluyen los discos. Si contesta con números, es este."
-      },
+      "id": "gym-hanneng-huaian",
+      "titular": "El más completo de los que no traen asiento",
+      "porque": "Su lista de equipamiento estándar va pieza por pieza —ganchos de sentadilla, barras de seguridad, barra de dominadas, poleas y 140 kg de contrapeso de acero macizo repartidos 70 por lado— y ahí no hay asiento ni banco: nada que ya tengas viaja de nuevo pagando flete. Es el único equipo nuevo de la lista que publica a la vez Q235 de 75×75×3 mm, 1.000 kg de carga y el contrapeso incluido en el precio, y entrega a domicilio en vez de dejarlo a pie de edificio. Reemplaza al de Hefei, que traía asiento regulable de sobra y además cotizaba las placas de contrapeso aparte.",
+      "debil": "Cuenta abierta hace 270 días con 144 ventas y 94% positivo — el historial más corto de los tres. Y su propio texto se mueve entre «tres en uno con Smith» y «dos en uno con cruces».",
+      "preguntar": "Que confirme por escrito si los ¥2.800 llevan el riel de Smith y las placas de contrapeso. Ojo: este anuncio, el de Hero (¥2.188) y el de Wuxi (¥1.200) repiten el mismo pliego de fábrica palabra por palabra, así que probablemente sean la misma máquina de la misma planta con tres márgenes distintos. Pedí a los tres la misma configuración y compará — el de Wuxi tiene 4.385 ventas contra las 144 de este."
+    },
       {
         "id": "gym-nuoe-2398",
         "titular": "El vendedor más seguro",
-        "porque": "Está a ¥18 del primero —mismo precio en la práctica— y es el anuncio más honesto de los 63: avisa solo que el precio es de la versión recortada, que el transporte va a rayar la pintura y que la entrega es a pie de edificio y no a la puerta. Comprando a 14.000 km sin recurso legal, un vendedor que da la mala noticia antes de cobrar vale más que una ficha técnica bonita. Diez años en la plataforma y 2.096 ventas lo respaldan.",
+        "porque": "Está a ¥18 del primero —mismo precio en la práctica— y es el anuncio más honesto de los 63: avisa solo que el precio es de la versión recortada, que el transporte va a rayar la pintura y que la entrega es a pie de edificio y no a la puerta. Comprando a 14.000 km sin recurso legal, un vendedor que da la mala noticia antes de cobrar vale más que una ficha técnica bonita. Diez años en la plataforma y 2.096 ventas lo respaldan. Su equipamiento tampoco incluye asiento ni banco.",
         "debil": "A este precio no entra la máquina Smith, y esa versión no tiene precio publicado.",
         "preguntar": "Cuánto cuesta la versión con Smith. Ojo: el GARVEE que se usó de referencia tampoco lleva Smith — es jaula con doble polea —, así que el 2 en 1 ya cubre lo pedido."
       },
       {
         "id": "gym-export-hangzhou",
         "titular": "El de mejor relación por lo que trae",
-        "porque": "La mitad de precio que los dos de arriba, el vendedor con más volumen de todo el catálogo, siete ejercicios enumerados uno por uno y la ficha más completa del lote: Q235 75×75×3 mm, 1.000 kg de carga, 140 kg de contrapeso de acero incluidos y medidas publicadas, algo que solo 12 de los 63 hacen.",
+        "porque": "La mitad de precio que los dos de arriba, el vendedor con más volumen de todo el catálogo, siete ejercicios enumerados uno por uno y la ficha más completa del lote: Q235 75×75×3 mm, 1.000 kg de carga, 140 kg de contrapeso de acero incluidos y medidas publicadas, algo que solo 12 de los 63 hacen. Tampoco trae asiento ni banco.",
         "debil": "Declara 450 kg, tres veces lo que pesan equipos comparables: en flete marítimo eso se come buena parte de los US$160 que se ahorran. Y muestra ¥1.300 y ¥1.540 sin explicar la diferencia.",
         "preguntar": "Qué incluye cada uno de los dos precios, y el peso y las medidas del embalaje para cotizar flete antes de pagar."
       }
