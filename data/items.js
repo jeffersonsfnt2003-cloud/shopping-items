@@ -82,7 +82,9 @@ window.CATALOGO = {
       verificacion: ["El anuncio declara dos funciones: cruces y jalón alto", "Vendedor marcado 信用优秀 (reputación buena)"],
       reservas: ["No publica espesor de tubo ni carga máxima", "No publica peso ni dimensiones", "No incluye discos"],
       vendedor: { nombre: "军健健身器材配件", ciudad: "China", ventas: 0, reputacion: "信用优秀" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01gAiPOjLwiKB12CrO~livephoto~_!!4611686018427383125-0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1076928423418"
     },
     {
@@ -98,7 +100,14 @@ window.CATALOGO = {
       verificacion: ["Fábrica con 9 años en la plataforma y 4.071 ventas", "96% de valoraciones positivas", "Garantía 描述不符包邮退 activa en la ficha", "155 personas marcaron interés"],
       reservas: ["No publica espesor de tubo ni carga", "Sin torre de pesas: hay que sumar discos", "No publica peso de embarque"],
       vendedor: { nombre: "泰诺健源头厂家", ciudad: "金华", ventas: 4071, reputacion: "96% positivas · 9 años" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01OlmYfM1rGE02ru5Rs_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01MVihLr1rGE04YPyqs_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01Elqq711rGE007CLaC_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01YuKYgZ1rGE0ALZCbn_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01aqvinF1rGE1WVyFUE_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01vHtLvk1rGE1WWBfr5_!!53-fleamarket.heic_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=720826913170"
     },
     {
@@ -115,7 +124,9 @@ window.CATALOGO = {
       verificacion: ["70 personas marcaron interés", "Publicado como nuevo"],
       reservas: ["Las 3 funciones son decodificación del formato 三合一, no texto del vendedor", "No publica espesor, carga, dimensiones ni peso", "Sin datos del vendedor en la ficha"],
       vendedor: { nombre: "拱辰街跑步的荷叶", ciudad: "China", ventas: 0, reputacion: "信用优秀" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01vDDEhi1QIyyRnrQ1z_!!4611686018427380034-0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=998922818995"
     },
     {
@@ -131,7 +142,11 @@ window.CATALOGO = {
       verificacion: ["El anuncio declara grado comercial", "Declara uso en gimnasio, estudio y casa"],
       reservas: ["«Grado comercial» sin espesor ni carga publicados es una afirmación, no un dato", "No publica peso ni dimensiones"],
       vendedor: { nombre: "伟丰", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01jbr9yD1m2PmurZBZs_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01Az9lik1MxV9gepZtY_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01DbD5r41mwI5bs6HOt_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1057768406724"
     },
     {
@@ -177,7 +192,10 @@ window.CATALOGO = {
       verificacion: ["Marca Hoist / 汉臣, fabricante estadounidense real", "Estado declarado: casi nueva", "Precio al 38% del de compra según la ficha"],
       reservas: ["El anuncio no enumera ninguna función", "No publica peso, dimensiones ni modelo exacto", "Sin historial de ventas del vendedor visible"],
       vendedor: { nombre: "喜欢吃玉米", ciudad: "China", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01IfWowu1TSXaRtYthG_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/6000000001809/TB2GK.UsS0jpuFjy0FlXXc0bpXa_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=993119597766"
     },
     {
@@ -193,7 +211,10 @@ window.CATALOGO = {
       verificacion: ["Vendedor con 100% de valoraciones positivas", "Declara explícitamente polea alta y baja como funciones separadas", "6 personas marcaron interés"],
       reservas: ["No publica espesor, carga ni dimensiones", "No declara estado (nuevo o usado)", "No publica peso"],
       vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "100% positivas" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01pRLYAI20L6wHsQrGk_!!4611686018427381424-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/6000000003749/TB2GiRLauGSBuNjSspbXXciipXa_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=861262389762"
     },
     {
@@ -209,7 +230,9 @@ window.CATALOGO = {
       verificacion: ["Declara grado comercial", "Declara dominadas además de Smith y sentadilla", "Color y acabado publicados"],
       reservas: ["«结构稳固» sin espesor ni carga es adjetivo, no dato", "No publica peso ni dimensiones"],
       vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01k2YqqX1EgzsqAlrEO_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1041668940894"
     },
     {
@@ -226,7 +249,10 @@ window.CATALOGO = {
       verificacion: ["Declara 配件全，到手直接用 (accesorios completos, listo para usar)", "Precio negociable", "Admite recogida o envío por logística", "7 personas marcaron interés"],
       reservas: ["No lista cuáles son esos accesorios", "Las 3 funciones son decodificación del formato 三合一", "No publica espesor, carga ni peso"],
       vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01gNr8ZUEd7OG2LWWW~livephoto~_!!4611686018427385288-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01PSFUdm25QDVN1gDvm_!!4611686018427384640-0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1072748640824"
     },
     {
@@ -242,7 +268,9 @@ window.CATALOGO = {
       verificacion: ["Publica diámetro y separación de agujeros", "Publica largo, ancho y alto", "Enumera 4 funciones en el texto"],
       reservas: ["No publica espesor de pared del tubo", "No publica carga máxima ni peso"],
       vendedor: { nombre: "Vendedor de 上海", ciudad: "上海", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN012A5Fef1ge4yskvfUm_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1037341870451"
     },
     {
@@ -275,7 +303,10 @@ window.CATALOGO = {
       verificacion: ["45 personas marcaron interés", "Acabado y formato publicados"],
       reservas: ["Cero especificaciones estructurales en la ficha", "Las 3 funciones son decodificación del formato 三合一", "No declara estado ni peso"],
       vendedor: { nombre: "小星西区", ciudad: "China", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01Ctqb8l1FT5RphupM3_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/6000000007636/TB2vyN5nkyWBuNjy0FpXXassXXa_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1034107708056"
     },
     {
@@ -321,7 +352,10 @@ window.CATALOGO = {
       verificacion: ["111 personas marcaron interés", "Vendedor marcado 信用极好 (reputación excelente)", "Declara 4 funciones en el título"],
       reservas: ["No publica ninguna especificación estructural", "No declara estado ni peso", "La demanda alta no sustituye a la ficha técnica"],
       vendedor: { nombre: "健身器材", ciudad: "China", ventas: 0, reputacion: "信用极好" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01LdyLVh1tFseGeQLX6_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01koi9nF1nL1QlFp3Fc_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1076686814727"
     },
     {
@@ -370,7 +404,9 @@ window.CATALOGO = {
       verificacion: ["Marca 军霞 reconocida en el mercado chino", "Estado: casi nueva, de uso particular", "Declara 3 estaciones"],
       reservas: ["No publica especificaciones estructurales", "No publica peso ni dimensiones", "Sin historial del vendedor visible"],
       vendedor: { nombre: "Particular", ciudad: "China", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i1/6000000003044/TB2L1QNb4wlyKJjSZFNXXcOlpXa_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1080030735517"
     },
     {
@@ -426,7 +462,10 @@ window.CATALOGO = {
       verificacion: ["Rack abierto (开放式深蹲架) personalizable en medidas y paso de agujeros", "76 personas marcaron interés", "Estado: nuevo"],
       reservas: ["«Venta a pérdida» es argumento de venta, no verificable", "No publica espesor, carga ni peso"],
       vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01xJCyxy1T2RYSfrhcg_!!4611686018427385524-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01c4hMoK1T2RYRj34mq_!!4611686018427385524-0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=988283208260"
     },
     {
@@ -442,7 +481,14 @@ window.CATALOGO = {
       verificacion: ["Material declarado: acero inoxidable", "Enumera 5 estaciones en el título", "Vendido como liquidación"],
       reservas: ["No publica espesor ni carga", "«Inoxidable» sin serie (304, 201) puede ser inox de baja calidad", "No publica peso"],
       vendedor: { nombre: "Vendedor de 湖南", ciudad: "湖南", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01YiZVGY1RuMqF0jZS5_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01iuvv5z1RuMq6Ll3Z6_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01P1o4Bg1RuMqDIZIAM_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01NzEdMN1RuMqDIX97U_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN015pSecz1RuMqHDTWHd_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01BIcBZa1vXOxaxmRZx_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=826332742014"
     },
     {
@@ -459,7 +505,10 @@ window.CATALOGO = {
       verificacion: ["Marca 金史密斯", "Estado: casi nueva", "217 personas marcaron interés", "Vendedor marcado 信用极好"],
       reservas: ["El anuncio no enumera ninguna función", "No publica especificaciones ni peso", "Los discos se cotizan aparte"],
       vendedor: { nombre: "一只会后空翻的", ciudad: "China", ventas: 0, reputacion: "信用极好" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01JX9AbF2JmZGUA0LVx_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01jUFMor1f96lFk6QdQ~livephoto~_!!4611686018427381355-53-fleamarket.heic_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1071563427618"
     },
     {
@@ -475,7 +524,9 @@ window.CATALOGO = {
       verificacion: ["Declara acero de alta resistencia y tubo reforzado", "Declara tratamiento anticorrosión en superficie", "Contrapeso de acero macizo (精钢)", "Despacho directo de fábrica"],
       reservas: ["No publica espesor exacto ni carga", "«Alta resistencia» sin designación de acero es adjetivo", "No publica peso ni dimensiones"],
       vendedor: { nombre: "Fábrica de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01E0gxHJ26AT27ub6WN_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1041970691875"
     },
     {
@@ -491,7 +542,10 @@ window.CATALOGO = {
       verificacion: ["Riel de Smith inclinado, no vertical", "Fábrica de origen (源头工厂)", "78 personas marcaron interés", "Quedan 3 unidades"],
       reservas: ["Solo 2 funciones: no trae rack de sentadilla independiente", "No publica ángulo de inclinación", "No publica espesor, carga ni peso"],
       vendedor: { nombre: "源头工厂", ciudad: "China", ventas: 0, reputacion: "信用极好" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01BYh0Gr25ghcaC8vyX_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN014uOC9l1pNt8regK6g_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1043785790897"
     },
     {
@@ -507,7 +561,14 @@ window.CATALOGO = {
       verificacion: ["Producción en nave propia, sin intermediarios", "Declara 5 estaciones", "Dimensionado explícitamente para uso doméstico", "43 personas marcaron interés"],
       reservas: ["No publica las medidas concretas de ese «tamaño mediano»", "No publica espesor, carga ni peso"],
       vendedor: { nombre: "Fábrica de 江苏", ciudad: "江苏", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01xXBV8V1RfFviBWLsb_!!4611686018427387498-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01XBxG4Y1RfFvi24jX8_!!4611686018427387498-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01G5Iup01RfFvdVwQAS_!!4611686018427387498-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01lPBrch1RfFvhr6x9w_!!4611686018427387498-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01JjiqtY1RfFviBVY1H_!!4611686018427387498-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01TzI5yP1RfFviF55U1_!!4611686018427387498-53-fleamarket.heic_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1056147805392"
     },
     {
@@ -524,7 +585,9 @@ window.CATALOGO = {
       verificacion: ["Marca 海德 / HEAD, deportiva internacional", "Uso doméstico declarado", "Vendedor marcado 信用极好"],
       reservas: ["No enumera funciones", "No publica ninguna especificación estructural", "No declara estado ni peso"],
       vendedor: { nombre: "专业健身器材", ciudad: "China", ventas: 0, reputacion: "信用极好" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01Uuy3jO1G2oN19Ez0v_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1081339598700"
     },
     {
@@ -541,7 +604,9 @@ window.CATALOGO = {
       verificacion: ["Rack abierto personalizable en medidas", "9 personas marcaron interés", "Estado: nuevo"],
       reservas: ["«Por debajo de costo» no es verificable", "No publica espesor, carga, dimensiones ni peso"],
       vendedor: { nombre: "Vendedor de 上海", ciudad: "上海", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/6000000008032/TB2ix2WrJhvOuFjSZFBXXcZgFXa_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1014790549535"
     },
     {
@@ -624,7 +689,14 @@ window.CATALOGO = {
       verificacion: ["Único del catálogo con las 6 variantes y sus precios publicados uno por uno", "Marca Reelifefitness / 锐飞, modelo 雪豹 F121", "Torre de pesas integrada de 50, 70 o 100 kg", "Envío incluido dentro de China", "Vendedor con 100% de valoraciones positivas y 213 ventas", "179 personas marcaron interés"],
       reservas: ["El anuncio no enumera ninguna función", "El banco se vende aparte por ¥399 (US$ 59)", "No publica espesor de tubo, carga ni peso", "Con torre de 100 kg, el peso de embarque se dispara"],
       vendedor: { nombre: "应有尽有", ciudad: "济南", ventas: 213, reputacion: "100% positivas · 4 años" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN017RJZIW26Q2qqVvOx5_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01nDdtdy26Q2qvAATue_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN014CswtR1KtiVixWsHh_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01zZV8gv29hOPmfn0Mh_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01WXKfoy1T3Lj0ywXQr_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01pCDj7A1E6MBerv910_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=810515183885"
     },
     {
@@ -641,7 +713,14 @@ window.CATALOGO = {
       verificacion: ["Envío incluido dentro de China", "Precio a firme", "Estado: nuevo"],
       reservas: ["La historia del incumplimiento no es verificable", "Las 3 funciones son decodificación del formato 三合一", "No publica espesor, carga ni peso"],
       vendedor: { nombre: "Vendedor de 广西", ciudad: "广西", ventas: 0, reputacion: "No publicada" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01euf0ui1RuMo93Mi9T_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01mid84m1RuMo92qUHP_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01QVEjPq1RuMoBaaJEu_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01BpOFib1RuMoBaa6la_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01YQTpuU1RuMo6cqTlK_!!0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01YYIk1J1RuMoBaYV0D_!!0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=785280685804"
     },
     {
@@ -657,7 +736,14 @@ window.CATALOGO = {
       verificacion: ["Declara Smith en versión mejorada", "Vendedor marcado 信用极好", "3 estaciones declaradas"],
       reservas: ["No explica en qué consiste la «mejora» del Smith", "No publica espesor, carga ni peso"],
       vendedor: { nombre: "菲菲健身小铺", ciudad: "China", ventas: 0, reputacion: "信用极好" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01LdPa5n1lYC3dx6Ucf_!!4611686018427384734-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01jatnxL1lYC3dx8Acc_!!4611686018427384734-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01VKP1lg1lYC3fHyNnZ_!!4611686018427384734-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01J7ZvE61lYC3ehJL3B_!!4611686018427384734-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01HVKGSf1lYC3eDCExZ_!!4611686018427384734-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01179Xjt1lYC3d6HbAX_!!4611686018427384734-0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=931811434279"
     },
     {
@@ -697,7 +783,9 @@ window.CATALOGO = {
       verificacion: ["Vendedor marcado 信用极好", "Declara Smith de gravedad cero"],
       reservas: ["No explica qué significa «gravedad cero» en su implementación", "No publica ninguna especificación estructural", "No declara estado ni peso", "A este precio más flete, conviene comparar contra una membresía"],
       vendedor: { nombre: "不会的美工", ciudad: "China", ventas: 0, reputacion: "信用极好" },
-      imagenes: [],
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01zIyjm72LISiC0y0dO~livephoto~_!!4611686018427382021-53-fleamarket.heic_Q90.jpg_.webp"
+      ],
       url: "https://www.goofish.com/item?id=1068050646149"
     }
   ],
