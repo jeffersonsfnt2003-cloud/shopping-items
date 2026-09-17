@@ -1,627 +1,706 @@
-/* Catálogo de compras — fuente única: goofish.com
-   index.html es solo la vista. Todo dato vive acá.
-   Regla de oro de la categoría estuches: gana el VOLUMEN INTERIOR más chico
-   que todavía admita 4 mandos + adaptador. */
+/* Catálogo de compras — index.html es solo la vista. Todo dato vive acá.
+   2026-09-17: catálogo reiniciado. Se eliminaron las categorías Estuches,
+   Desk pads, Casas contenedor y Bases y coolers junto con sus referencias.
+   Queda una sola categoría: Gimnasio.
+
+   NOTA DE COSTOS: los equipos de gimnasio pesan 54–200 kg y quedan fuera del
+   motor EUB de Superbuy (límite 2.000 g y US$130). Todos van con sb:"na" y
+   carga_pesada:true — el flete se cotiza aparte, marítimo, y no se calcula acá. */
 
 window.CATALOGO = {
   meta: {
-    tasa_cny_usd: 0.1489,
-    tasa_fecha: "2026-09-04",
-    tasa_fuente: "https://wise.com/us/currency-converter/cny-to-usd-rate",
-    fuente_unica: "https://www.goofish.com/",
-    barrido: { consultas: 18, items_vistos: 487, con_medidas: 173, que_encajan: 14, verificados: 4 },
-    proxy: {
-      nombre: "Superbuy",
-      verificado: "2026-09-04",
-      destino: "El Salvador",
-      bodega: "Guangdong",
-      comision_cny: 20,
-      comision_nota: "Tarifa plana por ÍTEM para plataformas de segunda mano (闲鱼/Goofish). Leída en la propia ficha de Superbuy: 'Service Fee CN ¥20 / item'.",
-      eub: { g1000: 324, g2000: 578, dias: "15-28",
-             limite_peso_g: 2000, limite_lado_cm: 60, limite_suma_cm: 90, limite_valor_usd: 130 },
-      expres: { desde_cny: 721, dias: "8-11", nota: "Cobra por peso volumétrico, no real." },
-      nota: "Tarifas leídas de la calculadora oficial de Superbuy con destino El Salvador el 2026-09-04. Superbuy consolida varios ítems en un paquete sin costo. El flete definitivo lo fija la factura del transportista y se ajusta después."
+    "tasa_cny_usd": 0.1491,
+    "tasa_fecha": "2026-09-17",
+    "tasa_fuente": "https://www.foreignexchange.org.uk/fx-rates/conversion/1/CNY/USD",
+    "fuente_unica": "https://www.goofish.com/",
+    "barrido": {
+      "consultas": 23,
+      "items_vistos": 0,
+      "con_medidas": 0,
+      "que_encajan": 34,
+      "verificados": 6
     },
-    referencias: {
-      mando_gamecube: { nombre: "Mando Nintendo GameCube (DOL-003)", largo:14.0, ancho:10.0, alto:6.5, peso_g:200,
-        fuente: "https://www.dimensions.com/element/gamecube-controller" },
-      adaptador: { nombre: "Adaptador GameCube → Switch", largo:12.0, ancho:6.0, alto:3.0,
-        fuente: "medida provista por el dueño" },
-      macbook: { nombre: "MacBook Pro 13\" M1 (2020)", largo:30.41, ancho:21.24, alto:1.56,
-        fuente: "https://support.apple.com/en-us/111893" },
-      raton: { nombre: "Ratón de tamaño estándar", largo:11.5, ancho:6.5, alto:4 }
+    "proxy": {
+      "nombre": "Superbuy",
+      "verificado": "2026-09-04",
+      "destino": "El Salvador",
+      "bodega": "Guangdong",
+      "comision_cny": 20,
+      "comision_nota": "Tarifa plana por ÍTEM para plataformas de segunda mano (闲鱼/Goofish). Leída en la propia ficha de Superbuy: 'Service Fee CN ¥20 / item'.",
+      "eub": {
+        "g1000": 324, "g2000": 578, "dias": "15-28",
+        "limite_peso_g": 2000, "limite_lado_cm": 60, "limite_suma_cm": 90, "limite_valor_usd": 130
+      },
+      "expres": { "desde_cny": 721, "dias": "8-11", "nota": "Cobra por peso volumétrico, no real." },
+      "carga_pesada": {
+        "servicio": "Customized Logistics Service",
+        "desde_kg": 30,
+        "modo": "marítimo o ferroviario",
+        "respuesta": "3 días hábiles",
+        "nota": "Superbuy no publica tarifas para carga pesada: hay que pedir cotización con el peso bruto embalado y los metros cúbicos. Su servicio de carga es SOLO transporte, con inspección visual del exterior."
+      },
+      "nota": "Tarifas leídas de la calculadora oficial de Superbuy con destino El Salvador el 2026-09-04. El flete definitivo lo fija la factura del transportista."
     }
   },
 
   categorias: [
-    { id:"estuche-gamecube", nombre:"Estuches", tab:"Estuches",
-      objetivo:"El estuche MÁS COMPACTO que admita 4 mandos de GameCube (14×10×6.5 cm c/u) y el adaptador (12×6×3). Interior libre, sin bandeja moldeada. Sin cables. Mínimo teórico: ~5.000 cm³.",
-      busquedas:[
-        {zh:"硬壳收纳包",        en:"hard shell storage case"},
-        {zh:"硬质收纳包海绵",     en:"rigid case with foam"},
-        {zh:"手提硬质工具包",     en:"rigid tool case with handle"},
-        {zh:"仪器仪表收纳包",     en:"instrument / equipment case"},
-        {zh:"硬壳收纳盒内尺寸",   en:"hard case, internal dimensions"},
-        {zh:"双层硬壳收纳包",     en:"double-layer hard case"},
-        {zh:"EVA硬壳收纳包手提",  en:"EVA hard case with handle"},
-        {zh:"数码收纳包硬壳小号", en:"small digital hard case"},
-        {zh:"耳机收纳包硬壳大号", en:"large headphone hard case"},
-        {zh:"无人机收纳包硬壳",   en:"drone hard case"},
-        {zh:"相机内胆包硬壳",     en:"camera insert hard case"},
-        {zh:"游戏机收纳包硬壳",   en:"game console hard case"},
-        {zh:"小号硬壳工具包",     en:"small hard tool bag"},
-        {zh:"便携收纳盒EVA加厚",  en:"portable thick EVA box"}
-      ],
-      requisito_minimo:"Volumen interior ≤ 6.500 cm³ y alguna disposición válida de los 4 mandos + adaptador." },
-    { id:"desk-pad", nombre:"Desk pads", tab:"Desk pads",
-      objetivo:"Alfombrilla de escritorio para MacBook Pro 13\" M1 (30.4 × 21.2 cm) más un ratón al lado. Suave al tacto, en negro, café o cualquier color oscuro. Mejor relación calidad-precio.",
-      requisito_minimo:"Mínimo 80 × 40 cm. Los 40 cm de fondo no son capricho: con 30 cm solo quedan 9 cm delante del portátil y no hay dónde apoyar la muñeca.",
-      busquedas:[
-        {zh:"超大鼠标垫",       en:"oversized mouse pad"},
-        {zh:"办公桌垫",         en:"office desk mat"},
-        {zh:"电脑桌垫大号",     en:"large computer desk mat"},
-        {zh:"布面鼠标垫超大",   en:"large cloth-surface mouse pad"},
-        {zh:"桌垫皮革",         en:"leather desk mat"},
-        {zh:"双面桌垫防水",     en:"double-sided waterproof desk mat"},
-        {zh:"桌垫 80*40",       en:"desk mat 80x40"},
-        {zh:"书桌垫大",         en:"large study desk mat"},
-        {zh:"真皮桌垫",         en:"genuine leather desk mat"},
-        {zh:"桌面垫键盘",       en:"desk mat for keyboard"}
-      ] },
-    { id:"casa-contenedor", nombre:"Casas contenedor", tab:"Casas contenedor",
-      objetivo:"Casas modulares tipo contenedor: precios de referencia en origen. Ningún vendedor de Goofish exporta, pero Superbuy SÍ tiene un canal para carga pesada — su Customized Logistics Service, marítimo o ferroviario, para envíos de 30 kg en adelante. No publica tarifas: hay que pedir cotización y contestan en 3 días hábiles.",
-      requisito_minimo:"El precio del anuncio es el costo MENOR. Antes del flete marítimo hay que pagar el transporte terrestre dentro de China hasta la bodega de Superbuy en Guangdong: las casas verificadas están en Ordos, Suzhou, Baoding y Haixi, hasta 2.500 km. Y Superbuy aclara que su servicio de carga es SOLO transporte, con inspección visual del exterior: nadie verifica que la casa esté bien antes de embarcarla.",
-      busquedas:[
-        {zh:"集装箱房屋",     en:"container house"},
-        {zh:"打包箱房",       en:"flat-pack container house"},
-        {zh:"活动板房",       en:"mobile prefab house"},
-        {zh:"折叠集装箱房",   en:"folding container house"},
-        {zh:"集装箱别墅",     en:"container villa"},
-        {zh:"二手集装箱房",   en:"second-hand container house"}
-      ] },
-    { id:"base-xbox", nombre:"Bases y coolers", tab:"Bases y coolers",
-      objetivo:"Cargar 4 mandos de Xbox One (micro USB) y, si se puede, refrigerar la Series X. NO interesa el almacenaje de discos.",
-      busquedas:[
-        {zh:"xbox手柄充电座",         en:"xbox controller charging dock"},
-        {zh:"xboxone手柄充电座",      en:"xbox ONE controller dock (micro USB)"},
-        {zh:"xbox散热底座充电",       en:"xbox cooling base with charging"},
-        {zh:"xbox多功能底座散热充电", en:"xbox multifunction cooling + charging stand"},
-        {zh:"xbox series x 散热支架", en:"series x cooling stand"},
-        {zh:"xbox手柄四充",           en:"xbox 4-controller charger"},
-        {zh:"手柄座充4座",            en:"4-bay controller dock"},
-        {zh:"xbox座充四座",           en:"xbox 4-bay dock"},
-        {zh:"xbox手柄电池充电套装",   en:"xbox controller battery + charger kit"},
-        {zh:"手柄充电座 四个",        en:"controller dock, four"}
-      ],
-      requisito_minimo:"Compatible con Xbox One: conector micro USB o contactos de batería. Las bases USB-C son solo para mandos Series X|S y NO sirven." }
-  ],
-
-  items: [
     {
-      id:"1025077765759", categoria:"estuche-gamecube", estado:"aprobado",
-      titulo:"Bestico — el más compacto",
-      titulo_zh:"特价出Bestico数码整理收纳包，便携小号，海绵硬壳，防水防摔",
-      url:"https://www.goofish.com/item?id=1025077765759",
-      precio_cny:34.90, envio:"incluido",
-      material:"Cáscara dura con esponja, tela balística", color:"Negro", condicion:"Nuevo (declarado; casi sin marcas)",
-      interior:[28,18,11],
-      interior_detalle:"Rotulado por el vendedor sobre la foto 4: 28 / 18 / base 6.5 + tapa 4.5. Precio original ¥108.",
-      vendedor:{ nombre:"五金工具箱包清仓特价", ciudad:"Wuxi", antiguedad:"11 años", ventas:3277, reputacion:"93%" },
-      encaje:{ layout:"edge4" },
-      peso_g:800, sb:"eub",
-      resumen:"El más chico que existe para esto: 5.544 cm³. Los mandos van de canto, como libros.",
-      descripcion:"El volumen interior más chico de todo el barrido y un 39% menor que tu referencia. Los 4 mandos no entran acostados — entran de canto, apoyados sobre su borde como libros en un estante: dos filas de dos, ocupando 28 × 13 cm de los 28 × 18 disponibles. El adaptador entra parado en la franja de 5 cm que sobra. Interior completamente liso, sin molde ni espuma, con una banda elástica y un bolsillo de malla en la tapa.",
-      verificacion:[
-        "Interior liso confirmado en las fotos 5 y 7: concha negra sin molde, sin espuma precortada, solo una banda elástica y una malla en la tapa.",
-        "La foto 4 trae las cotas rotuladas sobre la imagen: 28 de largo, 18 de fondo, base 6.5 y tapa 4.5.",
-        "Fotos 2, 3, 6, 9 y 10: el vendedor mide con regla y compara contra una botella, y repite el interior 28×18×11 en cuatro fotos distintas.",
-        "Exterior en tela balística negra, asa reforzada, cierre perimetral. Sin desgaste visible."
-      ],
-      reservas:[
-        "AJUSTE AL MILÍMETRO EN EL LARGO: dos mandos de canto suman exactamente 28.0 cm y el interior mide 28.0. No hay holgura en ese eje. Si las esquinas del estuche son redondeadas, van a entrar forzados.",
-        "Los mandos quedan de canto, no acostados. Es menos cómodo de sacar y meter que una disposición plana.",
-        "Reputación 93%, la más baja de los tres seleccionados, aunque con 11 años y 3.277 ventas.",
-        "No acepta devoluciones."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i4/273805928/O1CN01SeiW1u1tf50CLXIZi_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/273805928/O1CN01VMDTsx1tf50CtE46T_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/273805928/O1CN01ANmk8y1tf50CEv58y_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/273805928/O1CN010NrwhW1tf50D6HFRq_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/273805928/O1CN01q5oP281tf50CwezFB_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/273805928/O1CN01E7FzjW1tf50CdvNQv_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/273805928/O1CN01qa6iaq1tf50CZOUvV_!!4611686018427384424-53-xy_item.heic_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"684313155412", categoria:"estuche-gamecube", estado:"aprobado",
-      titulo:"AOVER SMART — la mejor compra",
-      titulo_zh:"26包邮全新硬壳数码收纳包无人机防护盒有格子手撕海绵",
-      url:"https://www.goofish.com/item?id=684313155412",
-      precio_cny:26, envio:"incluido",
-      material:"EVA rígido con espuma troquelada extraíble", color:"Negro", condicion:"Nuevo",
-      interior:[31,22,9],
-      interior_detalle:"Interior declarado por el vendedor en la descripción: 31×22×9 cm. Precio original ¥39.",
-      vendedor:{ nombre:"蚂蚁它家", ciudad:"Jinhua", antiguedad:"8 años", ventas:17548, reputacion:"94%" },
-      encaje:{ layout:"flat2x2" },
-      peso_g:900, sb:"bloqueado",
-      resumen:"6.138 cm³ y holgura real en los tres ejes. Más barato que el chico y más fácil de usar.",
-      descripcion:"Once por ciento más grande que el Bestico, pero es la compra que recomiendo. Los 4 mandos entran acostados en 2×2 y sobran 3 cm de largo, 2 de ancho y 2.5 de alto: se meten y se sacan sin pelear. El adaptador entra parado en la franja lateral. Trae un bloque de espuma de cubos troquelados que sale entero (foto 7) y deja la concha lisa — o podés arrancar los cubos y hacerle huecos con la forma exacta de tus mandos, que no es un molde de fábrica para otro aparato sino uno que definís vos. Además es ¥9 más barato.",
-      verificacion:[
-        "La foto 7 muestra el bloque de espuma levantado y saliendo entero: debajo queda la concha lisa, sin molde.",
-        "La foto 5 es un primer plano de la espuma: cubos pre-troquelados, del tipo que se arranca a mano para hacer huecos a medida.",
-        "Fotos 1, 3, 8 y 10: base libre y bolsillo de malla en la tapa.",
-        "Fotos 2, 4, 6 y 9: exterior EVA negro, asa, marca AOVER SMART, con cinta métrica en cuadro."
-      ],
-      reservas:[
-        "SUPERBUY NO LO PUEDE COMPRAR. Al pegar su enlace devuelve 'Unable to Purchase: restricted by customs and security check policies'. El anuncio está catalogado como estuche de DRON y el filtro automático lo bloquea por esa palabra, aunque el producto sea una caja vacía. Verificado el 2026-09-04.",
-        "Los 9 cm de alto solo permiten UNA capa de mandos. No sirve si algún día querés meter más de cuatro.",
-        "Está catalogado como estuche de dron DJI: el vendedor lo describe por ese uso, no por sus medidas libres.",
-        "Reputación 94%. Vendedor grande (17.548 ventas) pero no impecable.",
-        "Si sacás la espuma perdés la protección contra golpes; si la dejás y no la arrancás, no entran los mandos."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i2/O1CN01gB4h9i1tGLGlIqrjq_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01FrPTTp1tGLGtkBPh1_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/O1CN01r8NfQQ1tGLGkWyiOW_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01YBSvB91tGLGhVUBlf_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/O1CN01GQwuor1tGLGrfLYZC_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01KSIqzl1tGLGo4ACqp_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01yrfgNa1tGLGiGLdLJ_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1045671276496", categoria:"estuche-gamecube", estado:"aprobado",
-      titulo:"Tu referencia",
-      titulo_zh:"手提大号硬质工具包便携维修包仪器仪表防护包键盘收纳包",
-      url:"https://www.goofish.com/item?id=1045671276496",
-      precio_cny:25, envio:"incluido",
-      material:"PU + EVA, con lámina de esponja extraíble", color:"Negro", condicion:"Nuevo",
-      interior:[26.5,22.8,15],
-      interior_detalle:"Interior declarado por el vendedor en la descripción.",
-      vendedor:{ nombre:"包你心动", ciudad:"Dongguan", antiguedad:"1 año", ventas:629, reputacion:"99%" },
-      encaje:{ layout:"stack2" },
-      peso_g:1200, sb:"eub",
-      resumen:"9.063 cm³: el más grande de los tres. Sobrio y bien hecho, pero desperdicia casi la mitad.",
-      descripcion:"El que trajiste vos. Cumple todas las reglas y está bien construido, pero es el más voluminoso de la lista: los 4 mandos apilados en 2 capas ocupan 14 × 20 × 13 y el estuche mide 26.5 × 22.8 × 15, o sea que casi la mitad del espacio queda vacío. Lo mantengo porque es el único con 99% de reputación y porque es tu punto de comparación.",
-      verificacion:[
-        "Interior libre confirmado en las fotos 4, 6 y 9: concha lisa con un único divisor de cinta.",
-        "La foto 7 muestra la lámina de esponja saliendo entera.",
-        "La foto 1 incluye el diagrama de cotas del propio vendedor.",
-        "Medidas internas declaradas en texto, no rotuladas sobre foto."
-      ],
-      reservas:[
-        "Es el más grande de los tres aprobados: 9.063 cm³ contra 5.544 del Bestico.",
-        "No admite los 4 mandos acostados (necesita 28 cm de largo y tiene 26.5). Obliga a apilar en 2 capas.",
-        "Al apilar, poné un mando invertido sobre el otro: encastran por los grips y ningún stick analógico carga peso.",
-        "Vendedor con solo 1 año y 629 ventas, aunque con 99% positivo."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i1/2220341818241/O1CN01GhXhJe2AkR6yvie7I_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/2220341818241/O1CN01OZa7Mj2AkR743A5OU_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/2220341818241/O1CN01W745cE2AkR7439olS_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/2220341818241/O1CN01nPSppK2AkR6yvfpUL_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/2220341818241/O1CN015AmLPl2AkR7437P4Y_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/2220341818241/O1CN01XZN2dv2AkR73uM8qE_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/2220341818241/O1CN01lrEXlm2AkR75BPFoF_!!4611686018427384705-53-xy_item.heic_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1077229995123", categoria:"base-xbox", estado:"aprobado",
-      titulo:"Wirelessor — carga doble",
-      titulo_zh:"全新未使用的Xbox One双手柄充电底座 Wirelessor",
-      url:"https://www.goofish.com/item?id=1077229995123",
-      precio_cny:13, envio:"incluido",
-      material:"Plástico", color:"Negro", condicion:"Nuevo, sin abrir",
-      spec:"2 mandos · micro USB · con adaptador de corriente",
-      vendedor:{ nombre:"厨房胸有大志的薯片", ciudad:"Beijing", antiguedad:"1 año", ventas:931, reputacion:"95%" },
-      peso_g:400, sb:"eub",
-      resumen:"El único con conector micro USB confirmado en foto. Comprá dos y tenés tus 4 mandos por ¥26.",
-      descripcion:"La caja dice literalmente 'Dual Charge Base for Xbox One Controllers' y 'Suitable for XBOX ONE'. La foto 4 muestra el conector del soporte de cerca: es micro USB, el que llevan tus mandos. Trae adaptador de corriente y cable, o sea que funciona solo, sin depender de la consola. Es la pieza más barata y más segura de toda la categoría: dos unidades cubren tus cuatro mandos por ¥26 (US$ 3.87).",
-      verificacion:[
-        "Caja rotulada en inglés: 'Dual Charge Base for Xbox One Controllers', con el sello 'Suitable for XBOX ONE' en la esquina (fotos 1 y 10).",
-        "La foto 4 es un primer plano del conector del soporte: micro USB, no USB-C.",
-        "La foto 2 muestra el contenido completo: base, adaptador de corriente y cable USB.",
-        "Fotos 7, 8 y 9: cajas selladas apiladas y etiquetas de fábrica. Es stock nuevo, no un usado."
-      ],
-      reservas:[
-        "IMPORTANTE: cargar por micro USB solo funciona si el mando lleva dentro una batería recargable (pack Play & Charge o pilas AA recargables). Con pilas alcalinas desechables NO carga nada.",
-        "No refrigera. Es solo cargador.",
-        "Para tus 4 mandos hacen falta dos unidades.",
-        "Vendedor con 1 año y 95%. Aceptable pero no de los mejores."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01Ja5lskdqigH2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/O1CN01WhQ064AIPUK2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01gFYvKhtUNWE2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/O1CN01VRYY7cCgbDJ2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01ahZNjFVwpoF2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/O1CN01szCMkFVm0pI2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN016RmE5qT7bcL2vHAO_!!4611686018427383026-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1076615980193", categoria:"base-xbox", estado:"aprobado",
-      titulo:"IINE L727 — base con ventilador",
-      titulo_zh:"良值IINE L727 XboxSeries X/S主机散热风扇底座支架 双手柄座充",
-      url:"https://www.goofish.com/item?id=1076615980193",
-      precio_cny:32, envio:"incluido",
-      material:"Plástico", color:"Negro", condicion:"Caja abierta, marcas de uso leves",
-      spec:"2 mandos · contactos de batería · ventilador · 3 USB",
-      vendedor:{ nombre:"任索微游戏配件", ciudad:"Nanjing", antiguedad:"10 años", ventas:13230, reputacion:"98%" },
-      peso_g:700, sb:"eub",
-      resumen:"Refrigeración y carga en una sola pieza, a menos de la mitad que tu referencia. Le falta una batería.",
-      descripcion:"Marca IINE (良值), modelo L727, con etiqueta técnica visible: 'Charging Stand with Cooling Fan for Xbox Series Console and Controller', entrada y salida 5V/1A. La consola se para encima, lleva ventilador y tres puertos USB al frente. Carga por contactos de batería, no por cable: eso es compatible con tus mandos de One porque la bahía de pilas es la misma. Cuesta ¥32 contra los ¥67 de tu referencia y el vendedor tiene 13.230 ventas con 98%.",
-      verificacion:[
-        "Fotos 4 y 9: etiqueta del fabricante con marca, modelo L727 y especificación eléctrica 5V/1A.",
-        "Fotos 3 y 8: los tres puertos USB en el canto frontal de la base.",
-        "Fotos 5 y 10: el soporte de carga del mando en un lateral, con la batería recargable puesta.",
-        "Fotos 1 y 6: contenido real desplegado — base, una batería y el cable."
-      ],
-      reservas:[
-        "SOLO TRAE UNA BATERÍA. El producto es de dos y el vendedor lo dice: 'incluye una batería'. Para dos mandos hay que comprar otra.",
-        "Caja abierta y marcas de uso leves. No es nuevo.",
-        "Carga 2 mandos, no 4. Sigue haciendo falta un segundo cargador.",
-        "Refrigerar una Series X es discutible: la consola aspira por abajo y expulsa por arriba, y su propio ventilador está bien dimensionado."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i1/2023778554/O1CN01vxBQcHqq4pD2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/2023778554/O1CN01K0eoOemxI2D2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/2023778554/O1CN01ybHyPDtmAtF3thGS_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/2023778554/O1CN010fFBj33aTJH2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/2023778554/O1CN01jBFoW11lXkJ2vHAO_!!4611686018427382010-0-xy_item.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1075653955750", categoria:"base-xbox", estado:"aprobado",
-      titulo:"iPlay — tu referencia",
-      titulo_zh:"全新Xbox Series X多功能底座 RGB 双风扇 手柄双充",
-      url:"https://www.goofish.com/item?id=1075653955750",
-      precio_cny:67, envio:"incluido",
-      material:"Plástico", color:"Negro con RGB", condicion:"Nuevo, sin abrir",
-      spec:"2 mandos · 2 baterías 1400mAh · doble ventilador · RGB",
-      vendedor:{ nombre:"万物闲置屋", ciudad:"Jieyang", antiguedad:"176 días", ventas:111, reputacion:"100%" },
-      peso_g:900, sb:"eub",
-      resumen:"La más completa y la más cara. Incluye las dos baterías, pero trae el soporte de discos que no querés.",
-      descripcion:"El que mandaste como referencia. Es el más equipado: doble ventilador, iluminación RGB, alimentación por USB, indicadores de carga y las dos baterías de 1400 mAh incluidas — eso resuelve el problema de tener que comprarlas aparte. Sellado y sin abrir. Los peros son el precio, más del doble que la IINE, y que buena parte de su volumen está dedicado al soporte de discos que dijiste que no te interesa.",
-      verificacion:[
-        "Caja sellada, rotulada 'Multifunctional Charging Stand-Cooling Fan Set For X-BOX SX' (fotos 1, 5 y 10).",
-        "Fotos 4, 8 y 9: el dorso de la caja detalla el contenido — soporte refrigerador, ranura de discos, ventilador RGB y dos packs de batería.",
-        "Fotos 2, 3, 6 y 7: los laterales muestran el ventilador, el diseño de carga del mando y la doble interfaz USB.",
-        "Fotos 8 y 9: parámetros eléctricos entrada 5V/2000mA, salida 5V/2000mA."
-      ],
-      reservas:[
-        "El doble de caro que la IINE por dos funciones que no pediste: RGB y almacenaje de discos.",
-        "Sigue cargando solo 2 mandos.",
-        "Vendedor con apenas 176 días y 111 ventas, aunque con 100%. El menos rodado de los tres.",
-        "Todas las fotos son de la caja cerrada: nadie ha visto el producto real."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i1/2222134607863/O1CN01F3RamcBI0UG2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/2222134607863/O1CN01me5RJFNFnvH2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/2222134607863/O1CN01pDjr0FhXkRL2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/2222134607863/O1CN01oPjwQTUKWHH2vHAO_!!4611686018427387895-0-xy_item.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1044614724038", categoria:"desk-pad", estado:"aprobado",
-      titulo:"AOC GM171D",
-      titulo_zh:"AOC 爱攻游戏电竞鼠标垫 高密度针织 黑色大号 900*400*4mm",
-      url:"https://www.goofish.com/item?id=1044614724038",
-      precio_cny:16.99, envio:"incluido",
-      material:"Tejido de alta densidad sobre base de goma", color:"Negro liso", condicion:"Nuevo, sin usar",
-      pad:[90,40], grosor_mm:4,
-      spec:"90 × 40 cm · 4 mm · tela · negro liso",
-      vendedor:{ nombre:"老刘好运优品", ciudad:"Langfang", antiguedad:"7 años", ventas:8166, reputacion:"97%" },
-      peso_g:1000, sb:"expres",
-      resumen:"El más grueso y el único con etiqueta oficial visible en foto. Devolución incluida. Mi recomendación.",
-      descripcion:"Marca real (AOC, la de los monitores), modelo GM171D, precio de tienda ¥199. Tejido de alta densidad: es la superficie más agradable al tacto de la selección y la que mejor lee cualquier sensor de ratón. Con 4 mm es un milímetro más grueso que el resto, y ese milímetro es el que amortigua la muñeca. Negro liso, sin gráficos. Impermeable de nivel 3 y fácil de limpiar. Es el único de los cuatro que acepta devolución si no coincide.",
-      verificacion:[
-        "La foto 2 muestra la etiqueta oficial pegada al tubo: marca AOC, modelo GM171D y el fabricante con su teléfono de servicio. Es la única prueba de autenticidad de toda la categoría.",
-        "Fotos 1 y 3: el producto real enrollado, fotografiado por el vendedor en su casa, no material de catálogo.",
-        "La foto 4 es la ficha de la tienda oficial a ¥199, que respalda el precio original.",
-        "El anuncio ofrece devolución con envío pagado si no coincide con la descripción."
-      ],
-      reservas:[
-        "No hay ninguna foto del tapete desenrollado: solo se ve el tubo. La superficie no está verificada visualmente.",
-        "La foto 3 muestra un tapete ROJO enrollado junto a uno oscuro. Puede ser otra variante que el vendedor también tiene, pero conviene confirmarle el color antes de pagar.",
-        "Reputación 97%, buena pero no perfecta."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i4/697992763/O1CN01PPTTWi1WHVSp6PRkj_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/697992763/O1CN017kE66v1WHVSpI1waE_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/697992763/O1CN01y07tvw1WHVSpTgusH_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/697992763/O1CN019n9oYE1WHVSoqipxX_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/697992763/O1CN01ucomyA1WHVSpTieyJ_!!4611686018427381307-0-xy_item.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"996089720995", categoria:"desk-pad", estado:"aprobado",
-      titulo:"LESAILES 飞遁",
-      titulo_zh:"飞遁LESAILES星座超大鼠标垫 黑色款 900×400×3mm V字锁边",
-      url:"https://www.goofish.com/item?id=996089720995",
-      precio_cny:16.60, envio:"incluido",
-      material:"Tela lisa con base de goma antideslizante", color:"Negro con constelaciones en línea blanca", condicion:"Nuevo, embalaje original",
-      pad:[90,40], grosor_mm:3,
-      spec:"90 × 40 cm · 3 mm · tela · negro con estampado",
-      vendedor:{ nombre:"京品百货折扣", ciudad:"Guangzhou", antiguedad:"10 años", ventas:7140, reputacion:"97%" },
-      peso_g:900, sb:"expres",
-      resumen:"Mismo tamaño que el AOC y 40 centavos más barato, pero ninguna foto es del artículo real.",
-      descripcion:"Tela lisa, 3 mm, con borde cosido en V — ese cosido es lo que evita que el tapete se deshilache por las esquinas al año, y es un detalle que los baratos suelen omitir. Base con dibujo antideslizante. El estampado son constelaciones en línea blanca fina sobre negro: discreto, pero no es negro liso. Precio original ¥66.",
-      verificacion:[
-        "Las fotos 4 y 5 muestran el borde cosido en V y el dibujo antideslizante de la base, ambos en detalle.",
-        "La foto 7 pone un portátil y un ratón encima para demostrar el fondo de 400 mm: es exactamente tu caso de uso.",
-        "El vendedor acumula 10 años y 7.140 ventas con 97%."
-      ],
-      reservas:[
-        "NINGUNA FOTO ES DEL ARTÍCULO REAL. Todas son material de marketing del fabricante, y dos son capturas de otra tienda donde se ve el precio y el botón de comprar.",
-        "No es negro liso: lleva un círculo zodiacal grande y constelaciones impresas.",
-        "3 mm contra los 4 del AOC. Menos amortiguación.",
-        "No acepta devoluciones."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i4/101497749/O1CN01KUb03R2776DdnWj0d_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/101497749/O1CN01ruZY4n2776Ddn9UCt_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/101497749/O1CN01cxgBXF2776De99noI_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/101497749/O1CN01t7nBHk2776DeiaGtQ_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/101497749/O1CN01YjWlFI2776Ddn8c9L_!!4611686018427386773-0-xy_item.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1046436901332", categoria:"desk-pad", estado:"aprobado",
-      titulo:"Cuero negro 80×40",
-      titulo_zh:"桌垫 40×80cm 黑色皮革材质 防水防油 表面顺滑",
-      url:"https://www.goofish.com/item?id=1046436901332",
-      precio_cny:17.50, envio:"incluido",
-      material:"Cuero sintético (PU) con base de agarre", color:"Negro liso", condicion:"Casi nuevo",
-      pad:[80,40], grosor_mm:2,
-      spec:"80 × 40 cm · cuero PU · negro liso",
-      vendedor:{ nombre:"石油城真诚的南瓜", ciudad:"Lanzhou", antiguedad:"10 años", ventas:198, reputacion:"100%" },
-      peso_g:700, sb:"expres",
-      resumen:"La única foto real muestra justo tu escenario: portátil, teclado y ratón sobre el tapete negro.",
-      descripcion:"Cuero sintético negro liso de 80 × 40. Frente a la tela, el PU gana en limpieza — se pasa un trapo y queda como nuevo, aguanta líquidos y grasa — y pierde en tacto: es más frío y más duro. Si te importa más que no se manche que la sensación mullida, esta es la opción. Único vendedor con 100% de valoraciones.",
-      verificacion:[
-        "La foto 2 es del escritorio real del vendedor: el tapete negro con monitor, teclado, ratón y un portátil encima. Muestra el producto en uso, no en catálogo.",
-        "El vendedor declara base con agarre tipo nano y superficie resistente al calor.",
-        "10 años en la plataforma con 100% de valoraciones positivas."
-      ],
-      reservas:[
-        "SOLO HAY UNA FOTO ÚTIL. De las ocho publicadas, cinco no tienen nada que ver: un meme, un gato, un templo, un selfie y una ilustración. Es un anuncio descuidado.",
-        "El vendedor entró por última vez hace 8 días: puede tardar en contestar.",
-        "El PU se cuartea y se descascara a los uno o dos años de uso diario. La tela no.",
-        "Solo 198 ventas, el vendedor con menos rodaje de la categoría.",
-        "Es usado, aunque declarado casi nuevo."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i4/1995902198/O1CN01SeW06Q1S6jgkAOCnH_!!4611686018427383030-53-xy_item.heic_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1001169037154", categoria:"desk-pad", estado:"aprobado",
-      titulo:"Mocha — la opción café",
-      titulo_zh:"摩卡棕色皮革桌垫 40x80cm 防水防油耐磨",
-      url:"https://www.goofish.com/item?id=1001169037154",
-      precio_cny:27.80, envio:"incluido",
-      material:"Cuero sintético (PU), esquinas redondeadas de 1.5 cm", color:"Marrón moca (ver reservas)", condicion:"Nuevo, sin abrir",
-      pad:[80,40], grosor_mm:2,
-      spec:"80 × 40 cm · cuero PU · marrón moca",
-      vendedor:{ nombre:"宝藏百货小铺", ciudad:"Jinhua", antiguedad:"8 años", ventas:928, reputacion:"98%" },
-      peso_g:700, sb:"expres",
-      resumen:"El único café de la selección. También el más caro y el que menos pruebas tiene.",
-      descripcion:"Pediste café y esta es la única opción real que apareció en todo el barrido. Cuero sintético de 80 × 40 con esquinas redondeadas, impermeable, resistente a la grasa y a los arañazos, y se puede recortar a medida con tijeras. La tinta de bolígrafo se borra con un trapo. Acepta devolución si no coincide.",
-      verificacion:[
-        "Todas las fotos muestran el mismo modelo en un escritorio de madera clara, con la base antideslizante y el borde señalados.",
-        "Una de las imágenes demuestra que la tinta de rotulador se limpia frotando.",
-        "El anuncio ofrece devolución con envío pagado si no coincide con la descripción."
-      ],
-      reservas:[
-        "EL COLOR NO SE VE CAFÉ. En las propias fotos del anuncio el tono es gris topo o beige grisáceo, no marrón. Si buscás café de verdad, pedile fotos con luz natural antes de pagar.",
-        "Ninguna foto es del artículo real: son capturas de otra aplicación de compras, con la barra de estado del teléfono y el botón de añadir al carrito a la vista.",
-        "El propio vendedor escribe 'pedime fotos de detalle por privado', o sea que reconoce que no publicó ninguna.",
-        "¥27.80 es un 64% más caro que el AOC por una superficie peor al tacto.",
-        "El PU se descascara con los años."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i3/774829928/O1CN01l6MIn02ND5Fc53HCR_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/774829928/O1CN01TIpSGU2ND5Fbm0ICi_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/774829928/O1CN011PyiEN2ND5FajwSXi_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/774829928/O1CN016VfW8w2ND5FaQr3aC_!!4611686018427385704-53-xy_item.heic_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"998200173600", categoria:"casa-contenedor", estado:"aprobado",
-      titulo:"Usada 3×6 m — la más barata",
-      titulo_zh:"二手集装箱房，3x6米白色款，带窗户和门",
-      url:"https://www.goofish.com/item?id=998200173600",
-      precio_cny:800, envio:"incluido",
-      material:"Estructura de acero con paneles", color:"Blanco", condicion:"Usada, casi nueva según el vendedor",
-      spec:"3 × 6 m · 18 m² · una planta · puerta y ventanas",
-      vendedor:{ nombre:"网红集装箱", ciudad:"Baoding", antiguedad:"1 año", ventas:95, reputacion:"100%" },
-      peso_g:null, sb:"na",
-      resumen:"18 m² por US$119 en origen. El vendedor mejor valorado de toda la categoría.",
-      descripcion:"Módulo usado de 3 × 6 metros, o sea 18 m² de piso, en blanco, con puerta y ventanas. El vendedor declara interior limpio y estructura sólida, y ofrece verla en persona. Con 95 ventas y 100% de valoraciones es el vendedor más fiable de los que aparecieron. Baja a ¥760 si van dos compradores. Es el precio de suelo del mercado: por debajo de esto solo hay casetas de comida y chatarra.",
-      verificacion:[
-        "Las cuatro fotos son del módulo real en el patio del vendedor, no de catálogo.",
-        "1.440 visitas y 108 personas interesadas: es de los anuncios más vistos de la categoría.",
-        "El vendedor ofrece recogida en la misma ciudad y visita presencial para ver la casa antes de pagar.",
-        "100% de valoraciones sobre 95 ventas."
-      ],
-      reservas:[
-        "NO SE PUEDE EXPORTAR. El vendedor entrega en Baoding o envía dentro de China. No hay opción internacional.",
-        "El 包邮 (envío incluido) aplica solo a China. Un módulo de dos toneladas no viaja gratis.",
-        "Es usada: el vendedor dice buen estado pero no detalla óxido, filtraciones ni aislamiento.",
-        "No incluye instalación, fundación, ni conexiones de agua o electricidad."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i2/O1CN01KzyBZY1fWvJMVhADr_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i1/O1CN01Rlnilv1fWvJMr7lX5_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i2/O1CN01GQFXPg1fWvJMq56gX_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/O1CN01OVwmxS1fWvJN6XldX_!!4611686018427386143-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1039908953531", categoria:"casa-contenedor", estado:"aprobado",
-      titulo:"Doble planta con terraza",
-      titulo_zh:"全新双层打包箱房，米白简约风，带超大露台和外置楼梯",
-      url:"https://www.goofish.com/item?id=1039908953531",
-      precio_cny:2700, envio:"incluido",
-      material:"Marco de acero, paneles con aislamiento térmico y acústico", color:"Blanco hueso", condicion:"Nueva, recién terminada",
-      spec:"2 plantas · terraza grande · escalera exterior · medidas a medida",
-      vendedor:{ nombre:"内蒙古同创岗亭集装箱房厂", ciudad:"Ordos", antiguedad:"8 años", ventas:11, reputacion:"100%" },
-      peso_g:null, sb:"na",
-      resumen:"La más parecida a la foto que mandaste. Fábrica con 8 años y 100%, US$402 en origen.",
-      descripcion:"Es prácticamente el modelo de tu foto: dos plantas, terraza grande y escalera exterior, en blanco hueso. Marco de acero, con aislamiento térmico y acústico declarados. La vende una fábrica de Mongolia Interior con 8 años en la plataforma y 100% de valoraciones, que ofrece inspección por video antes de pagar y permite personalizar medidas, tabiques y distribución.",
-      verificacion:[
-        "El vendedor es una fábrica registrada, 8 años en la plataforma, 100% sobre 11 ventas.",
-        "Ofrece verificación por video o visita presencial antes de pagar: es el único de la categoría que lo propone explícitamente.",
-        "487 visitas y 17 interesados.",
-        "Declara medidas y distribución personalizables, con tabiques y acabados a elegir."
-      ],
-      reservas:[
-        "NO SE PUEDE EXPORTAR. Envía dentro de China o entrega en Ordos.",
-        "El precio de ¥2.700 es de partida: el propio anuncio dice que las medidas y la cotización se acuerdan por privado. Una unidad de dos plantas real cuesta más.",
-        "Solo 11 ventas: la fábrica es antigua en la plataforma pero mueve poco volumen ahí.",
-        "Una sola foto disponible en el anuncio."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i4/3368239536/O1CN01XiOPWP2KJY0zhuNQQ_!!4611686018427380144-53-xy_item.heic_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"1079805790421", categoria:"casa-contenedor", estado:"aprobado",
-      titulo:"Doble planta con muro de vidrio",
-      titulo_zh:"全新双层集装箱房，玻璃幕墙，采光好",
-      url:"https://www.goofish.com/item?id=1079805790421",
-      precio_cny:2888, envio:"incluido",
-      material:"Estructura de acero con muro cortina de vidrio", color:"Blanco y vidrio", condicion:"Nueva",
-      spec:"2 plantas · muro cortina acristalado · marca 中远",
-      vendedor:{ nombre:"x***3", ciudad:"Suzhou", antiguedad:"1 DÍA", ventas:0, reputacion:"sin historial" },
-      peso_g:null, sb:"na",
-      resumen:"Fotos reales en sitio y el mejor aspecto de la categoría. Pero el vendedor abrió la cuenta ayer.",
-      descripcion:"Dos plantas con muro cortina de vidrio, el modelo con mejor aspecto del barrido y muy cercano a tu foto de referencia. El anuncio dice 现场实拍, o sea fotos tomadas en el sitio, y eso se nota: se ve la unidad montada, no un render. Marca declarada 中远 (COSCO).",
-      verificacion:[
-        "Las fotos son del montaje real, no renders ni catálogo.",
-        "El anuncio declara la marca 中远 y estado nuevo."
-      ],
-      reservas:[
-        "EL VENDEDOR LLEVA UN DÍA EN LA PLATAFORMA. Cero ventas, cero valoraciones, 8 visitas al anuncio. Para ¥2.888 eso es un riesgo serio: es el perfil típico de una cuenta desechable.",
-        "NO SE PUEDE EXPORTAR. Solo recogida en Suzhou.",
-        "No declara medidas, ni materiales de aislamiento, ni qué incluye.",
-        "Lo dejo en la lista solo como referencia visual y de precio. No lo compraría."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i3/2223023054103/O1CN01BQqloEbTTjD2b8N0_!!4611686018427387159-0-xy_item.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i3/2223023054103/O1CN01kFKKV8XtT1G2b8N0_!!4611686018427387159-0-xy_item.jpg_220x10000Q90.jpg_.webp"
-      ]
-    },
-    {
-      id:"861856882732", categoria:"casa-contenedor", estado:"aprobado",
-      titulo:"Nueva plegable 3×6 m",
-      titulo_zh:"全新折叠集装箱房，米黄色，3米×6米",
-      url:"https://www.goofish.com/item?id=861856882732",
-      precio_cny:3000, envio:"no especificado",
-      material:"Acero plegable, paneles sándwich", color:"Beige", condicion:"Nueva, sin uso",
-      spec:"3 × 6 m · 18 m² · se entrega plegada y se arma en sitio",
-      vendedor:{ nombre:"活动房厂家", ciudad:"Haixi", antiguedad:"1 año", ventas:1, reputacion:"sin historial" },
-      peso_g:null, sb:"na",
-      resumen:"Plegable: viaja plana y se arma en sitio. Es el formato que sí tiene sentido exportar.",
-      descripcion:"Módulo nuevo plegable de 3 × 6 metros en beige. El formato plegable es el técnicamente relevante para vos: viaja plano, así que entran varias unidades en un contenedor marítimo y el flete por casa baja mucho frente a un módulo rígido. Las fotos son de catálogo de fábrica y muestran el rango completo: paneles apilados en nave, una grúa colocando un módulo, interiores acabados y una unidad de dos plantas acristalada.",
-      verificacion:[
-        "Las fotos muestran el proceso completo: paneles plegados apilados en la nave, montaje con grúa e interior terminado.",
-        "El anuncio declara transporte a todo China y aceptar devolución si llega con defectos de calidad."
-      ],
-      reservas:[
-        "El vendedor tiene 1 año en la plataforma y UNA sola venta. Sin reputación acumulada.",
-        "Las fotos son de catálogo, no del producto concreto que te mandarían: muestran al menos cinco modelos distintos.",
-        "NO SE PUEDE EXPORTAR desde Goofish. 支持全国运输 significa transporte dentro de China.",
-        "No dice si el envío está incluido."
-      ],
-      imagenes:[
-        "https://img.alicdn.com/bao/uploaded/i2/O1CN01A7XHGV1puPh3gZoKT_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/O1CN01LDbYP21puPhCfYRpt_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/O1CN01K1Ny1m1puPhC5kuSP_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
-        "https://img.alicdn.com/bao/uploaded/i4/O1CN01KqfxUa1puPh3gYP01_!!4611686018427385292-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
+      "id": "gimnasio",
+      "nombre": "Gimnasio",
+      "tab": "Gimnasio",
+      "icono": "pesa",
+      "objetivo": "Equipo completo de fuerza para casa: jaula, máquina Smith y estación de poleas. Bien equipado sin llegar a nivel gimnasio comercial. El precio del anuncio es lo de menos — el peso decide el costo real.",
+      "requisito_minimo": "Que cubra jalón alto, extensión de tríceps, remo bajo y curl sin reanclar nada. Ningún vendedor chino publica el peso bruto embalado: es la primera pregunta antes de cotizar flete.",
+      "busquedas": [
+        { "zh": "史密斯综合训练架", "en": "Smith machine combo rack" },
+        { "zh": "多功能深蹲架史密斯", "en": "multifunction squat rack with Smith" },
+        { "zh": "三合一综合训练架", "en": "3-in-1 training rack" },
+        { "zh": "单边龙门架", "en": "single-side cable crossover" },
+        { "zh": "小飞鸟训练器", "en": "compact cable crossover" },
+        { "zh": "高低拉训练器", "en": "high/low pulley trainer" },
+        { "zh": "壁挂式综合训练器", "en": "wall-mounted trainer" },
+        { "zh": "墙体龙门架", "en": "wall cable tower" },
+        { "zh": "靠墙综合训练器", "en": "against-the-wall trainer" },
+        { "zh": "墙体小飞鸟", "en": "wall compact crossover" },
+        { "zh": "商用高位下拉", "en": "commercial lat pulldown" },
+        { "zh": "迈宝赫高位下拉", "en": "MBH lat pulldown" }
       ]
     }
   ],
 
-  descartados: [
-    { id:"1053731928915", url:"https://www.goofish.com/item?id=1053731928915", titulo:"Villa con balcón — el precio es una seña", precio_cny:500,
-      motivo:"TRAMPA DE PRECIO. Aparece como la más barata de toda la categoría a ¥500, pero el propio título dice 500定金，全款4.9万: esos ¥500 son la seña y el precio real son ¥49.000, unos US$7.296. Es 61 veces más caro de lo que muestra el listado." },
-    { id:"854134162961", url:"https://www.goofish.com/item?id=854134162961", titulo:"Módulos a medida — el precio es una seña", precio_cny:2000,
-      motivo:"Misma trampa: 标价为定金, el precio publicado es solo la seña. Ofrece 3×6, 3.6×6, 4×6 y 4.8×6 metros a medida, pero no publica ninguna tarifa real. Encontré 5 anuncios así entre los 141 de la categoría." },
-    { id:"1036682017705", url:"https://www.goofish.com/item?id=1036682017705", titulo:"Xiaomi 11º aniversario 80×40", precio_cny:14,
-      motivo:"Tela sobre goma y marca oficial Xiaomi, pero lleva una caligrafía naranja gigante que ocupa medio tapete: es lo contrario de un color oscuro discreto. Y el vendedor dice explícitamente 不包邮, o sea que el envío NO está incluido, así que el precio real no son ¥14." },
-    { id:"942469861593", url:"https://www.goofish.com/item?id=942469861593", titulo:"Cuero 120×60, nueve colores", precio_cny:16,
-      motivo:"Buen precio y hay color café entre las nueve opciones, pero 120 × 60 cm cubre un escritorio entero. Pediste 'un poquito más grande', no el doble: con 90 × 40 ya te sobran 60 cm a la derecha del portátil para el ratón." },
-    { id:"909429995079", url:"https://www.goofish.com/item?id=909429995079", titulo:"Base 4-en-1 Xbox One ¥25", precio_cny:25,
-      motivo:"El '4-en-1' son CUATRO PUERTOS USB, no cuatro mandos: la caja dice 'can charge up to two Xbox One controllers'. Y peor, se abrocha al costado de una consola Xbox One con enganches ('snap joints'). No se monta en una Series X." },
-    { id:"899536886280", url:"https://www.goofish.com/item?id=899536886280", titulo:"Base KJH 4-en-1 ¥8.90", precio_cny:8.90,
-      motivo:"La caja dice 'FOR XBOXONES 4-in-1': es para la consola Xbox One S, no para Series X. El anuncio la lista bajo 'Series X' pero las fotos del empaque muestran la One S. Además dos de sus fotos son un selfie y un meme." },
-    { id:"1058087644676", url:"https://www.goofish.com/item?id=1058087644676", titulo:"Soporte vertical XSX 4 ventiladores ¥32.20", precio_cny:32.20,
-      motivo:"Sí es para Series X y tiene 4 ventiladores, pero NO carga mandos: son 3 puertos USB y 18 ranuras de discos, justo lo que no querés. Encima viene sin fuente de alimentación." },
-    { id:"1079501886618", url:"https://www.goofish.com/item?id=1079501886618", titulo:"Base Series X con carga Type-C ¥19", precio_cny:19,
-      motivo:"Conector Type-C. Sirve para mandos de Series X|S pero NO para los tuyos de Xbox One, que son micro USB. Es exactamente la trampa de compatibilidad que hay que evitar en esta categoría." },
-    { id:"804675975389", url:"https://www.goofish.com/item?id=804675975389", titulo:"Estuche P8 — interior 40×24×11", precio_cny:18,
-      motivo:"DESCARTADO POR VOLUMEN. 10.560 cm³: casi el doble que el Bestico y más grande que la propia referencia del dueño. Interior libre y barato, pero 40 cm de largo no es compacto. Fue un error de criterio proponerlo." },
-    { id:"1006598143817", url:"https://www.goofish.com/item?id=1006598143817", titulo:"Organizador negro — exterior 37×26×13", precio_cny:25,
-      motivo:"DESCARTADO POR VOLUMEN. 9.900 cm³, y encima hay que desmontarle los divisores de velcro para dejar el interior libre. Peor en las dos cosas." },
-    { id:"829404094051", url:"https://www.goofish.com/item?id=829404094051", titulo:"Estuche EVA A3 — interior 32×25×10", precio_cny:25,
-      motivo:"DESCARTADO POR VOLUMEN. 8.000 cm³ frente a 6.138 del AOVER, que además es más barato. Buen estuche, pero superado." },
-    { id:"1049512704261", url:"https://www.goofish.com/item?id=1049512704261", titulo:"Estuche camuflado — aprox. 31×26×9.5", precio_cny:25.88,
-      motivo:"DESCARTADO. 7.657 cm³ y, peor, el vendedor no declara medidas: las leí yo con lupa de una cinta métrica en sus fotos, con 1-2 cm de error. Comprar a ciegas sobre una medida estimada no vale la pena habiendo alternativas con cotas rotuladas." },
-    { id:"1059421800025", url:"https://www.goofish.com/item?id=1059421800025", titulo:"BUBM doble capa 30×24×12", precio_cny:30,
-      motivo:"Interior NO libre: tres divisores de tela cosidos a la base y una parrilla de elásticos en la tapa (fotos 2, 3, 7 y 8). No son extraíbles. Además el vendedor declara marcas de uso evidentes." },
-    { id:"1075060671689", url:"https://www.goofish.com/item?id=1075060671689", titulo:"Bolso fungoofun 36×16×16", precio_cny:23.8,
-      motivo:"No es un estuche rígido: es un bolso de moda bandolera, en amarillo, rojo o crema. Se coló en el filtro por traer tres medidas en el título. Sirve de recordatorio de que el filtro automático no sustituye mirar las fotos." },
-    { id:"1057346695489", url:"https://www.goofish.com/item?id=1057346695489", titulo:"Estuche EVA 41×27×10", precio_cny:49,
-      motivo:"Bloque de espuma perforado con decenas de huecos redondos para pilas (fotos 3, 4 y 5). Moldeado, caro y enorme." },
-    { id:"1049179949293", url:"https://www.goofish.com/item?id=1049179949293", titulo:"Estuche VR 30×20×15", precio_cny:45,
-      motivo:"Las 6 fotos son solo del exterior, borrosas y dentro de una caja de cartón. Cero fotos de interior. Silueta moldeada a un visor VR." },
-    { id:"976261957842", url:"https://www.goofish.com/item?id=976261957842", titulo:"Estuche Vision Pro 33×22×17", precio_cny:36,
-      motivo:"El anuncio dice que encaja perfectamente con las gafas VR y lleva correas de sujeción. Interior moldeado a un aparato concreto." },
-    { id:"974810903058", url:"https://www.goofish.com/item?id=974810903058", titulo:"Estuche 35×20×14 con defecto", precio_cny:16,
-      motivo:"Solo 3 fotos y las tres son primeros planos del mismo defecto. Sin foto general ni de interior. Imposible verificar." },
-    { id:"1068776062728", url:"https://www.goofish.com/item?id=1068776062728", titulo:"KIPYE EVA 38.5×28.5×6.5", precio_cny:66,
-      motivo:"Solo 6.5 cm de alto, exactamente el grosor de un mando: entraría a presión contra la tapa, apoyando sobre los sticks. Y es el más caro de todos." },
-    { id:"702861413513", url:"https://www.goofish.com/item?id=702861413513", titulo:"Estuche EVA 26×23×10 con divisores", precio_cny:10,
-      motivo:"Demasiado chico por partida doble: para 2×2 plano hacen falta 28 cm de largo y tiene 26; para 2 capas hacen falta 13 de alto y tiene 10." }
-  ]
-};
+  items: [
+    {
+      id: "gym-muro-wengrutaishan", categoria: "gimnasio",
+      titulo: "Estación de pared «Estable como una montaña»",
+      titulo_zh: "墙体飞鸟龙门架 高位下拉不翘头",
+      tienda: "Goofish", precio_cny: 469, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Estación de muro · 2 funciones · sin torre de pesas",
+      material: "Acero, espesor no publicado", color: "No publicado", condicion: "Nuevo, fábrica directa",
+      funciones: ["Cruces de polea (飞鸟)", "Jalón alto (高位下拉)"],
+      resumen: "Lo más liviano y barato de la lista. Estructura de muro sin contrapeso: cargas tus propios discos.",
+      descripcion: "Estructura de pared de fábrica, sin torre de pesas. El vendedor la publicita como que «no cabecea» al cargar, que es justamente el defecto típico de los soportes de pared baratos. Al no traer contrapeso ni accesorios, es la opción de menor peso de embarque de todo el catálogo — y por eso la más barata de traer.",
+      verificacion: ["El anuncio declara dos funciones: cruces y jalón alto", "Vendedor marcado 信用优秀 (reputación buena)"],
+      reservas: ["No publica espesor de tubo ni carga máxima", "No publica peso ni dimensiones", "No incluye discos"],
+      vendedor: { nombre: "军健健身器材配件", ciudad: "China", ventas: 0, reputacion: "信用优秀" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1076928423418"
+    },
+    {
+      id: "gym-kus-muro", categoria: "gimnasio",
+      titulo: "KUS — Columna de pared con cruces alto y bajo",
+      titulo_zh: "KUS 墙体大飞鸟小飞鸟高位下拉宽背肩夹胸肱三头肌综合健身肌肉训练器",
+      tienda: "Goofish", precio_cny: 484, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Estación de muro · 6 funciones · sin discos por defecto",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Cruces alto (大飞鸟)", "Cruces bajo (小飞鸟)", "Jalón alto (高位下拉)", "Espalda en agarre ancho (宽背)", "Apertura de hombro y pecho (肩夹胸)", "Tríceps (肱三头肌)"],
+      resumen: "Del vendedor con más ventas verificadas del catálogo: 4.071 ventas y 96% de valoraciones.",
+      descripcion: "Columna de pared nueva, de una fábrica con 9 años en la plataforma. Cubre seis ejercicios nombrados en el propio título del anuncio. No trae discos por defecto. Va cubierta por la garantía 描述不符包邮退, que devuelve con flete pagado si el producto no coincide con la descripción — protección poco común en Goofish.",
+      verificacion: ["Fábrica con 9 años en la plataforma y 4.071 ventas", "96% de valoraciones positivas", "Garantía 描述不符包邮退 activa en la ficha", "155 personas marcaron interés"],
+      reservas: ["No publica espesor de tubo ni carga", "Sin torre de pesas: hay que sumar discos", "No publica peso de embarque"],
+      vendedor: { nombre: "泰诺健源头厂家", ciudad: "金华", ventas: 4071, reputacion: "96% positivas · 9 años" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=720826913170"
+    },
+    {
+      id: "gym-3en1-800", categoria: "gimnasio",
+      titulo: "Rack tres en uno multifunción",
+      titulo_zh: "全新三合一多功能训练架",
+      tienda: "Goofish", precio_cny: 800, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · el más barato de su categoría",
+      material: "Acero, espesor no publicado", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯)", "Estación de cruces (小飞鸟)"],
+      funciones_origen: "三合一 estándar",
+      resumen: "El rack completo más barato de la lista. 70 personas marcaron interés.",
+      descripcion: "Rack tres en uno nuevo. El vendedor no publica espesor de tubo, carga ni dimensiones, así que las tres funciones son la decodificación estándar de 三合一 en el mercado chino (sentadilla, Smith y cruces), no una lista que él haya escrito. Todo lo estructural queda como pregunta antes de pagar.",
+      verificacion: ["70 personas marcaron interés", "Publicado como nuevo"],
+      reservas: ["Las 3 funciones son decodificación del formato 三合一, no texto del vendedor", "No publica espesor, carga, dimensiones ni peso", "Sin datos del vendedor en la ficha"],
+      vendedor: { nombre: "拱辰街跑步的荷叶", ciudad: "China", ventas: 0, reputacion: "信用优秀" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=998922818995"
+    },
+    {
+      id: "gym-weifeng", categoria: "gimnasio",
+      titulo: "Weifeng — Smith con rack de sentadilla, grado comercial",
+      titulo_zh: "伟丰 史密斯深蹲架多功能综合训练器",
+      tienda: "Goofish", precio_cny: 968, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack + Smith · 3 funciones · grado comercial declarado",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Sentadilla (深蹲)", "Press de banca (卧推)", "Máquina Smith (史密斯)"],
+      resumen: "De los pocos en este rango que se posiciona como comercial y no doméstico.",
+      descripcion: "Marca 伟丰, con estructura descrita como de grado comercial y apta para gimnasio, estudio o casa. En este rango de precio casi todo se vende como doméstico, así que el posicionamiento comercial es la diferencia — aunque el vendedor no lo respalde con números de espesor ni carga.",
+      verificacion: ["El anuncio declara grado comercial", "Declara uso en gimnasio, estudio y casa"],
+      reservas: ["«Grado comercial» sin espesor ni carga publicados es una afirmación, no un dato", "No publica peso ni dimensiones"],
+      vendedor: { nombre: "伟丰", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1057768406724"
+    },
+    {
+      id: "gym-aichen", categoria: "gimnasio",
+      titulo: "Aichen — Estación de poleas «calidad de exportación»",
+      titulo_zh: "爱宸 出口品质单边飞鸟100kg配重龙门架高位下拉综合训练器引体向上",
+      tienda: "Goofish", precio_cny: 970, peso_txt: "125 kg", peso_nota: "equipo completo", sb: "na", carga_pesada: true,
+      spec: "Estación de poleas · 5 funciones · 11 alturas · doble polea · 125 kg",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Cruces de polea (飞鸟训练)", "Jalón alto (高位下拉)", "Remo bajo (低拉划船)", "Tirón de pie (站姿提拉)", "Dominadas (引体向上)"],
+      variantes_tipo: "sku",
+      variantes_campo: "规格 (especificación)",
+      variantes: [
+        { nombre: "Contrapeso 70 kg", precio_cny: 970, base: true },
+        { nombre: "Contrapeso 100 kg", precio_cny: 1150 }
+      ],
+      resumen: "11 posiciones de altura y doble polea: cubre alto y bajo sin reanclar nada. Envío gratis con devolución pagada.",
+      descripcion: "Estación de polea de pie de «calidad de exportación». Las 11 posiciones de altura con doble polea son lo que la separa de las estaciones de altura fija: cubre jalón alto, remo bajo, curl y cruces sin volver a taladrar ni mover anclajes. Incluye agarres de cruces y barra de dominadas. No nombra cuerda de tríceps ni barra de jalón, así que eso hay que preguntarlo. Envío gratis hasta la puerta dentro de China, con devolución de flete pagado si sale defectuosa.",
+      verificacion: ["Fábrica con 3 años, 2.188 ventas y 97% positivas", "Publica peso total: 125 kg", "Publica 11 posiciones de altura y doble polea", "Enumera sus 5 funciones en el texto", "156 interesados y 5.996 visitas"],
+      reservas: ["No nombra cuerda de tríceps ni barra de jalón entre los accesorios", "No publica espesor de tubo", "El peso de 125 kg es del equipo, no el bruto embalado"],
+      vendedor: { nombre: "专业工厂生产", ciudad: "南通", ventas: 2188, reputacion: "97% positivas · 3 años" },
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01IjPIWC1sszMOOWeK8_!!4611686018427383759-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01RHGQbz1sszMMab3h4_!!4611686018427383759-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01dYrR691sszMMHMNcO_!!4611686018427383759-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01FxtCmU1sszMMngkh1_!!4611686018427383759-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01Vwuvg71sszMLi26bC_!!4611686018427383759-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01n5HYa51sszMNgKYEl_!!4611686018427383759-53-fleamarket.heic_Q90.jpg_.webp"
+      ],
+      url: "https://www.goofish.com/item?id=946610216693"
+    },
+    {
+      id: "gym-hoist", categoria: "gimnasio",
+      titulo: "Hoist — Estación individual (marca EE. UU.)",
+      titulo_zh: "美国汉臣 单人站综合训练器",
+      tienda: "Goofish", precio_cny: 988, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Estación individual · marca premium usada · al 38% del precio de compra",
+      material: "No publicado", color: "No publicado", condicion: "Casi nueva",
+      funciones: [],
+      funciones_origen: "sin enumerar",
+      resumen: "La única marca occidental real del catálogo, casi nueva y al 38% de lo que costó.",
+      descripcion: "Estación individual de Hoist, marca estadounidense de gama alta. Es la única marca occidental real de todo el catálogo. Casi nueva y vendida al 38% de su precio de compra. El anuncio no enumera funciones ni especificaciones: una 单人站 de Hoist típicamente cubre jalón, remo, cruces y press, pero eso es lo que sé de la marca, no lo que dice esta ficha. Confírmalo antes de comprar.",
+      verificacion: ["Marca Hoist / 汉臣, fabricante estadounidense real", "Estado declarado: casi nueva", "Precio al 38% del de compra según la ficha"],
+      reservas: ["El anuncio no enumera ninguna función", "No publica peso, dimensiones ni modelo exacto", "Sin historial de ventas del vendedor visible"],
+      vendedor: { nombre: "喜欢吃玉米", ciudad: "China", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=993119597766"
+    },
+    {
+      id: "gym-smith-deep-999", categoria: "gimnasio",
+      titulo: "Combo Smith + sentadilla + cruces con polea alta y baja",
+      titulo_zh: "小飞鸟史密斯深蹲组合训练架 三合一 高低拉一体机",
+      tienda: "Goofish", precio_cny: 999, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · 5 funciones · alta y baja polea integradas",
+      material: "Acero", color: "No publicado", condicion: "No especificado",
+      funciones: ["Estación de cruces (小飞鸟)", "Máquina Smith (史密斯)", "Sentadilla (深蹲)", "Polea alta (高拉)", "Polea baja (低拉)"],
+      resumen: "De los pocos en este precio que declara las dos alturas de polea por separado. Vendedor con 100% positivas.",
+      descripcion: "Tres en uno con polea alta y baja integradas en un solo cuerpo — el vendedor lo llama 高低拉一体机. La mayoría en este rango solo dice «三合一» y deja las poleas ambiguas; este las separa, que es lo que importa para saber si podés hacer remo bajo sin reanclar.",
+      verificacion: ["Vendedor con 100% de valoraciones positivas", "Declara explícitamente polea alta y baja como funciones separadas", "6 personas marcaron interés"],
+      reservas: ["No publica espesor, carga ni dimensiones", "No declara estado (nuevo o usado)", "No publica peso"],
+      vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "100% positivas" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=861262389762"
+    },
+    {
+      id: "gym-smith-comercial-999", categoria: "gimnasio",
+      titulo: "Smith multifunción grado comercial, negro y naranja",
+      titulo_zh: "史密斯深蹲多功能综合训练架 商用级别",
+      tienda: "Goofish", precio_cny: 999, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack + Smith · 3 funciones · grado comercial declarado",
+      material: "Acero", color: "Negro con naranja", condicion: "Nuevo",
+      funciones: ["Máquina Smith (史密斯)", "Sentadilla (深蹲)", "Dominadas (引体向上)"],
+      resumen: "Estructura descrita como estable y de recorridos variados, apta para gimnasio, estudio y casa.",
+      descripcion: "Cuerpo negro con accesorios naranjas y estructura descrita como de grado comercial. El vendedor destaca 结构稳固 (estructura firme) y variedad de movimientos, pero sin ningún número que lo respalde. En este precio, «comercial» es posicionamiento, no certificación.",
+      verificacion: ["Declara grado comercial", "Declara dominadas además de Smith y sentadilla", "Color y acabado publicados"],
+      reservas: ["«结构稳固» sin espesor ni carga es adjetivo, no dato", "No publica peso ni dimensiones"],
+      vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1041668940894"
+    },
+    {
+      id: "gym-3en1-accesorios", categoria: "gimnasio",
+      titulo: "Rack tres en uno con accesorios completos",
+      titulo_zh: "全新三合一综合训练架 配件全 到手直接用",
+      tienda: "Goofish", precio_cny: 1000, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · accesorios completos declarados",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯)", "Estación de cruces (小飞鸟)"],
+      funciones_origen: "三合一 estándar",
+      resumen: "Dice explícitamente 配件全，到手直接用: accesorios completos, listo al recibirlo. Eso lo separa de los que venden el marco pelado.",
+      descripcion: "De los pocos anuncios que aclara por escrito que los accesorios van incluidos y el equipo llega listo para usar. En una categoría donde los dos mejores vendedores publican el precio del marco pelado y cotizan todo lo demás por chat, esa frase vale dinero. Precio negociable y admite recoger en persona o envío por logística.",
+      verificacion: ["Declara 配件全，到手直接用 (accesorios completos, listo para usar)", "Precio negociable", "Admite recogida o envío por logística", "7 personas marcaron interés"],
+      reservas: ["No lista cuáles son esos accesorios", "Las 3 funciones son decodificación del formato 三合一", "No publica espesor, carga ni peso"],
+      vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1072748640824"
+    },
+    {
+      id: "gym-3en1-carbono", categoria: "gimnasio",
+      titulo: "Rack tres en uno de acero al carbono",
+      titulo_zh: "三合一综合训练架 碳钢材质 方管",
+      tienda: "Goofish", precio_cny: 1000, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · 4 funciones · publica agujeros y medidas",
+      material: "Acero al carbono, tubo cuadrado", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Sentadilla (深蹲)", "Press de banca (卧推)", "Cruces de polea (飞鸟)", "Máquina Smith (史密斯)"],
+      resumen: "Publica diámetro y separación de agujeros. Señal de que le vende a gente que compara fichas, no fotos.",
+      descripcion: "Acero al carbono con tubo cuadrado. Es de los pocos de este rango que publica diámetro de agujero, paso entre agujeros y las tres medidas del equipo. Ese detalle importa: define qué accesorios de terceros le calzan después.",
+      verificacion: ["Publica diámetro y separación de agujeros", "Publica largo, ancho y alto", "Enumera 4 funciones en el texto"],
+      reservas: ["No publica espesor de pared del tubo", "No publica carga máxima ni peso"],
+      vendedor: { nombre: "Vendedor de 上海", ciudad: "上海", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1037341870451"
+    },
+    {
+      id: "gym-longmen-smith", categoria: "gimnasio",
+      titulo: "Torre de poleas + Smith + sentadilla, tubo reforzado",
+      titulo_zh: "龙门架史密斯三合一 加厚钢管 配重单边",
+      tienda: "Goofish", precio_cny: 1000, peso_txt: "No publicado", sb: "na", carga_pesada: true, envio: "incluido",
+      spec: "Rack 3 en 1 · tubo reforzado · contrapeso de un lado",
+      material: "Acero, tubo reforzado (加厚钢管)", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Torre de poleas (龙门架)", "Rack de sentadilla (深蹲架)", "Estación de cruces (小飞鸟)"],
+      resumen: "Precio a firme con logística incluida dentro de China. Contrapeso de un lado; hay versión de dos.",
+      descripcion: "Combinación de torre de poleas, rack de sentadilla y estación de cruces, con tubo reforzado. El precio base trae contrapeso de un solo lado y existe versión de dos lados por más. Vendido como 实价 — precio firme, sin regateo — con la logística dentro de China ya incluida.",
+      verificacion: ["Precio a firme (实价) con logística incluida en China", "Declara tubo reforzado", "Contrapeso de un lado incluido, doble disponible"],
+      reservas: ["No publica espesor exacto ni carga", "No publica peso ni dimensiones", "El contrapeso doble cuesta aparte"],
+      vendedor: { nombre: "Vendedor de 陕西", ciudad: "陕西", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1083853648249"
+    },
+    {
+      id: "gym-smith-plata", categoria: "gimnasio",
+      titulo: "Smith tres en uno plateado, cuerpo integrado",
+      titulo_zh: "银色史密斯三合一肌肉训练器械 家用飞鸟多功能龙门架一体",
+      tienda: "Goofish", precio_cny: 1019, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · cuerpo integrado · acabado plateado",
+      material: "Acero", color: "Plateado", condicion: "No especificado",
+      funciones: ["Máquina Smith (史密斯)", "Estación de cruces (飞鸟)", "Torre de poleas (龙门架)"],
+      funciones_origen: "三合一 estándar",
+      resumen: "45 interesados. El acabado plateado es raro en esta categoría, casi todo es negro.",
+      descripcion: "Cuerpo integrado de Smith, cruces y torre de poleas para casa, con acabado plateado. El anuncio no publica especificaciones estructurales; la demanda sugiere que el precio es competitivo para lo que ofrece, no que el producto esté documentado.",
+      verificacion: ["45 personas marcaron interés", "Acabado y formato publicados"],
+      reservas: ["Cero especificaciones estructurales en la ficha", "Las 3 funciones son decodificación del formato 三合一", "No declara estado ni peso"],
+      vendedor: { nombre: "小星西区", ciudad: "China", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1034107708056"
+    },
+    {
+      id: "gym-rep-hongbo", categoria: "gimnasio",
+      titulo: "REP tres en uno — excedente de exportación (Guangzhou)",
+      titulo_zh: "劲爆价全新REP三合一框架训练架 一架多用 史密斯 小飞鸟 深蹲 外贸尾货清仓",
+      tienda: "Goofish", precio_cny: 1188, peso_txt: "No publicado", sb: "na", carga_pesada: true, envio: "incluido",
+      spec: "Jaula + Smith + cruces · 17 modos · Q235 3 mm · 75×75 mm · 1000 kg",
+      material: "Acero Q235 grado exportación, pared 3 mm, tubo 75×75 mm", color: "12 colores a elegir", condicion: "Nuevo",
+      funciones: ["Sentadilla (深蹲)", "Press de banca (卧推)", "Apertura de pecho (飞鸟夹胸)", "Dominadas (引体向上)", "Cuerda de batalla (战绳训练)"],
+      funciones_origen: "5 nombradas de 17 declaradas",
+      variantes_tipo: "chat",
+      variantes_campo: "cinco modelos mencionados sin precio publicado",
+      variantes: [
+        { nombre: "Marco pelado (precio publicado)", precio_cny: 1188, base: true },
+        { nombre: "Los otros 4 modelos", nota: "el vendedor no publica sus precios" }
+      ],
+      resumen: "OJO: el precio publicado es del MARCO PELADO. Q235 de 3 mm y tubo de 75×75 — grado comercial de verdad.",
+      descripcion: "Excedente de exportación de REP. Es de los dos únicos anuncios del catálogo que publica acero, espesor de pared, sección de tubo y carga estática — y los números son de grado comercial, no doméstico. El anuncio declara 17 modos de entrenamiento pero solo nombra cinco. Tiene cinco modelos distintos que el vendedor cotiza por chat sin publicar precios, así que no aparecen como variantes acá: no invento renglones que la ficha no sostiene. Lo crítico está en la letra chica: 标价为框架价格 — ese precio es solo el marco.",
+      verificacion: ["Publica acero Q235, pared de 3 mm y tubo de 75×75 mm", "Publica carga estática de 1000 kg", "Contrapeso de 70 kg de acero con capa antigolpe", "12 colores a elegir y guía de armado gratis", "Vendedor con 3 años, 1.549 ventas y 97% positivas"],
+      reservas: ["El precio publicado es del marco pelado: Smith, contrapeso y accesorios se cotizan aparte", "Los 5 modelos no tienen precio publicado", "Declara 17 modos pero solo nombra 5", "No publica peso ni metros cúbicos de embalaje"],
+      vendedor: { nombre: "宏博体育", ciudad: "广州", ventas: 1549, reputacion: "97% positivas · 3 años" },
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01wvMIdT29AskBDzACM_!!4611686018427386636-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01UJGhxl29AskB27Yjc_!!4611686018427386636-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01nPmPsx29AskBLIhG2_!!4611686018427386636-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01FqQQJ729AskBDwgL5_!!4611686018427386636-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01KYPenU29AskBLIthy_!!4611686018427386636-0-fleamarket.jpg_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01pGib1S29AskBL6mc6_!!4611686018427386636-0-fleamarket.jpg_Q90.jpg_.webp"
+      ],
+      url: "https://www.goofish.com/item?id=1032606900399"
+    },
+    {
+      id: "gym-rep-comercial", categoria: "gimnasio",
+      titulo: "REP — Rack comercial con Smith para casa",
+      titulo_zh: "REP综合训练架龙门架健身器材商用史密斯家用多功能深蹲卧推架",
+      tienda: "Goofish", precio_cny: 1200, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack + Smith · 4 funciones · 111 interesados",
+      material: "Acero", color: "No publicado", condicion: "No especificado",
+      funciones: ["Torre de poleas (龙门架)", "Máquina Smith (史密斯)", "Sentadilla (深蹲)", "Press de banca (卧推)"],
+      resumen: "Alta demanda para lo poco que publica: señal de precio agresivo, no de ficha completa.",
+      descripcion: "Rack REP comercial adaptado a uso doméstico. 111 personas marcaron interés, que es mucho para un anuncio que no publica ni espesor ni carga ni peso. Eso suele significar precio agresivo más que producto documentado.",
+      verificacion: ["111 personas marcaron interés", "Vendedor marcado 信用极好 (reputación excelente)", "Declara 4 funciones en el título"],
+      reservas: ["No publica ninguna especificación estructural", "No declara estado ni peso", "La demanda alta no sustituye a la ficha técnica"],
+      vendedor: { nombre: "健身器材", ciudad: "China", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1076686814727"
+    },
+    {
+      id: "gym-rep-shangyi", categoria: "gimnasio",
+      titulo: "REP medio rack tres en uno — excedente de exportación (Shandong)",
+      titulo_zh: "REP半框深蹲架三合一史密斯机小飞鸟综合训练器家用商用健身房龙门架卧推架",
+      tienda: "Goofish", precio_cny: 1300, peso_txt: "120 kg", peso_nota: "solo el marco, armado sube", sb: "na", carga_pesada: true, envio: "incluido",
+      spec: "Jaula o medio rack · 7 funciones · Q235 3 mm · 75×75 mm · 1200×1200×2200 mm · 1000 kg",
+      material: "Acero Q235 grado exportación, pared 3 mm, tubo 75×75 mm, resiste 3 t de impacto", color: "Casi cualquiera, accesorios a la carta", condicion: "Nuevo",
+      funciones: ["Dominadas (引体向上)", "Sentadilla (深蹲训练)", "Press plano (平板卧推)", "Apertura de pecho (飞鸟夹胸)", "Bíceps (二头)", "Tríceps (三头)", "Máquina Smith (史密斯锻炼)"],
+      variantes_tipo: "chat",
+      variantes_campo: "cinco configuraciones descritas en el texto del anuncio",
+      variantes: [
+        { nombre: "Marco desnudo (precio publicado)", precio_cny: 1300, base: true },
+        { nombre: "① Jaula completa, doble seguro antideslizamiento", nota: "a cotizar" },
+        { nombre: "② Medio rack, cierre de competición", nota: "a cotizar" },
+        { nombre: "③ Riel Smith con limitador ±15°", nota: "a cotizar" },
+        { nombre: "④ Estación de cruces, contrapeso de acero", nota: "a cotizar" },
+        { nombre: "⑤ Torre multifuncional de 17 modos", precio_cny: 4480 }
+      ],
+      resumen: "El más completo del catálogo, y el precio publicado es del marco pelado. Rango real ¥1300–4480.",
+      descripcion: "Excedente de exportación de REP, quedan 51 juegos. Es el único anuncio que declara resistencia al impacto y que aclara que no es la versión recortada de 950 mm que abunda en el mercado — un detalle que solo escribe quien sabe que el comprador lo va a comparar. Las cinco configuraciones se cotizan por chat dentro del rango ¥1300–4480 y el vendedor manda un PDF con la lista de accesorios. La letra chica dice 标价为裸机全框全国包邮价格: el precio es del marco desnudo.",
+      verificacion: ["Publica acero Q235, pared de 3 mm, tubo de 75×75 mm y resistencia a 3 t de impacto", "Publica dimensiones 1200×1200×2200 mm y aclara que no es la versión recortada de 950", "Publica peso del marco: 120 kg", "Contrapeso de 70 kg de acero con capa de silicona antigolpe", "Compatible con barras olímpicas, mancuernas y cuerdas de batalla", "Vendedor con 7 años, 1.286 ventas y 98% positivas", "Garantía 描述不符包邮退 activa", "233 interesados y 4.879 visitas"],
+      reservas: ["El precio publicado es del marco desnudo, no del equipo armado", "Cuatro de las cinco configuraciones no tienen precio publicado", "Los 120 kg son del marco, no el bruto embalado", "Marca declarada MBH/迈宝赫: es de las más clonadas de China, pide foto de la placa"],
+      vendedor: { nombre: "山东尚亿健身器材", ciudad: "汕尾", ventas: 1286, reputacion: "98% positivas · 7 años" },
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01d2Kqpr1EtpRKYpjuK_!!4611686018427383770-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01zJLsbj1EtpRMwRo7f_!!4611686018427383770-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01bQCR9K1EtpRLiOeqQ_!!4611686018427383770-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i2/O1CN01HNJY7i1EtpRMKWTt1_!!4611686018427383770-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN0151NnER1EtpRJvTvrt_!!4611686018427383770-53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01wv7A7S1EtpRMKZuKy_!!4611686018427383770-53-fleamarket.heic_Q90.jpg_.webp"
+      ],
+      url: "https://www.goofish.com/item?id=919687558085"
+    },
+    {
+      id: "gym-junxia", categoria: "gimnasio",
+      titulo: "Junxia — Entrenador multifunción casi nuevo",
+      titulo_zh: "军霞 多功能综合训练器 家用健身神器 龙门架 史密斯机 卧推",
+      tienda: "Goofish", precio_cny: 1470, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Torre + Smith + press · marca conocida · casi nueva",
+      material: "Acero", color: "No publicado", condicion: "Casi nueva",
+      funciones: ["Torre de poleas (龙门架)", "Máquina Smith (史密斯机)", "Press de banca (卧推)"],
+      resumen: "Marca reconocida del mercado chino de gimnasio, de uso particular. Marca usada suele rendir más que genérico nuevo.",
+      descripcion: "军霞 es de las marcas reconocidas en el mercado chino de equipo de gimnasio. Esta unidad es casi nueva y de uso particular. En esta categoría, comprar marca conocida usada suele dar mejor construcción por el mismo dinero que un genérico nuevo — es el mismo razonamiento que aplica a herramienta o a bicicletas.",
+      verificacion: ["Marca 军霞 reconocida en el mercado chino", "Estado: casi nueva, de uso particular", "Declara 3 estaciones"],
+      reservas: ["No publica especificaciones estructurales", "No publica peso ni dimensiones", "Sin historial del vendedor visible"],
+      vendedor: { nombre: "Particular", ciudad: "China", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1080030735517"
+    },
+    {
+      id: "gym-3en1-morado", categoria: "gimnasio",
+      titulo: "Rack tres en uno negro y morado, sin estrenar",
+      titulo_zh: "三合一综合训练架 磨砂黑紫配色 商用级碳钢 加厚管材",
+      tienda: "Goofish", precio_cny: 1500, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · carbono comercial · tubo reforzado · nuevo sin usar",
+      material: "Acero al carbono de grado comercial, tubo reforzado", color: "Negro mate con morado", condicion: "Nuevo sin estrenar",
+      funciones: ["Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯架)", "Estación de cruces (小飞鸟)"],
+      resumen: "Nuevo sin estrenar, con recorridos descritos como fluidos y acabado mate.",
+      descripcion: "Carbono de grado comercial con tubo reforzado y acabado negro mate con morado. Nuevo sin usar. El vendedor describe los recorridos como fluidos, aunque sin publicar el tipo de polea ni si lleva rodamiento — que es de dónde viene esa sensación.",
+      verificacion: ["Declara carbono de grado comercial y tubo reforzado", "Estado: nuevo sin estrenar", "3 interesados"],
+      reservas: ["No publica espesor exacto ni carga", "No publica tipo de polea ni si tiene rodamiento", "No publica peso"],
+      vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1039140483739"
+    },
+    {
+      id: "gym-yl-yulong", categoria: "gimnasio",
+      titulo: "YL Yulong — Estación comercial con los 4 accesorios",
+      titulo_zh: "全新商用小飞鸟、单边飞鸟、高位下拉机 YL/豫龙",
+      tienda: "Goofish", precio_cny: 1549, peso_txt: "130 kg", peso_nota: "peso neto", sb: "na", carga_pesada: true,
+      spec: "Estación de poleas · 4 funciones · 130 kg · tubo 50×100 mm pared 2.0 mm",
+      material: "Acero, tubo principal 50×100 mm, pared 2.0 mm", color: "Personalizable", condicion: "Nuevo",
+      funciones: ["Polea alta (高拉)", "Polea baja (低拉)", "Dominadas (引体向上)", "Apertura de pecho (飞鸟夹胸)"],
+      resumen: "El ÚNICO que nombra sus accesorios uno por uno: barra larga, barra corta, agarres y cuerda de tríceps.",
+      descripcion: "Es el único anuncio de todo el catálogo que lista sus accesorios por nombre: barra larga de jalón, barra corta, agarres de cruces y cuerda de tríceps — exactamente los cuatro que buscabas desde el primer kit. También es de los pocos que publica espesor de pared. El contrapeso es de 70 kg de acero macizo, no cemento. Ojo con el flete: el precio es de fábrica y el envío dentro de China va aparte, aunque la ficha muestre 包邮.",
+      verificacion: ["Lista sus accesorios por nombre: barra larga, barra corta, agarres y cuerda de tríceps", "Publica peso neto de 130 kg", "Publica tubo de 50×100 mm con pared de 2.0 mm", "Publica dimensiones 80×82×230 cm", "Contrapeso de 70 kg de acero macizo (精钢)", "Vendedor con 7 años, 2.582 ventas y 98% positivas", "Garantía 描述不符包邮退"],
+      reservas: ["El precio es de fábrica: el flete dentro de China se cobra aparte según provincia", "La pared de 2.0 mm es doméstica, no comercial como el REP de 3 mm", "Los 130 kg son netos, no el bruto embalado"],
+      vendedor: { nombre: "老铁健身器材", ciudad: "深圳", ventas: 2582, reputacion: "98% positivas · 7 años" },
+      imagenes: [
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN018Wbdnq1wLmri0tDeW_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i4/O1CN01zgnVPL1wLmrg3aU1z_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i1/O1CN01jb8MFK1wLmrmHUjbk_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01tgkU4H1wLmrkMP1Ge_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01NU0BOP1wLmrc2XczM_!!53-fleamarket.heic_Q90.jpg_.webp",
+        "https://img.alicdn.com/bao/uploaded/i3/O1CN01BILFmj1wLmrg3aU20_!!53-fleamarket.heic_Q90.jpg_.webp"
+      ],
+      url: "https://www.goofish.com/item?id=706710842091"
+    },
+    {
+      id: "gym-smith-3en1-1666", categoria: "gimnasio",
+      titulo: "Smith tres en uno con cruces, liquidación por mudanza",
+      titulo_zh: "史密斯三合一综合训练架 小飞鸟 开放式深蹲架 可定制",
+      tienda: "Goofish", precio_cny: 1666, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack abierto 3 en 1 · personalizable en medidas · 76 interesados",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯)", "Estación de cruces (小飞鸟)"],
+      funciones_origen: "三合一 estándar",
+      resumen: "Rack abierto personalizable en medidas y paso de agujeros. El vendedor lo describe como venta a pérdida.",
+      descripcion: "Liquidación por mudanza de nave industrial. Lo interesante no es el descuento sino que el rack es abierto y personalizable en medidas y paso de agujeros — si tenés una altura de techo justa, eso resuelve un problema que el precio no resuelve.",
+      verificacion: ["Rack abierto (开放式深蹲架) personalizable en medidas y paso de agujeros", "76 personas marcaron interés", "Estado: nuevo"],
+      reservas: ["«Venta a pérdida» es argumento de venta, no verificable", "No publica espesor, carga ni peso"],
+      vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=988283208260"
+    },
+    {
+      id: "gym-inox", categoria: "gimnasio",
+      titulo: "Tres en uno en ACERO INOXIDABLE",
+      titulo_zh: "不锈钢三合一综合训练架 史密斯飞鸟深蹲架卧推架小飞鸟",
+      tienda: "Goofish", precio_cny: 1850, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · 5 funciones · acero INOXIDABLE, no carbono pintado",
+      material: "Acero inoxidable", color: "Acabado inox", condicion: "Liquidación, nuevo",
+      funciones: ["Máquina Smith (史密斯)", "Cruces de polea (飞鸟)", "Sentadilla (深蹲架)", "Press de banca (卧推架)", "Estación de cruces baja (小飞鸟)"],
+      resumen: "El único en inoxidable de todo el catálogo. Para El Salvador, con humedad, eso no es detalle menor.",
+      descripcion: "El único del catálogo en acero inoxidable en vez de carbono pintado, y el vendedor lo posiciona precisamente como ventaja frente al resto del mercado. Es relevante si el equipo va a un espacio húmedo o semiabierto: el carbono pintado se oxida donde se raya, y en un rack se raya siempre — con los discos, con la barra, con los ganchos. En el trópico eso se paga.",
+      verificacion: ["Material declarado: acero inoxidable", "Enumera 5 estaciones en el título", "Vendido como liquidación"],
+      reservas: ["No publica espesor ni carga", "«Inoxidable» sin serie (304, 201) puede ser inox de baja calidad", "No publica peso"],
+      vendedor: { nombre: "Vendedor de 湖南", ciudad: "湖南", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=826332742014"
+    },
+    {
+      id: "gym-jinsmith", categoria: "gimnasio",
+      titulo: "Jin Smith — Entrenador casi nuevo, con discos aparte",
+      titulo_zh: "金史密斯 史密斯综合训练器 配重铁片 片单可出",
+      tienda: "Goofish", precio_cny: 1888, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Máquina Smith de marca · casi nueva · 217 interesados",
+      material: "Acero", color: "No publicado", condicion: "Casi nueva",
+      funciones: [],
+      funciones_origen: "sin enumerar",
+      resumen: "La usada de mayor demanda del catálogo: 217 interesados. Movimiento descrito como suave.",
+      descripcion: "Máquina Smith de marca 金史密斯, casi nueva y con movimiento descrito como suave. Los discos de contrapeso se pueden comprar por separado. Es la usada con más demanda de todo el catálogo, lo que en Goofish suele significar que el precio está por debajo de mercado — o que las fotos están bien hechas.",
+      verificacion: ["Marca 金史密斯", "Estado: casi nueva", "217 personas marcaron interés", "Vendedor marcado 信用极好"],
+      reservas: ["El anuncio no enumera ninguna función", "No publica especificaciones ni peso", "Los discos se cotizan aparte"],
+      vendedor: { nombre: "一只会后空翻的", ciudad: "China", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1071563427618"
+    },
+    {
+      id: "gym-fabrica-2180", categoria: "gimnasio",
+      titulo: "Cuatro estaciones de fábrica, acero de alta resistencia",
+      titulo_zh: "小飞鸟龙门架深蹲架史密斯综合训练架 高强度钢 加厚管材 精钢配重",
+      tienda: "Goofish", precio_cny: 2180, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "4 estaciones · acero alta resistencia · tratamiento anticorrosión · contrapeso de acero",
+      material: "Acero de alta resistencia, tubo reforzado, tratamiento anticorrosión", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Estación de cruces (小飞鸟)", "Torre de poleas (龙门架)", "Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯)"],
+      resumen: "Despacho directo de fábrica, con tratamiento anticorrosión en superficie y contrapeso de acero macizo.",
+      descripcion: "Acero de alta resistencia con tubo reforzado y tratamiento anticorrosión en superficie, más contrapeso de acero macizo en vez de cemento. El tratamiento anticorrosión es de los pocos detalles de acabado que alguien menciona en esta categoría, y para clima húmedo cuenta.",
+      verificacion: ["Declara acero de alta resistencia y tubo reforzado", "Declara tratamiento anticorrosión en superficie", "Contrapeso de acero macizo (精钢)", "Despacho directo de fábrica"],
+      reservas: ["No publica espesor exacto ni carga", "«Alta resistencia» sin designación de acero es adjetivo", "No publica peso ni dimensiones"],
+      vendedor: { nombre: "Fábrica de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1041970691875"
+    },
+    {
+      id: "gym-smith-inclinado", categoria: "gimnasio",
+      titulo: "Smith INCLINADO con estación de cruces",
+      titulo_zh: "史密斯综合训练架 倾斜款史密斯 小飞鸟 源头工厂",
+      tienda: "Goofish", precio_cny: 2200, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Smith de riel inclinado + cruces · fábrica de origen · quedan 3",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Máquina Smith inclinada (倾斜款史密斯)", "Estación de cruces (小飞鸟)"],
+      resumen: "El riel inclinado sigue la trayectoria natural de la sentadilla y el press. Es diferencia de biomecánica, no de marketing.",
+      descripcion: "Versión de Smith inclinado. Esto sí es una diferencia real y no un adjetivo: el riel vertical obliga a que la barra suba en línea recta, que no es como se mueve tu cuerpo en una sentadilla o un press. El riel inclinado sigue mejor esa trayectoria. Fábrica de origen, quedan tres unidades.",
+      verificacion: ["Riel de Smith inclinado, no vertical", "Fábrica de origen (源头工厂)", "78 personas marcaron interés", "Quedan 3 unidades"],
+      reservas: ["Solo 2 funciones: no trae rack de sentadilla independiente", "No publica ángulo de inclinación", "No publica espesor, carga ni peso"],
+      vendedor: { nombre: "源头工厂", ciudad: "China", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1043785790897"
+    },
+    {
+      id: "gym-fabrica-jiangsu", categoria: "gimnasio",
+      titulo: "Rack comercial de nave propia, tamaño para casa",
+      titulo_zh: "综合训练架龙门架健身器材商用史密斯家用多功能深蹲卧推架 自家厂房直产",
+      tienda: "Goofish", precio_cny: 2200, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "5 funciones · producción propia sin intermediarios · tamaño mediano",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Sentadilla (深蹲)", "Press de banca (卧推)", "Dominadas (引体向上)", "Torre de poleas (龙门架)", "Máquina Smith (史密斯)"],
+      resumen: "El vendedor recalca que el tamaño mediano es el que de verdad cabe en casa. Casi nadie menciona eso.",
+      descripcion: "Producción propia sin intermediarios. Lo que lo distingue no es el precio sino que el vendedor recalca que el tamaño mediano es el que funciona en casa — no todos los racks comerciales caben en una habitación de techo normal, y es un punto que prácticamente ningún otro anuncio del catálogo menciona.",
+      verificacion: ["Producción en nave propia, sin intermediarios", "Declara 5 estaciones", "Dimensionado explícitamente para uso doméstico", "43 personas marcaron interés"],
+      reservas: ["No publica las medidas concretas de ese «tamaño mediano»", "No publica espesor, carga ni peso"],
+      vendedor: { nombre: "Fábrica de 江苏", ciudad: "江苏", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1056147805392"
+    },
+    {
+      id: "gym-head", categoria: "gimnasio",
+      titulo: "HEAD — Torre de poleas doméstica",
+      titulo_zh: "海德 HEAD 龙门架 家用健身房",
+      tienda: "Goofish", precio_cny: 2480, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Torre de poleas · marca deportiva internacional",
+      material: "No publicado", color: "No publicado", condicion: "No especificado",
+      funciones: [],
+      funciones_origen: "sin enumerar",
+      resumen: "Uno de los pocos nombres reconocibles fuera de China, pero la ficha no detalla nada.",
+      descripcion: "Torre de poleas de HEAD, marca deportiva internacional. Es de los pocos nombres reconocibles fuera de China en este catálogo, lo que da cierta tranquilidad sobre el respaldo. Pero el anuncio no detalla funciones ni estructura, así que la marca es todo lo que estás comprando hasta que le pidas la ficha al vendedor.",
+      verificacion: ["Marca 海德 / HEAD, deportiva internacional", "Uso doméstico declarado", "Vendedor marcado 信用极好"],
+      reservas: ["No enumera funciones", "No publica ninguna especificación estructural", "No declara estado ni peso"],
+      vendedor: { nombre: "专业健身器材", ciudad: "China", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1081339598700"
+    },
+    {
+      id: "gym-smith-custom", categoria: "gimnasio",
+      titulo: "Smith tres en uno personalizable, últimas unidades",
+      titulo_zh: "史密斯综合训练架 小飞鸟 三合一 史密斯二合一 开放式深蹲架 可定制",
+      tienda: "Goofish", precio_cny: 2499, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack abierto 3 en 1 · personalizable · últimas unidades por mudanza",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯)", "Estación de cruces (小飞鸟)"],
+      funciones_origen: "三合一 estándar",
+      resumen: "Rack abierto personalizable en medidas. Últimas unidades por mudanza de nave.",
+      descripcion: "Últimas unidades por mudanza de nave industrial. Rack abierto que se puede personalizar en medidas. El vendedor lo describe como venta por debajo de costo, lo que en Goofish aparece en la mitad de los anuncios y conviene tomar como estilo, no como dato.",
+      verificacion: ["Rack abierto personalizable en medidas", "9 personas marcaron interés", "Estado: nuevo"],
+      reservas: ["«Por debajo de costo» no es verificable", "No publica espesor, carga, dimensiones ni peso"],
+      vendedor: { nombre: "Vendedor de 上海", ciudad: "上海", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1014790549535"
+    },
+    {
+      id: "gym-morado-serie", categoria: "gimnasio",
+      titulo: "Rack morado equipado de serie",
+      titulo_zh: "多功能综合训练架 标配J形挂钩 深蹲保护杠 引体横梁 飞鸟配重 底板 滑轮",
+      tienda: "Goofish", precio_cny: 2500, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack multifunción · equipamiento de serie enumerado · tubo reforzado",
+      material: "Acero, tubo reforzado", color: "Morado", condicion: "Nuevo",
+      funciones: ["Sentadilla con barra de seguridad (深蹲保护杠)", "Dominadas (引体横梁)", "Cruces de polea (飞鸟配重)"],
+      resumen: "De los pocos que enumera lo que trae de serie en vez de venderlo aparte.",
+      descripcion: "Enumera su equipamiento de serie: ganchos en J, barra de seguridad para sentadilla, travesaño de dominadas, contrapeso de cruces, plataforma de piso y juego de poleas. En una categoría donde los dos mejores anuncios publican el precio del marco pelado, que este liste seis piezas incluidas cambia la comparación real de precio.",
+      verificacion: ["Enumera 6 piezas de serie: ganchos en J, barra de seguridad, travesaño de dominadas, contrapeso de cruces, plataforma y poleas", "Declara tubo reforzado", "Apto comercial y doméstico", "11 personas marcaron interés"],
+      reservas: ["Enumera piezas, no funciones: las 3 funciones son mi lectura de esas piezas", "No publica espesor exacto ni carga", "No publica peso"],
+      vendedor: { nombre: "Vendedor de 山东", ciudad: "山东", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1054123048478"
+    },
+    {
+      id: "gym-garvee", categoria: "gimnasio",
+      titulo: "Garvee Power Cage 2000LB — doble polea independiente",
+      titulo_zh: "",
+      tienda: "Amazon", moneda_origen: "USD", precio_origen: 429.99, precio_cny: 2884,
+      peso_txt: "54.4 kg", peso_nota: "120 lb", sb: "na", carga_pesada: true,
+      spec: "Medio rack · 10 funciones · 54.4 kg · doble polea 1:1 · 204 kg de carga en polea",
+      material: "Acero, columna 2\" × 2\" (≈50 × 50 mm)", color: "Naranja", condicion: "Nuevo",
+      funciones: ["Rack de sentadilla", "Cruces de polea", "Jalón al pecho", "Fondos", "Dominadas", "Remo bajo", "Landmine", "Ancla de cuerda de batalla", "Entrenador de core", "Estación de pierna"],
+      resumen: "El mejor ajuste a lo que buscás: 10 funciones, 54 kg y devolución de 30 días. Sin barra Smith.",
+      descripcion: "Medio rack con doble polea independiente de ratio 1:1 — el peso que cargás es el que trabajás, y permite series combinadas en ambos lados a la vez. Ocupa un tercio menos de espacio que una jaula completa. No trae barra Smith, y ese es todo el ahorro frente al GAOMON: $370 y 98 kg menos de flete. A 54.4 kg es el equipo más liviano con 10 funciones de todo el catálogo, que en flete marítimo a El Salvador es la diferencia entre unos $200 y unos $600.",
+      verificacion: ["Publica capacidad de polea: 450 lb / 204 kg — dato que ningún vendedor chino da", "Publica carga del rack: 2000 lb / 907 kg", "Publica columna de 2\" × 2\" y 20 alturas cada 8 cm, numeradas", "Publica dimensiones 149 × 118 × 211 cm y peso 54.4 kg", "Enumera las 10 funciones una por una", "Devolución de 30 días de Amazon"],
+      reservas: ["4.8★ pero sobre solo 6 reseñas: no es muestra suficiente para equipo que sostiene peso sobre tu cuerpo", "No trae barra Smith", "Columna de 50 × 50 mm: es grado doméstico, no comercial", "El peso de 54.4 kg es del artículo, no el bruto embalado"],
+      vendedor: { nombre: "Garvee", ciudad: "Amazon US", ventas: 0, reputacion: "4.8★ sobre 6 reseñas · 30 días de devolución" },
+      imagenes: [
+        "https://m.media-amazon.com/images/I/41Htj94nXdL.jpg",
+        "https://m.media-amazon.com/images/I/51I3IfhaNSL.jpg",
+        "https://m.media-amazon.com/images/I/51jZSg55NsL.jpg",
+        "https://m.media-amazon.com/images/I/51jW7Srq1BL.jpg",
+        "https://m.media-amazon.com/images/I/51GM+rcz8vL.jpg",
+        "https://m.media-amazon.com/images/I/51ZQQejfFxL.jpg"
+      ],
+      url: "https://www.amazon.com/dp/B0G6DJL255/"
+    },
+    {
+      id: "gym-4en1-2980", categoria: "gimnasio",
+      titulo: "Torre + cruces + Smith + sentadilla, precio firme",
+      titulo_zh: "龙门架 小飞鸟龙门架综合训练架健身史密斯深蹲 实价",
+      tienda: "Goofish", precio_cny: 2980, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "4 estaciones · precio a firme sin regateo",
+      material: "Acero", color: "No publicado", condicion: "No especificado",
+      funciones: ["Torre de poleas (龙门架)", "Estación de cruces (小飞鸟)", "Máquina Smith (史密斯)", "Sentadilla (深蹲)"],
+      resumen: "Conjunto de cuatro estaciones vendido a precio firme (实价), sin regateo.",
+      descripcion: "Conjunto de torre de poleas, estación de cruces, Smith y rack de sentadilla, vendido a precio firme. En Goofish el regateo es la norma, así que un 实价 suele significar que el margen ya está ajustado.",
+      verificacion: ["Precio a firme (实价)", "Declara 4 estaciones", "37 personas marcaron interés", "Vendedor marcado 信用极好"],
+      reservas: ["No publica especificaciones estructurales", "No declara estado ni peso"],
+      vendedor: { nombre: "西安电视安装丿健身器械", ciudad: "西安", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1043023533061"
+    },
+    {
+      id: "gym-xuebao-f121", categoria: "gimnasio",
+      titulo: "Xuebao F121 — Reelifefitness, con torre de pesas integrada",
+      titulo_zh: "占地小颜值高家用小飞鸟多功能单边龙门架底座壁挂式靠贴墙体健身综合训练器材 雪豹F121",
+      tienda: "Goofish", precio_cny: 3280, peso_txt: "No publicado", sb: "na", carga_pesada: true, envio: "incluido",
+      spec: "Estación de muro o con base · torre de pesas 50/70/100 kg · 6 variantes con precio publicado",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: [],
+      funciones_origen: "sin enumerar",
+      variantes_tipo: "sku",
+      variantes_campo: "规格 (especificación)",
+      variantes: [
+        { nombre: "Pared, contrapeso 50 kg", precio_cny: 3280, base: true },
+        { nombre: "Base, contrapeso 50 kg", precio_cny: 3480 },
+        { nombre: "Pared, contrapeso 70 kg", precio_cny: 3780 },
+        { nombre: "Base, contrapeso 70 kg", precio_cny: 4080 },
+        { nombre: "Pared, contrapeso 100 kg", precio_cny: 4280 },
+        { nombre: "Base, contrapeso 100 kg", precio_cny: 4480 }
+      ],
+      resumen: "El único con torre de pesas integrada Y precios de variante publicados. Vendedor con 100% de valoraciones.",
+      descripcion: "Estación de cruces de una sola columna, nueva, con envío incluido y del único vendedor con 100% de valoraciones de todo el catálogo. La versión 壁挂 se ancla a la pared; la 底座 lleva base propia y cuesta ¥200 más. El banco de entrenamiento se vende aparte por ¥399. Es el salto a categoría de gimnasio, con el precio y el peso que eso implica — y con la torre de acero que casi ningún otro trae de fábrica.",
+      verificacion: ["Único del catálogo con las 6 variantes y sus precios publicados uno por uno", "Marca Reelifefitness / 锐飞, modelo 雪豹 F121", "Torre de pesas integrada de 50, 70 o 100 kg", "Envío incluido dentro de China", "Vendedor con 100% de valoraciones positivas y 213 ventas", "179 personas marcaron interés"],
+      reservas: ["El anuncio no enumera ninguna función", "El banco se vende aparte por ¥399 (US$ 59)", "No publica espesor de tubo, carga ni peso", "Con torre de 100 kg, el peso de embarque se dispara"],
+      vendedor: { nombre: "应有尽有", ciudad: "济南", ventas: 213, reputacion: "100% positivas · 4 años" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=810515183885"
+    },
+    {
+      id: "gym-3en1-liquidacion", categoria: "gimnasio",
+      titulo: "Tres en uno, lote por incumplimiento de cliente",
+      titulo_zh: "三合一综合训练架最后清仓 客户违约 亏本出",
+      tienda: "Goofish", precio_cny: 3398, peso_txt: "No publicado", sb: "na", carga_pesada: true, envio: "incluido",
+      spec: "Rack 3 en 1 · lote de liquidación · envío incluido",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Rack de sentadilla (深蹲架)", "Máquina Smith (史密斯)", "Estación de cruces (小飞鸟)"],
+      funciones_origen: "三合一 estándar",
+      resumen: "Lote fabricado de más porque un cliente incumplió el pedido. Precio firme con envío incluido.",
+      descripcion: "Lote fabricado de más porque un cliente incumplió el pedido; se venden a pérdida según el anuncio. Precio firme con envío incluido dentro de China. La historia es plausible y explica por qué hay stock parado, pero no cambia que la ficha no publique nada estructural.",
+      verificacion: ["Envío incluido dentro de China", "Precio a firme", "Estado: nuevo"],
+      reservas: ["La historia del incumplimiento no es verificable", "Las 3 funciones son decodificación del formato 三合一", "No publica espesor, carga ni peso"],
+      vendedor: { nombre: "Vendedor de 广西", ciudad: "广西", ventas: 0, reputacion: "No publicada" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=785280685804"
+    },
+    {
+      id: "gym-smith-upgrade", categoria: "gimnasio",
+      titulo: "Cruces + Smith versión mejorada, tres en uno",
+      titulo_zh: "品质小飞鸟 升级款史密斯三合一 龙门架综合训练架",
+      tienda: "Goofish", precio_cny: 3440, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · Smith versión mejorada",
+      material: "Acero", color: "No publicado", condicion: "Nuevo",
+      funciones: ["Estación de cruces (小飞鸟)", "Máquina Smith mejorada (升级款史密斯)", "Torre de poleas (龙门架)"],
+      resumen: "Versión mejorada del Smith combinada con cruces y torre. Vendido como conjunto de cuerpo completo.",
+      descripcion: "Versión mejorada de la máquina Smith combinada con estación de cruces y torre de poleas, vendida como conjunto para entrenar todo el cuerpo. El anuncio no dice en qué consiste la mejora, que es justo lo que habría que preguntar antes de pagar la diferencia sobre los de ¥2.500.",
+      verificacion: ["Declara Smith en versión mejorada", "Vendedor marcado 信用极好", "3 estaciones declaradas"],
+      reservas: ["No explica en qué consiste la «mejora» del Smith", "No publica espesor, carga ni peso"],
+      vendedor: { nombre: "菲菲健身小铺", ciudad: "China", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=931811434279"
+    },
+    {
+      id: "gym-gaomon", categoria: "gimnasio",
+      titulo: "GAOMON 2400 Lbs Power Cage — jaula completa con Smith",
+      titulo_zh: "",
+      tienda: "Amazon", moneda_origen: "USD", precio_origen: 799.99, precio_cny: 5365,
+      peso_txt: "152.6 kg", peso_nota: "336.4 lb", sb: "na", carga_pesada: true,
+      spec: "Jaula completa · 4 estaciones · barra Smith incluida · 152.6 kg · 1089 kg de carga",
+      material: "Acero, sección de columna no publicada", color: "Rojo y negro", condicion: "Nuevo",
+      funciones: ["Jaula de sentadilla (power cage)", "Barra Smith", "Cruces de polea", "Jalón al pecho"],
+      resumen: "El equipo exacto de tu foto. Trae barra Smith, que es toda la diferencia de $370 frente al Garvee.",
+      descripcion: "Jaula completa con barra Smith incluida más sistema de cruces y jalón alto. Vendido desde bodega en Estados Unidos por un vendedor chino, lo que significa que el flete marítimo China–Miami ya está pagado dentro del precio. No publica sección de columna ni capacidad de polea, y todavía no tiene ninguna reseña — dos huecos que pesan en un equipo que sostiene carga sobre tu cuerpo. A 152.6 kg, casi triplica el peso del Garvee.",
+      verificacion: ["Publica carga del rack: 2400 lb / 1089 kg", "Publica espacio interior de 67\" / 170 cm", "Publica peso: 336.4 lb / 152.6 kg", "Barra Smith incluida, confirmada en el título y las fotos", "Devolución de 30 días de Amazon"],
+      reservas: ["Cero reseñas: nadie ha reportado cómo llega ni cómo se arma", "No publica sección de columna ni espesor", "No publica capacidad de polea, que es el límite real de entrenamiento", "152.6 kg: el flete marítimo se dispara frente al Garvee"],
+      vendedor: { nombre: "QitongxinX", ciudad: "Bodega EE. UU.", ventas: 0, reputacion: "Sin reseñas · 30 días de devolución" },
+      imagenes: [
+        "https://m.media-amazon.com/images/I/51AmMc2w3aL.jpg",
+        "https://m.media-amazon.com/images/I/51Xe8a-RKoL.jpg",
+        "https://m.media-amazon.com/images/I/519murmvaJL.jpg",
+        "https://m.media-amazon.com/images/I/519INQU1YAL.jpg",
+        "https://m.media-amazon.com/images/I/51lNtOXMPgL.jpg",
+        "https://m.media-amazon.com/images/I/51KNS4vzVSL.jpg"
+      ],
+      url: "https://www.amazon.com/GAOMON-Crossover-Strength-Training-Equipment/dp/B0H6ZG34D5/"
+    },
+    {
+      id: "gym-zerog", categoria: "gimnasio",
+      titulo: "Smith de gravedad cero, tres en uno — tope de gama",
+      titulo_zh: "终极飞鸟 零重力史密斯架 三合一综合训练",
+      tienda: "Goofish", precio_cny: 5500, peso_txt: "No publicado", sb: "na", carga_pesada: true,
+      spec: "Rack 3 en 1 · Smith de gravedad cero · lo más caro del catálogo",
+      material: "Acero", color: "No publicado", condicion: "No especificado",
+      funciones: ["Máquina Smith de gravedad cero (零重力史密斯)", "Estación de cruces (终极飞鸟)", "Torre de poleas (龙门架)"],
+      resumen: "Lo más caro de la lista. Es el escalón donde ya compite con equipo de gimnasio comercial de verdad.",
+      descripcion: "Smith de «gravedad cero» con estación de cruces. Es el escalón donde el equipo ya compite con máquinas de gimnasio comercial — y donde, para una casa, deja de tener sentido económico: a este precio más el flete marítimo, estás pagando lo que cuesta una membresía de varios años.",
+      verificacion: ["Vendedor marcado 信用极好", "Declara Smith de gravedad cero"],
+      reservas: ["No explica qué significa «gravedad cero» en su implementación", "No publica ninguna especificación estructural", "No declara estado ni peso", "A este precio más flete, conviene comparar contra una membresía"],
+      vendedor: { nombre: "不会的美工", ciudad: "China", ventas: 0, reputacion: "信用极好" },
+      imagenes: [],
+      url: "https://www.goofish.com/item?id=1068050646149"
+    }
+  ],
 
-/* --- Fotos y categoría de los descartados.
-   Se guardan solo los tramos variables de la URL; X() reconstruye la completa. --- */
-(function(){
-  var P='https://img.alicdn.com/bao/uploaded/', S='_220x10000Q90.jpg_.webp';
-  var X=function(a){ return (a||[]).map(function(v){ return P+v+S; }); };
-  var IM={
-"804675975389":["i2/O1CN01pt4vkr1UbzmYOtWpR_!!53-fleamarket.heic","i2/O1CN01iOXh6s1UbzmbVwsuA_!!53-fleamarket.heic","i4/O1CN01GiBVrn1UbzmVf1KwV_!!53-fleamarket.heic","i2/O1CN01oCoJe91UbzmYMtXQZ_!!53-fleamarket.heic","i2/O1CN01PWcByL1UbzmVexeDk_!!53-fleamarket.heic"],
-"1006598143817":["i3/890754579/O1CN01Ly5YPP1jhEifxsNWU_!!4611686018427385363-0-xy_item.jpg","i3/890754579/O1CN01R5peEf1jhEhtyt3pU_!!4611686018427385363-53-xy_item.heic","i4/890754579/O1CN010sZcjL1jhEhQvWfXA_!!4611686018427385363-53-xy_item.heic","i1/890754579/O1CN01PTCBFo1jhEhRC0sQY_!!4611686018427385363-53-xy_item.heic","i1/890754579/O1CN01R6oEk81jhEhQYhTIV_!!4611686018427385363-53-xy_item.heic","i3/890754579/O1CN01sGl2hv1jhEhQvX4Uf_!!4611686018427385363-53-xy_item.heic"],
-"829404094051":["i3/O1CN01GBiNM42CIc8aLmXJL_!!53-fleamarket.heic","i1/O1CN01XW2YWR2CIc8ZmMcru_!!53-fleamarket.heic","i1/O1CN010i5zzo2CIc8Y6uG9l_!!53-fleamarket.heic"],
-"1049512704261":["i4/2519555912/O1CN01x1Lo7s1tXkg8g0UIJ_!!4611686018427387720-53-xy_item.heic","i1/2519555912/O1CN01xs4WcJ1tXkg89SqrS_!!4611686018427387720-53-xy_item.heic","i4/2519555912/O1CN01bRSwAh1tXkg8MHeVW_!!4611686018427387720-53-xy_item.heic","i3/2519555912/O1CN01fV2Poy1tXkg8mYyFR_!!4611686018427387720-53-xy_item.heic"],
-"1059421800025":["i4/108797613/O1CN01yNUZKR266oOYUzRWu_!!4611686018427387565-53-xy_item.heic","i2/108797613/O1CN01CdPAfb266oOYOWOoT_!!4611686018427387565-53-xy_item.heic","i2/108797613/O1CN01qqlhTl266oOZzvZ8g_!!4611686018427387565-53-xy_item.heic","i4/108797613/O1CN01A9PWgg266oOYdIp7i_!!4611686018427387565-53-xy_item.heic"],
-"1075060671689":["i4/O1CN011cesENKp4GC1WPoq_!!4611686018427382943-0-fleamarket.jpg","i3/O1CN01a6RnrOqcdIJ1WPoq_!!4611686018427382943-0-fleamarket.jpg","i2/O1CN0130umFGZJEmG1WPoq_!!4611686018427382943-0-fleamarket.jpg","i4/O1CN01ZBZL5X76u9D1WPoq_!!4611686018427382943-0-fleamarket.jpg"],
-"1057346695489":["i4/2220341818241/O1CN01497lHX2AkR7oDTk8Q_!!4611686018427384705-53-xy_item.heic","i4/2220341818241/O1CN01yJXHCx2AkR7nxstNB_!!4611686018427384705-53-xy_item.heic","i4/2220341818241/O1CN01eUSe6c2AkR7oE9DYP_!!4611686018427384705-53-xy_item.heic"],
-"1049179949293":["i3/2220341109392/O1CN01I3ow6ZveYJE2BxV2_!!4611686018427380368-0-xy_item.jpg","i3/2220341109392/O1CN01Ry19rkHNxzJ2BxV2_!!4611686018427380368-0-xy_item.jpg"],
-"976261957842":["i2/O1CN016FX1kg1STB39La3wl_!!4611686018427380023-0-fleamarket.jpg","i4/O1CN01eMX7T31STB38ttyJV_!!4611686018427380023-0-fleamarket.jpg","i3/O1CN01vHabbA1STB37XhQRk_!!4611686018427380023-0-fleamarket.jpg"],
-"974810903058":["i1/O1CN017PI2x71YtBELvwcYl_!!4611686018427384604-53-fleamarket.heic","i2/O1CN01ilkkcm1YtBEMmtEHM_!!4611686018427384604-53-fleamarket.heic","i3/O1CN01Ayy3Va1YtBENCnm4y_!!4611686018427384604-53-fleamarket.heic"],
-"1068776062728":[],
-"702861413513":["i3/O1CN01vn8vNt2M6NXoLe4x4_!!0-fleamarket.jpg","i2/O1CN017VWji22M6NXrX8jMT_!!0-fleamarket.jpg","i3/O1CN01gnVlvY2M6NXse3ANe_!!0-fleamarket.jpg"],
-"909429995079":["i1/O1CN01MOwQbq1icpCdqBQZD_!!4611686018427385506-0-fleamarket.jpg","i3/O1CN01ugPrph1icpCf8dSYE_!!4611686018427385506-0-fleamarket.jpg","i2/O1CN01rB2GHG1icpCgomjtI_!!4611686018427385506-0-fleamarket.jpg"],
-"899536886280":["i4/O1CN01vof1s62HEYmXVN5s7_!!4611686018427386079-0-fleamarket.jpg","i3/O1CN01rddoGV2HEYmZdsy7S_!!4611686018427386079-0-fleamarket.jpg","i2/O1CN01GMt7jA2HEYmXb35P5_!!4611686018427386079-0-fleamarket.jpg"],
-"1058087644676":["i2/2212071193419/O1CN01lwhe2f1b7xIHq1TNw_!!4611686018427386699-0-xy_item.jpg","i2/2212071193419/O1CN01aWMD5J1b7xIIaQDiJ_!!4611686018427386699-0-xy_item.jpg","i1/2212071193419/O1CN01u5DQ751b7xIHq1GuZ_!!4611686018427386699-0-xy_item.jpg"],
-"1079501886618":["i1/2214349725640/O1CN01Bv6mvetNaKB2BxNI_!!4611686018427387848-0-xy_item.jpg"]
-  };
-  IM["1036682017705"]=["i4/O1CN01tonZge240HV5JyDJk_!!4611686018427385360-0-fleamarket.jpg","i1/O1CN01NFxvrH240HV3abdVg_!!4611686018427385360-0-fleamarket.jpg","i4/O1CN01bZ1Zvg240HV3RdgVE_!!4611686018427385360-0-fleamarket.jpg"];
-  IM["942469861593"]=["i1/O1CN01kZNvSd1Gc5L9L8jwS_!!4611686018427381010-53-fleamarket.heic","i4/O1CN012Ez0Ss1Gc5LA1zSb9_!!4611686018427381010-53-fleamarket.heic","i4/O1CN01i7HbYv1Gc5L9jDl7z_!!4611686018427381010-0-fleamarket.jpg"];
-  IM["1053731928915"]=["i3/O1CN01TEfjK91YwO3SqD7sv_!!4611686018427381379-0-fleamarket.jpg","i2/O1CN01c4GpA91YwO3Sq9R4g_!!4611686018427381379-0-fleamarket.jpg","i4/O1CN01fkDaBV1YwO3Su49eF_!!4611686018427381379-0-fleamarket.jpg"];
-  IM["854134162961"]=["i2/O1CN01fHa1Hf2IdZzHTiWDc_!!4611686018427384509-0-fleamarket.jpg","i2/O1CN01xkTHH72IdZzJPJekW_!!4611686018427384509-53-fleamarket.heic","i1/O1CN01m9BOTx2IdZzS2JfCX_!!4611686018427384509-53-fleamarket.heic"];
-  var CASA={"1053731928915":1,"854134162961":1};
-  var PAD={"1036682017705":1,"942469861593":1};
-  var XBOX={"909429995079":1,"899536886280":1,"1058087644676":1,"1079501886618":1};
-  window.CATALOGO.descartados.forEach(function(d){
-    d.imagenes = X(IM[d.id]);
-    d.categoria = XBOX[d.id] ? "base-xbox" : PAD[d.id] ? "desk-pad" : CASA[d.id] ? "casa-contenedor" : "estuche-gamecube";
-    d.estado = "descartado";
-  });
-})();
+  descartados: []
+};

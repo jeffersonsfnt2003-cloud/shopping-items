@@ -6,3 +6,6 @@
 *.pem
 *.key
 .env
+.claude/
+.impeccable/
+*.bak
