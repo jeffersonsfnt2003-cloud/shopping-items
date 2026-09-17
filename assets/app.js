@@ -383,6 +383,46 @@ function controles(vis,vistaOc,cat){
 let panel=false;
 let pmax=0, orden='vol';
 let filtro='todos';
+function bloqueTop(vistaOc){
+  const R=C.recomendacion;
+  if(!R||!R.puestos||!R.puestos.length||vistaOc) return '';
+  const todos=R.puestos.map(p=>({p,it:C.items.find(x=>x.id===p.id)})).filter(x=>x.it);
+  if(!todos.length) return '';
+  if(filtro!=='todos'&&filtro!==todos[0].it.categoria) return '';
+  const vis=todos.filter(x=>!ocEs(x.it.id)&&(!pmax||x.it.precio_cny<=pmax));
+  if(!vis.length) return '';
+  const ocultos=todos.length-vis.length;
+  return '<section class="top3">'
+    +'<div class="t3cab"><h2>'+esc(R.titulo)+'</h2>'
+      +'<span class="t3f">criterio del '+esc(R.fecha)+'</span></div>'
+    +'<p class="t3crit">'+esc(R.criterio)+'</p>'
+    +'<p class="t3fuera">'+esc(R.descarte)+'</p>'
+    +(ocultos?'<p class="t3fuera">'+ocultos+' de los 3 recomendados no '+(ocultos===1?'aparece':'aparecen')+' con los filtros puestos ahora mismo.</p>':'')
+    +'<ol class="t3lista">'
+    +vis.map((x,i)=>{
+      const it=x.it,p=x.p,im=(it.imagenes&&it.imagenes[0])||'';
+      return '<li class="t3it">'
+        +'<div class="t3rank"><span class="t3n">'+(i+1)+'</span>'
+          +'<div class="t3foto">'+(im
+              ?'<img src="'+esc(im)+'" alt="'+esc(it.titulo)+'" loading="lazy" referrerpolicy="no-referrer">'
+              :'<span class="t3sf">sin foto</span>')+'</div></div>'
+        +'<div class="t3cuerpo">'
+          +'<p class="t3tit">'+esc(p.titular)+'</p>'
+          +'<h3>'+esc(it.titulo)+'</h3>'
+          +'<div class="t3precio"><span class="y">&yen;'+it.precio_cny+'</span>'
+            +'<span class="d">(US$ '+usd(it.precio_cny)+')</span></div>'
+          +'<p class="t3por">'+esc(p.porque)+'</p>'
+          +'<p class="t3deb"><b>Punto débil</b> '+esc(p.debil)+'</p>'
+          +'<p class="t3preg"><b>Qué preguntarle</b> '+esc(p.preguntar)+'</p>'
+          +'<div class="t3acc"><button class="btn t3ver" data-ver="'+esc(it.id)+'">Ver ficha completa</button>'
+            +'<a class="t3link" href="'+esc(it.url)+'" target="_blank" rel="noopener" data-stop>Abrir en Goofish &rarr;</a></div>'
+        +'</div></li>';
+    }).join('')
+    +'</ol>'
+    +'<p class="t3nota">'+esc(R.nota)+'</p>'
+    +'<p class="t3cierre">'+esc(R.cierre)+'</p>'
+  +'</section>';
+}
 function pintar(){
   const cat=C.categorias.find(c=>c.id===filtro);
   const ordenar=arr=>arr.slice().sort((a,b)=>
@@ -400,6 +440,7 @@ function pintar(){
     +'<div class="cab-datos">Tasa <b>1 ¥ = US$ '+M.tasa_cny_usd+'</b> · '+M.tasa_fecha+'<br>fuente única: goofish.com</div>'
     +'</div></header>'
     +controles(vis,vistaOc,cat)
+    +bloqueTop(vistaOc)
     +(vistaOc
         ? '<div class="ocbar">'
           +(OC_FALLA?'<p class="ocaviso">No se pudo guardar en este navegador (modo privado o almacenamiento bloqueado). Lo que ocultes se pierde al recargar.</p>':'')

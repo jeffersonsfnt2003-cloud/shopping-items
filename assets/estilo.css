@@ -471,3 +471,57 @@ footer{margin-top:30px;color:var(--texto2);font-size:12px}
   text-transform:uppercase;letter-spacing:.05em;color:var(--enlace);margin-top:2px}
 .vrx.chat li.base{background:#fdf4ec}
 .vrx.chat li span i{color:var(--warn)}
+
+/* ---- Top 3 recomendado -------------------------------------------------
+   Juicio editorial, no dato verificado: paleta neutra (navy / azul-téc).
+   El verde de confianza queda reservado a lo que sí está en los datos.   */
+.top3{background:var(--blanco);border:1px solid var(--borde);border-radius:8px;
+  margin:0 0 12px;box-shadow:var(--sombra);overflow:hidden}
+.t3cab{background:var(--navy2);color:#fff;padding:11px 15px;
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.t3cab h2{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em}
+.t3f{font-size:12px;color:#c9d1d9}
+.t3crit,.t3fuera{margin:0;padding:12px 15px 0;font-size:13px;line-height:1.5;color:var(--texto2)}
+.t3fuera{padding-top:8px;color:var(--texto2);font-size:12.5px}
+.t3crit b{color:var(--texto)}
+
+.t3lista{list-style:none;margin:14px 0 0;padding:0}
+.t3it{display:flex;gap:13px;padding:14px 15px;border-top:1px solid var(--borde2)}
+.t3rank{flex:0 0 auto;width:96px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.t3n{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;
+  font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.t3foto{width:96px;height:96px;border:1px solid var(--borde);border-radius:6px;
+  background:#fafafa;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.t3foto img{width:100%;height:100%;object-fit:cover;display:block}
+.t3sf{font-size:11px;color:var(--texto2)}
+
+.t3cuerpo{flex:1 1 auto;min-width:0}
+.t3tit{margin:0 0 3px;font-size:11.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--azul-tec)}
+.t3cuerpo h3{margin:0 0 6px;font-size:15px;font-weight:600;line-height:1.3;color:var(--texto)}
+.t3precio{display:flex;align-items:baseline;gap:7px;margin:0 0 8px}
+.t3precio .y{font-size:19px;font-weight:700;color:var(--oferta)}
+.t3precio .d{font-size:12.5px;color:var(--texto2)}
+.t3por{margin:0 0 8px;font-size:13px;line-height:1.55;color:var(--texto)}
+.t3deb,.t3preg{margin:0 0 6px;font-size:12.5px;line-height:1.5;color:var(--texto2)}
+.t3deb b{color:var(--warn);display:block;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+.t3preg b{color:var(--azul-tec);display:block;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+
+.t3acc{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:10px}
+.t3ver{background:var(--amarillo);border:1px solid var(--amarillo-borde);color:var(--texto);
+  border-radius:100px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.t3ver:hover{background:var(--amarillo-h)}
+.t3link{font-size:12.5px;color:var(--enlace);text-decoration:none}
+.t3link:hover{color:var(--enlace-hover);text-decoration:underline}
+
+.t3nota,.t3cierre{margin:0;padding:12px 15px;font-size:12.5px;line-height:1.5;color:var(--texto2);
+  border-top:1px solid var(--borde2)}
+.t3cierre{padding-top:0;border-top:0;color:var(--texto)}
+
+@media (max-width:560px){
+  .t3it{gap:11px;padding:13px}
+  .t3rank{width:68px}
+  .t3foto{width:68px;height:68px}
+  .t3cuerpo h3{font-size:14px}
+  .t3crit,.t3fuera,.t3nota,.t3cierre{padding-left:13px;padding-right:13px}
+}
