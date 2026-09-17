@@ -178,9 +178,11 @@ function bloqueSB(it){
 }
 
 function tarjeta(it){
-  const no = it.estado==='descartado', oc = ocEs(it.id);
-  return '<article class="prod'+(no?' no':'')+(oc?' oculto':'')+'" data-open="'+it.id+'">'
-    +(no?'<span class="tagno">Descartado</span>':'')+carr(it,'ph')+'<div class="body">'
+  const no = it.estado==='descartado', oc = ocEs(it.id), rc = recoDe(it.id);
+  return '<article class="prod'+(no?' no':'')+(oc?' oculto':'')+(rc?' reco':'')+'" data-open="'+it.id+'">'
+    +(no?'<span class="tagno">Descartado</span>':'')
+    +(rc?'<span class="tagreco">N.&ordm;&nbsp;'+rc.n+' recomendado</span>':'')
+    +carr(it,'ph')+'<div class="body">'
     +'<h3 class="tt">'+esc(it.titulo)+'</h3>'
     +(no?'':(it.imagenes&&it.imagenes.length)
         ? '<p class="vcard">'+VCHK+' Ficha y fotos revisadas</p>'
@@ -283,6 +285,7 @@ function detalle(it){
     +'<h2>'+esc(it.titulo)+'</h2><p class="zh">'+esc(it.titulo_zh)+'</p>'
     +'<p class="vbadge'+((it.imagenes&&it.imagenes.length)?'':' parcial')+'">'+VCHK+' '
       +((it.imagenes&&it.imagenes.length)?'Ficha y fotos del anuncio revisadas':'Ficha del anuncio revisada · sin fotos cargadas')+'</p>'
+    +bloqueReco(it)
     +'<div class="cajaprecio"><span class="y">&yen;'+it.precio_cny+'</span><span class="d">(US$ '+usd(it.precio_cny)+')</span>'
     +(it.moneda_origen==='USD'?'<span class="d orig">precio de lista US$ '+it.precio_origen+' en '+esc(it.tienda||'Amazon')+'</span>':'')
     +(function(){const r=rangoVar(it); if(!r) return '';
@@ -383,6 +386,26 @@ function controles(vis,vistaOc,cat){
 let panel=false;
 let pmax=0, orden='vol';
 let filtro='todos';
+function recoDe(id){
+  const R=C.recomendacion; if(!R||!R.puestos) return null;
+  const i=R.puestos.findIndex(p=>p.id===id);
+  return i<0?null:{n:i+1,p:R.puestos[i],total:R.puestos.length};
+}
+function bloqueReco(it){
+  const rc=recoDe(it.id); if(!rc) return '';
+  const R=C.recomendacion,p=rc.p;
+  return '<div class="mreco">'
+    +'<div class="mrcab"><span class="mrn">'+rc.n+'</span>'
+      +'<div class="mrt"><b>'+esc(p.titular)+'</b>'
+      +'<span>Puesto '+rc.n+' de '+rc.total+' en el '+esc(R.titulo)+' · criterio del '+esc(R.fecha)+'</span></div></div>'
+    +'<p class="mrpor">'+esc(p.porque)+'</p>'
+    +'<p class="mrdeb"><b>Punto débil</b> '+esc(p.debil)+'</p>'
+    +'<p class="mrpreg"><b>Qué preguntarle</b> '+esc(p.preguntar)+'</p>'
+    +'<details class="mrcrit"><summary>Cómo se eligió y qué quedó fuera</summary>'
+      +'<p>'+esc(R.criterio)+'</p><p>'+esc(R.descarte)+'</p>'
+      +'<p class="mrnota">'+esc(R.nota)+'</p><p class="mrnota">'+esc(R.cierre)+'</p></details>'
+  +'</div>';
+}
 function bloqueTop(vistaOc){
   const R=C.recomendacion;
   if(!R||!R.puestos||!R.puestos.length||vistaOc) return '';
@@ -439,8 +462,8 @@ function pintar(){
     +'<h1 class="logo">Catálogo<span class="tag">compras verificadas en Goofish</span></h1>'
     +'<div class="cab-datos">Tasa <b>1 ¥ = US$ '+M.tasa_cny_usd+'</b> · '+M.tasa_fecha+'<br>fuente única: goofish.com</div>'
     +'</div></header>'
-    +controles(vis,vistaOc,cat)
     +bloqueTop(vistaOc)
+    +controles(vis,vistaOc,cat)
     +(vistaOc
         ? '<div class="ocbar">'
           +(OC_FALLA?'<p class="ocaviso">No se pudo guardar en este navegador (modo privado o almacenamiento bloqueado). Lo que ocultes se pierde al recargar.</p>':'')

@@ -475,7 +475,7 @@ footer{margin-top:30px;color:var(--texto2);font-size:12px}
 /* ---- Top 3 recomendado -------------------------------------------------
    Juicio editorial, no dato verificado: paleta neutra (navy / azul-téc).
    El verde de confianza queda reservado a lo que sí está en los datos.   */
-.top3{background:var(--blanco);border:1px solid var(--borde);border-radius:8px;
+.top3{background:var(--blanco);border:2px solid var(--azul-tec);border-radius:8px;
   margin:0 0 12px;box-shadow:var(--sombra);overflow:hidden}
 .t3cab{background:var(--navy2);color:#fff;padding:11px 15px;
   display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
@@ -525,3 +525,33 @@ footer{margin-top:30px;color:var(--texto2);font-size:12px}
   .t3cuerpo h3{font-size:14px}
   .t3crit,.t3fuera,.t3nota,.t3cierre{padding-left:13px;padding-right:13px}
 }
+
+/* ---- marca de recomendado en la grilla y en la ficha -------------------
+   Azul técnico, nunca el verde/ámbar/rojo de confianza: es juicio, no dato. */
+.prod.reco{border:2px solid var(--azul-tec);position:relative}
+.prod.reco:hover{box-shadow:0 4px 14px rgba(44,95,138,.22)}
+.tagreco{position:absolute;top:0;left:0;z-index:3;
+  background:var(--azul-tec);color:#fff;font-size:11px;font-weight:700;
+  letter-spacing:.03em;padding:4px 10px;border-radius:6px 0 6px 0;white-space:nowrap}
+
+.mreco{border:1px solid var(--azul-tec);border-left:4px solid var(--azul-tec);
+  border-radius:6px;background:#f4f8fb;padding:12px 14px;margin:0 0 14px}
+.mrcab{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.mrn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--azul-tec);
+  color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.mrt{min-width:0}
+.mrt b{display:block;font-size:13.5px;font-weight:700;color:var(--azul-tec);line-height:1.25}
+.mrt span{display:block;font-size:11.5px;color:var(--texto2);margin-top:2px}
+.mrpor{margin:0 0 9px;font-size:13px;line-height:1.55;color:var(--texto)}
+.mrdeb,.mrpreg{margin:0 0 7px;font-size:12.5px;line-height:1.5;color:var(--texto2)}
+.mrdeb b{color:var(--warn);display:block;font-size:11px;letter-spacing:.03em;text-transform:uppercase}
+.mrpreg b{color:var(--azul-tec);display:block;font-size:11px;letter-spacing:.03em;text-transform:uppercase}
+.mrcrit{margin-top:10px;border-top:1px solid #dbe6ef;padding-top:8px}
+.mrcrit summary{cursor:pointer;list-style:none;font-size:12px;font-weight:600;
+  color:var(--azul-tec);display:flex;align-items:center;gap:6px}
+.mrcrit summary::-webkit-details-marker{display:none}
+.mrcrit summary::before{content:'';width:0;height:0;flex:0 0 auto;
+  border:4px solid transparent;border-left-color:var(--azul-tec);transition:transform .15s}
+.mrcrit[open] summary::before{transform:rotate(90deg)}
+.mrcrit p{margin:8px 0 0;font-size:12px;line-height:1.5;color:var(--texto2)}
+.mrcrit .mrnota{color:var(--texto2);font-style:italic}
