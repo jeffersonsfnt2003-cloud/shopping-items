@@ -345,7 +345,7 @@ const ORDENES=[
   {v:'precio_desc', t:'Precio: de mayor a menor'},
   {v:'vol',         t:'Tamaño: más compacto primero'}
 ];
-const TOPES=[0,20,30,40,60];
+const TOPES=[0,1000,1500,2000,3000];
 
 function controles(vis,vistaOc,cat){
   const viv=C.items.filter(i=>!ocEs(i.id));
